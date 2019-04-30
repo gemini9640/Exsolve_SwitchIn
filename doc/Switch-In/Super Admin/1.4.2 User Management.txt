@@ -1,0 +1,34 @@
+1.4.2 User Management(Import & Export Data in Excel Format)
+		
+		1.4.2.1 SI-Merchant
+			*Create Form(Company Logo,Username,Company Name,Business,Location,Email,Contact,Introduce Merchant,Primary PIC,Secondary PIC,Merchant Owner Name,Merchant Owner Contact,PIC Contact,Company Reg. No,Company SSM Image, SSM Expired Date,Create Btn)
+			*List(Merchant ID,Company Name,Username,Email,Contact,Business,Joined Date,Edit btn,Approve/Decline Btn,Delete Btn)
+			*Edit
+				1. Basic Info
+					*Form(Merchant ID,Company Logo,Username,Company Name,Business,Location,Email,Contact,Introduce Merchant,Primary PIC,Secondary PIC,Joined Date,Merchant Owner Name,Merchant Owner Contact,PIC Contact,Company Reg. No,Company SSM Image, SSM Expired Date,Save Btn)
+				2. Password
+					*Form(New Password,Confirm Password,Save Btn)
+		1.4.2.2 SI-Member
+			*Create Form(Profile Picture,Member Name,Username,Email,Contact No,DOB,Gender,Occupation,Interested Category,User Type,Agent Name,Agent Account no,Premier Member"selective",Create Btn)
+			*List(Member ID,Member Name,Username,Email,Contact No,User Type"Premier/Normal",Edit btn,Approve/Decline Btn,Delete Btn)
+			*Edit
+				1. Basic Info
+					*Form(Member ID,Profile Picture,Member Name,Username,Email,Contact No,Joined Date,DOB,Gender,Occupation,Interested Category,User Type,Agent Name,Agent Account no,Premier Member"selective",Save btn)
+				2. Password
+					*Form(New Password,Confirm Password,Save Btn)
+		1.4.2.3 ExL-Agent
+			*Create Form()
+			*List()
+			*Edit
+				1.Basic Info
+					*Form()
+				2.Password
+					*Form()
+		1.4.2.4	ExL-Client
+			*Create Form()
+			*List()
+			*Edit
+				1.Basic Info
+					*Form()
+				2.Password
+					*Form()

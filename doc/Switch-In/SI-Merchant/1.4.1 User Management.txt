@@ -1,0 +1,10 @@
+1.4.1 User Management(Import & Export Data in Excel Format)
+
+		1.4.1.1 SI-Member
+			*Create Form(Profile Picture,Member Name,Username,Email,Contact No,DOB,Gender,Occupation,Interested Category,User Type,Agent Name,Agent Account no,Premier Member"selective",Create Btn)
+			*List(Member ID,Member Name,Username,Email,Contact No,User Type"Premier/Normal",Edit btn,Approve/Decline Btn,Delete Btn)
+			*Edit
+				1. Basic Info
+					*Form(Member ID,Profile Picture,Member Name,Username,Email,Contact No,Joined Date,DOB,Gender,Occupation,Interested Category,User Type,Agent Name,Agent Account no,Premier Member"selective",Save btn)
+				2. Password
+					*Form(New Password,Confirm Password,Save Btn)

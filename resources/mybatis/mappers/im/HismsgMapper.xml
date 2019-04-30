@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gadmin.dao.IMHismsgMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		IM_HISMSG
+	</sql>
+	
+	<!--数据字典表名 -->
+	<sql id="dicTableName">
+		SYS_DICTIONARIES
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		f.USERNAME,	
+		f.TOID,	
+		f.TYPE,	
+		f.NAME,	
+		f.PHOTO,	
+		f.CTIME,	
+		f.CONTENT,	
+		f.DREAD,
+		f.OWNER,
+		f.HISMSG_ID
+	</sql>
+	
+	<!-- 字段用于新增 -->
+	<sql id="Field2">
+		USERNAME,	
+		TOID,	
+		TYPE,	
+		NAME,	
+		PHOTO,	
+		CTIME,	
+		CONTENT,	
+		DREAD,
+		OWNER,
+		HISMSG_ID
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{USERNAME},	
+		#{TOID},	
+		#{TYPE},	
+		#{NAME},	
+		#{PHOTO},	
+		#{CTIME},	
+		#{CONTENT},	
+		#{DREAD},
+		#{OWNER},
+		#{HISMSG_ID}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="IMHismsg">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field2"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="deleteById" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			HISMSG_ID = #{HISMSG_ID}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="editByUsername" parameterType="String">
+		update
+		<include refid="tableName"></include>
+		set 
+			DREAD = '1'
+		where 
+			OWNER = #{USERNAME}
+	</update>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="String" resultType="IMHismsg">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include> f
+		where 
+			f.HISMSG_ID = #{HISMSG_ID}
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="map" resultType="IMHismsg">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include> f
+		where 1=1
+		<if test="TYPE!= null and TYPE == 'friend'"><!-- 好友间聊天 -->
+			and
+				(
+					(f.TOID = #{TOID} and USERNAME = #{USERNAME})
+					or
+					(f.TOID = #{USERNAME} and USERNAME = #{TOID})
+				)
+			and OWNER = #{USERNAME}
+		</if>
+		<if test="TYPE!= null and TYPE == 'group'"><!-- 群间聊天 -->
+			and f.TOID = #{TOID}
+		</if>
+		order by f.CTIME
+	</select>
+	
+	<!-- 列表(全部未读消息) -->
+	<select id="listAllnoread" parameterType="String" resultType="IMHismsg">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include> f
+		where
+			f.OWNER = #{USERNAME}
+		and
+			f.DREAD = '0'
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" resultType="IMHismsg">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include> f
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAllByIds" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			HISMSG_ID in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+</mapper>

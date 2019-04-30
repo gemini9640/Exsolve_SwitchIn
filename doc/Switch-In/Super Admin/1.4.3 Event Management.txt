@@ -1,0 +1,16 @@
+1.4.3 Event Management
+		
+		1.4.3.1 Create Event
+			*Create Form(Event Name,Merchant Name,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price,Location,Map,Description,Reminder,Image,Comment,Create Btn)
+
+		1.4.3.2 Waiting Approval Event(after approve will disappear)
+			*List(Event ID,Event Name,Merchant Name,Date & Time Created,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price,Approve/Declined/Delete Btn,Edit Btn)
+			*Edit(Event ID,Event Name,Merchant Name,Date & Time Created,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price,Location,Map,Description,Reminder,Image,Comment,Save Btn)
+
+		1.4.3.3 Active Event(only show approved event)
+			*List(Event ID,Event Name,Merchant Name,Date & Time Created,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price,Approve/Declined/Delete Btn,Edit Btn)
+			*Edit(Event ID,Event Name,Merchant Name,Date & Time Created,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price,Location,Map,Description,Reminder,Image,Comment,Save Btn)
+
+		1.4.3.4 Past Event(not editable)
+			*List(Event ID,Event Name,Merchant Name,Date & Time Created,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price)
+			*Edit(Event ID,Event Name,Merchant Name,Date & Time Created,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price,Location,Map,Description,Reminder,Image,Comment)

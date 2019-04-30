@@ -1,0 +1,13 @@
+1 Login page
+		
+	1.1 Email/Phone/Username
+	1.2 Password
+	1.3 Sign In Btn
+	1.4 Sign Up Btn
+		*Form(Name,Email,Contact,Username,Password,Sign Up Btn)
+		*Select(T & C)
+		*Select(Newsletter"would you like to receive promotion, event, offer, job opportunity update?")
+	1.5 Easy Login
+		1.5.1 Facebook Login
+		1.5.2 Google+ Login
+	

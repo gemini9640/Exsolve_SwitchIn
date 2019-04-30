@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gadmin.dao.SYSLogMapper">
+	
+	<!--表名 -->
+	<sql id="tableName">
+		SYS_FHLOG
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		USERNAME,	
+		CZTIME,	
+		CONTENT,	
+		LOG_ID
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{USERNAME},	
+		#{CZTIME},	
+		#{CONTENT},	
+		#{LOG_ID}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="SYSLog">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除-->
+	<delete id="deleteById" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			LOG_ID = #{LOG_ID}
+	</delete>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="String" resultType="SYSLog">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			LOG_ID = #{LOG_ID}
+	</select>
+	
+	<!-- 列表 -->
+	<select id="datalistPage" parameterType="map" resultType="SYSLog">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="keywords!= null and keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+					USERNAME LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+					or
+					CONTENT LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				)
+		</if>
+		<if test="lastStart!=null and lastStart!=''"><!-- 开始时间检索 -->
+			and CZTIME &gt;= #{lastStart} 
+		</if>
+		<if test="lastEnd!=null and lastEnd!=''"><!-- 结束时间检索 -->
+			and CZTIME &lt;= #{lastEnd} 
+		</if>
+		order by CZTIME desc
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAll" resultType="SYSLog">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			LOG_ID in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+</mapper>

@@ -1,0 +1,3 @@
+1.4.6 Sales Report
+	*List (Agent ID, Agent Name, Total Sales,Edit btn)
+	*Edit (Agent ID, Agent Name, Total Sales,Sales Record)

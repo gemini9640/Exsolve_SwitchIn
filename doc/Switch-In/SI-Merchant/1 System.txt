@@ -1,0 +1,21 @@
+1 System
+	
+	1.1 Switch-In Logo
+
+	1.2 Login User
+		1.2.1 Picture Icon
+		1.2.2 Name
+		1.2.3 Profile
+		1.2.4 Setting
+		1.2.5 Change Password
+		1.2.6 Logout
+
+	1.3 Breadcrumb
+
+	1.4 Navigation
+		1.4.1 User Management
+			1.4.1.1 SI-Member
+		1.4.2 Event Management
+		1.4.3 Voucher Management
+		1.4.4 Job Management(Phase2)
+		1.4.5 Landing Page

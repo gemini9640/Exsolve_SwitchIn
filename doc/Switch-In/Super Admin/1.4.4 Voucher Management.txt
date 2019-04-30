@@ -1,0 +1,8 @@
+1.4.4 Voucher Management
+	
+	1.4.4.1 Create Voucher
+		*Create Form(Voucher Name,Merchant Name,Quantity,Tagline,QR Code,Voucher Condition,Expired Date,Comment)
+
+	1.4.4.2 Voucher List
+		*List(Voucher ID,Voucher Name,Merchant Name,Quantity,Tagline,Expired Date,Approve/Declined/Delete Btn,Edit Btn)
+		*Edit(Voucher ID,Voucher Name,Merchant Name,Quantity,Tagline,QR Code,Promo Code"auto generate",Voucher Condition,Expired Date,Comment,Save Btn)

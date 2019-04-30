@@ -1,0 +1,28 @@
+1 System
+	
+	1.1 Switch-In Logo
+
+	1.2 Login User
+		1.2.1 Picture Icon
+		1.2.2 Name
+		1.2.3 Profile
+		1.2.4 Setting
+		1.2.5 Change Password
+		1.2.6 Logout
+
+	1.3 Breadcrumb
+
+	1.4 Navigation
+		1.4.1 Dashboard
+		1.4.2 User Management
+			1.4.2.1 SI-Merchant
+			1.4.2.2	SI-Member
+			1.4.2.3 ExL-Agent
+			1.4.2.4 ExL-Client
+		1.4.3 Event Management
+		1.4.4 Voucher Management
+		1.4.5 Job Management(phase2)
+		1.4.6 Sales Report
+		1.4.7 Claim(phase2)
+		1.4.8 Calender(phase2)
+		1.4.9 Course(phase2)

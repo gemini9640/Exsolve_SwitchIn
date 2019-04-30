@@ -1,0 +1,12 @@
+1.4.1 Dashboard
+
+	1.4.1.1 Activity Log
+		1.4.1.1.1 Voucher List
+			*List (Voucher ID,Voucher Name,Merchant Name,Quantity,Tagline,Expired Date,Approve/Declined/Delete Btn,Edit Btn)
+			*Edit (Voucher ID,Voucher Name,Merchant Name,Quantity,Tagline,QR Code,Promo Code"auto generate",Voucher Condition,Expired Date,Comment,Save Btn)
+		1.4.1.1.2 Event List
+			*List (Event ID,Event Name,Merchant Name,Date & Time Created,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price,Approve/Declined/Delete Btn,Edit Btn)
+			*Edit (Event ID,Event Name,Merchant Name,Date & Time Created,Expired Date,Tagline"kid, family, beauty, coffee, edu",Price,Location,Map,Description,Reminder,Image,Comment,Save Btn)
+	1.4.1.2 Sales report
+		*List (Agent ID, Agent Name, Total Sales,Edit btn)
+		*Edit (Agent ID, Agent Name, Total Sales,Sales Record)

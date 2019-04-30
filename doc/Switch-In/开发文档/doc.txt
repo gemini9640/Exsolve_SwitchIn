@@ -1,0 +1,16 @@
+1.实体
+一，user：
+1.si-member
+2.si-merchant
+3.exl-agent
+4.exl-clinet
+5.admin
+
+二，event
+
+三，voucher
+
+四，job
+
+五，sales 
+

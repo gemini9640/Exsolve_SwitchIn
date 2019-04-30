@@ -1,0 +1,306 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.gadmin.dao.ERPOutkuMapper">
+	
+	<!--出库表 -->
+	<sql id="tableName">
+		ERP_OUTKU
+	</sql>
+	
+	<!--出库临时表 -->
+	<sql id="tableNameTemp">
+		ERP_OUTKU_TEMP
+	</sql>
+	
+	<!-- 字段 -->
+	<sql id="Field">
+		GOODS_ID,	
+		INCOUNT,	
+		PRICE,	
+		ZPRICE,	
+		OUTTIME,
+		OUTDATE,	
+		GOODS_NAME,	
+		USERNAME,
+		BZ,
+		ORDER_NUMBER,
+		ORDER_NUMBERS,
+		CUSTOMER_ID,
+		CUSTOMER_NAME,
+		OUTKU_ID
+	</sql>
+	
+	<!-- 字段值 -->
+	<sql id="FieldValue">
+		#{GOODS_ID},	
+		#{INCOUNT},	
+		#{PRICE},	
+		#{ZPRICE},	
+		#{OUTTIME},
+		#{OUTDATE},
+		#{GOODS_NAME},	
+		#{USERNAME},
+		#{BZ},
+		#{ORDER_NUMBER},
+		#{ORDER_NUMBERS},
+		#{CUSTOMER_ID},
+		#{CUSTOMER_NAME},
+		#{OUTKU_ID}
+	</sql>
+	
+	<!-- 新增-->
+	<insert id="save" parameterType="ERPOutku">
+		insert into 
+	<include refid="tableName"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 新增到库存临时表-->
+	<insert id="saveTemp" parameterType="ERPOutku_temp">
+		insert into 
+	<include refid="tableNameTemp"></include>
+		(
+	<include refid="Field"></include>
+		) values (
+	<include refid="FieldValue"></include>
+		)
+	</insert>
+	
+	<!-- 删除(从出库记录临时表中)-->
+	<delete id="deleteTempById" parameterType="String">
+		delete from
+		<include refid="tableNameTemp"></include>
+		where 
+			OUTKU_ID = #{OUTKU_ID}
+	</delete>
+	
+	<!-- 删除非今天数据(从出库记录临时表中)-->
+	<delete id="deleteOldTempByOutDate" parameterType="String">
+		delete from
+		<include refid="tableNameTemp"></include>
+		where 
+			OUTDATE != #{OUTDATE}
+	</delete>
+	
+	<!-- 修改 -->
+	<update id="editTemp" parameterType="ERPOutku_temp">
+		update
+		<include refid="tableNameTemp"></include>
+		set 
+			GOODS_ID = #{GOODS_ID},	
+			INCOUNT = #{INCOUNT},	
+			PRICE = #{PRICE},	
+			ZPRICE = #{ZPRICE},	
+			GOODS_NAME = #{GOODS_NAME},	
+			BZ = #{BZ},
+			CUSTOMER_ID = #{CUSTOMER_ID},
+			CUSTOMER_NAME = #{CUSTOMER_NAME}
+		where 
+			OUTKU_ID = #{OUTKU_ID}
+	</update>
+	
+	<!-- 通过ID获取数据 -->
+	<select id="findById" parameterType="String" resultType="ERPOutku">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 
+			OUTKU_ID = #{OUTKU_ID}
+	</select>
+	
+	<!-- 通过ID获取数据(临时表) -->
+	<select id="findByIdFromTemp" parameterType="String" resultType="ERPOutku_temp">
+		select 
+		<include refid="Field"></include>
+		from 
+		<include refid="tableNameTemp"></include>
+		where 
+			OUTKU_ID = #{OUTKU_ID}
+	</select>
+	
+	<!-- 出库列表 -->
+	<select id="datalistPage" parameterType="map" resultType="ERPOutku">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="keywords!= null and keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				 GOODS_NAME LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				 or
+				 CUSTOMER_NAME LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				 or
+				 ORDER_NUMBER LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				 or
+				 BZ LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				)
+		</if>
+		<if test="lastStart!=null and lastStart!=''"><!-- 开始时间检索 -->
+			and OUTTIME &gt;= #{lastStart} 
+		</if>
+		<if test="lastEnd!=null and lastEnd!=''"><!-- 结束时间检索 -->
+			and OUTTIME &lt;= #{lastEnd} 
+		</if>
+		<if test="CUSTOMER_ID!=null and CUSTOMER_ID!=''"><!-- 客户ID检索条件(针对客户查询) -->
+			and CUSTOMER_ID = #{CUSTOMER_ID} 
+		</if>
+		and
+			USERNAME = #{USERNAME}
+		order by OUTTIME desc
+	</select>
+	
+	<!-- 某一订单号下的出库记录-->
+	<select id="alllistbydingdan" parameterType="String" resultType="ERPOutku">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where
+			ORDER_NUMBERS = #{ORDER_NUMBERS}
+	</select>
+	
+	<!-- 订单列表 -->
+	<select id="orderList" parameterType="map" resultType="OutkuOrder">
+		select
+			ORDER_NUMBERS,
+			CUSTOMER_NAME,
+			CUSTOMER_ID,
+			OUTDATE,
+			OUTTIME,
+			sum(ZPRICE) total
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="keywords!= null and keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				 CUSTOMER_NAME LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				 or
+				 ORDER_NUMBERS LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				)
+		</if>
+		<if test="lastStart!=null and lastStart!=''"><!-- 开始时间检索 -->
+			and OUTDATE &gt;= #{lastStart} 
+		</if>
+		<if test="lastEnd!=null and lastEnd!=''"><!-- 结束时间检索 -->
+			and OUTDATE &lt;= #{lastEnd} 
+		</if>
+		<if test="CUSTOMER_ID!=null and CUSTOMER_ID!=''"><!-- 客户ID检索条件(针对客户查询) -->
+			and CUSTOMER_ID = #{CUSTOMER_ID} 
+		</if>
+		and
+			USERNAME = #{USERNAME}
+		group by ORDER_NUMBERS
+		order by OUTDATE desc
+	</select>
+	
+	<!-- 总金额 -->
+	<select id="priceSum" parameterType="map" resultType="Double">
+		select
+			sum(ZPRICE) ZPRICE
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="keywords!= null and keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+				 GOODS_NAME LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				)
+		</if>
+		<if test="lastStart!=null and lastStart!=''"><!-- 开始时间检索 -->
+			and OUTTIME &gt;= #{lastStart} 
+		</if>
+		<if test="lastEnd!=null and lastEnd!=''"><!-- 结束时间检索 -->
+			and OUTTIME &lt;= #{lastEnd} 
+		</if>
+		<if test="onemonth!=null and onemonth!=''"><!-- 某一月检索 -->
+			and OUTTIME like CONCAT(#{onemonth},'%')
+		</if>
+		<if test="days!=null and days!=''"><!-- 几天内 -->
+			and DATE_SUB(CURDATE(), INTERVAL ${days} DAY) &lt;= date(OUTTIME)
+		</if>
+		and
+			USERNAME = #{USERNAME}
+	</select>
+	
+	<!-- 临时表总金额 -->
+	<select id="priceSumTempByOrderNumber" parameterType="String" resultType="Double">
+		select
+			sum(ZPRICE) ZPRICE
+		from 
+		<include refid="tableNameTemp"></include>
+		where
+			ORDER_NUMBERS = #{ORDER_NUMBERS}
+	</select>
+	
+	<!-- 出库临时列表(全部) -->
+	<select id="listTempByOrderNumber" parameterType="String" resultType="ERPOutku_temp">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableNameTemp"></include>
+		where
+			ORDER_NUMBERS = #{ORDER_NUMBERS}
+	</select>
+	
+	<!-- 列表(全部) -->
+	<select id="listAllByUsername" parameterType="pd" resultType="pd">
+		select
+		<include refid="Field"></include>
+		from 
+		<include refid="tableName"></include>
+		where
+			USERNAME = #{USERNAME}
+	</select>
+	
+	<!-- 商品销售报表-->
+	<select id="salesReportlist" parameterType="map" resultType="OutkuSalesReport">
+		select
+			 GOODS_NAME,
+			 sum(INCOUNT) ZCOUNT,
+			 sum(ZPRICE) ZPRICE 
+		from 
+		<include refid="tableName"></include>
+		where 1=1
+		<if test="keywords!= null and keywords != ''"><!-- 关键词检索 -->
+			and
+				(
+					GOODS_NAME LIKE CONCAT(CONCAT('%', #{keywords}),'%')
+				)
+		</if>
+		<if test="lastStart!=null and lastStart!=''"><!-- 开始时间检索 -->
+			and OUTTIME &gt;= #{lastStart} 
+		</if>
+		<if test="lastEnd!=null and lastEnd!=''"><!-- 结束时间检索 -->
+			and OUTTIME &lt;= #{lastEnd} 
+		</if>
+		<if test="days!=null and days!=''"><!-- 几天内的订单 -->
+			and DATE_SUB(CURDATE(), INTERVAL ${days} DAY) &lt;= date(OUTTIME)
+		</if>
+		and
+			  USERNAME = #{USERNAME}
+		GROUP BY GOODS_ID
+		<if test="forderby!=null and forderby!=''"><!-- 排序 -->
+			${forderby}
+		</if>
+	</select>
+	
+	<!-- 批量删除 -->
+	<delete id="deleteAll" parameterType="String">
+		delete from
+		<include refid="tableName"></include>
+		where 
+			OUTKU_ID in
+		<foreach item="item" index="index" collection="ids" open="(" separator="," close=")">
+                 #{item}
+		</foreach>
+	</delete>
+	
+</mapper>
