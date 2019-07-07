@@ -11,100 +11,24 @@ http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
         <property name="suppressAllComments" value="true" />  
         <property name="suppressDate" value="true"/>  
     </commentGenerator> 
-    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/GAdmin?useUnicode=true&amp;characterEncoding=utf8&amp;characterSetResults=utf8" 
+    <jdbcConnection connectionURL="jdbc:mysql://localhost:3306/exsolve_switchin?useUnicode=true&amp;characterEncoding=utf8&amp;characterSetResults=utf8" 
     				driverClass="com.mysql.jdbc.Driver" password="root" userId="root" />
     <javaTypeResolver>
         <property name="forceBigDecimals" value="false"/>
     </javaTypeResolver>
-    <javaModelGenerator targetPackage="com.gadmin.generated.db" targetProject="GAdmin/generated_classes">
+    <javaModelGenerator targetPackage="com.exl_si.generated.db" targetProject="Exsolve_SwitchIn/generated_classes">
     	<property name="constructorBased" value="true"/>
     	<property name="trimStrings" value="true"/>
     </javaModelGenerator>
-    <sqlMapGenerator targetPackage="com.gadmin.generated.mapper" targetProject="GAdmin/generated_classes" />
-    <javaClientGenerator targetPackage="com.gadmin.generated.dao" targetProject="GAdmin/generated_classes" type="XMLMAPPER" />
-    <table schema="GAdmin" tableName="cp_goods" domainObjectName="CPGoods" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	 <property name="useActualColumnNames" value="true"/> 
+    <sqlMapGenerator targetPackage="com.exl_si.generated.mapper" targetProject="Exsolve_SwitchIn/generated_classes" />
+    <javaClientGenerator targetPackage="com.exl_si.generated.dao" targetProject="Exsolve_SwitchIn/generated_classes" type="XMLMAPPER" />
+    <table schema="exsolve_switchin" tableName="si_member" domainObjectName="SIMember" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
     </table>
-    <table schema="GAdmin" tableName="cp_spbrand" domainObjectName="CPSPBrand" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
+    <table schema="exsolve_switchin" tableName="si_merchant" domainObjectName="SIMerchant" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
     </table>
-    <table schema="GAdmin" tableName="cp_sptype" domainObjectName="CPSPType" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
+    <table schema="exsolve_switchin" tableName="event" domainObjectName="Event" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
     </table>
-    <table schema="GAdmin" tableName="cp_spunit" domainObjectName="CPSPUnit" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
+    <table schema="exsolve_switchin" tableName="event_picture" domainObjectName="EventPicture" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
     </table>
-    <table schema="GAdmin" tableName="db_fhdb" domainObjectName="DBfhdb" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="db_timingbackup" domainObjectName="DBtimingbackup" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="erp_customer" domainObjectName="ERPCustomer" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="erp_customerimg" domainObjectName="ERPCustomerimg" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="erp_intoku" domainObjectName="ERPIntoku" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="erp_level" domainObjectName="ERPLevel" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="erp_outku" domainObjectName="ERPOutku" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="erp_outku_temp" domainObjectName="ERPOutku_temp" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="erp_remarks" domainObjectName="ERPRemarks" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="im_fgroup" domainObjectName="IMFGroup" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="im_friends" domainObjectName="IMFriends" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="im_hismsg" domainObjectName="IMHismsg" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="im_imstate" domainObjectName="IMState" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="im_iqgroup" domainObjectName="IMIQGroup" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="im_qgroup" domainObjectName="IMQGroup" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="im_sysmsg" domainObjectName="IMSysmsg" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="sys_dictionaries" domainObjectName="SYSDictionaries" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="sys_button" domainObjectName="SYSButton" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    	<property name="useActualColumnNames" value="true"/>
-    </table>
-    <table schema="GAdmin" tableName="sys_log" domainObjectName="SYSLog" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/><property name="useActualColumnNames" value="true"/></table>
-    <table schema="GAdmin" tableName="sys_sms" domainObjectName="SYSSms" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/></table>
-    <table schema="GAdmin" tableName="sys_loginimg" domainObjectName="SYSLoginimg" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/></table>
-    <table schema="GAdmin" tableName="sys_menu" domainObjectName="SYSMenu" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/></table>
-    <table schema="GAdmin" tableName="sys_role" domainObjectName="SYSRole" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/></table>
-    <table schema="GAdmin" tableName="sys_role_button" domainObjectName="SYSRoleButton" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/></table>
-    <table schema="GAdmin" tableName="sys_user" domainObjectName="SYSUser" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/></table>
-    <table schema="GAdmin" tableName="sys_userphoto" domainObjectName="SYSUserphoto" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/></table>
-    <table schema="GAdmin" tableName="tb_pictures" domainObjectName="TBPictures" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    <property name="useActualColumnNames" value="true"/></table>
   </context>
 </generatorConfiguration>
