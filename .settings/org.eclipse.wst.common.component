@@ -3,6 +3,7 @@
         <wb-resource deploy-path="/" source-path="/WebContent" tag="defaultRootSource"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/src"/>
         <wb-resource deploy-path="/WEB-INF/classes" source-path="/resources"/>
+        <wb-resource deploy-path="/WEB-INF/classes" source-path="/generated_classes"/>
         <property name="context-root" value="Exsolve_SwitchIn"/>
         <property name="java-output-path" value="/Exsolve_SwitchIn/build/classes"/>
     </wb-module>

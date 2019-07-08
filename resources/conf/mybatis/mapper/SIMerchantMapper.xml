@@ -1,0 +1,321 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exl_si.generated.dao.SIMerchantMapper">
+  <resultMap id="BaseResultMap" type="com.exl_si.generated.db.SIMerchant">
+    <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="primaryPIC" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="secondaryPIC" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phonePIC" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="companyRegNo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="companyLogo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="companyName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="companySSMImage" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="expiredDateSSM" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="business" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="location" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="refenence" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ownerName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="ownerPhone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="lastLoginTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="loginTimes" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, username, password, primaryPIC, secondaryPIC, phonePIC, companyRegNo, companyLogo, 
+    companyName, companySSMImage, expiredDateSSM, business, email, phone, location, refenence, 
+    ownerName, ownerPhone, createTime, lastLoginTime, updateTime, loginTimes, status, 
+    remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from si_merchant
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from si_merchant
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.exl_si.generated.db.SIMerchant">
+    insert into si_merchant (id, username, password, 
+      primaryPIC, secondaryPIC, phonePIC, 
+      companyRegNo, companyLogo, companyName, 
+      companySSMImage, expiredDateSSM, business, 
+      email, phone, location, 
+      refenence, ownerName, ownerPhone, 
+      createTime, lastLoginTime, updateTime, 
+      loginTimes, status, remark
+      )
+    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      #{primarypic,jdbcType=VARCHAR}, #{secondarypic,jdbcType=VARCHAR}, #{phonepic,jdbcType=VARCHAR}, 
+      #{companyregno,jdbcType=VARCHAR}, #{companylogo,jdbcType=VARCHAR}, #{companyname,jdbcType=VARCHAR}, 
+      #{companyssmimage,jdbcType=VARCHAR}, #{expireddatessm,jdbcType=DATE}, #{business,jdbcType=VARCHAR}, 
+      #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, 
+      #{refenence,jdbcType=VARCHAR}, #{ownername,jdbcType=VARCHAR}, #{ownerphone,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{lastlogintime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{logintimes,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.exl_si.generated.db.SIMerchant">
+    insert into si_merchant
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="username != null">
+        username,
+      </if>
+      <if test="password != null">
+        password,
+      </if>
+      <if test="primarypic != null">
+        primaryPIC,
+      </if>
+      <if test="secondarypic != null">
+        secondaryPIC,
+      </if>
+      <if test="phonepic != null">
+        phonePIC,
+      </if>
+      <if test="companyregno != null">
+        companyRegNo,
+      </if>
+      <if test="companylogo != null">
+        companyLogo,
+      </if>
+      <if test="companyname != null">
+        companyName,
+      </if>
+      <if test="companyssmimage != null">
+        companySSMImage,
+      </if>
+      <if test="expireddatessm != null">
+        expiredDateSSM,
+      </if>
+      <if test="business != null">
+        business,
+      </if>
+      <if test="email != null">
+        email,
+      </if>
+      <if test="phone != null">
+        phone,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="refenence != null">
+        refenence,
+      </if>
+      <if test="ownername != null">
+        ownerName,
+      </if>
+      <if test="ownerphone != null">
+        ownerPhone,
+      </if>
+      <if test="createtime != null">
+        createTime,
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="logintimes != null">
+        loginTimes,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="username != null">
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="primarypic != null">
+        #{primarypic,jdbcType=VARCHAR},
+      </if>
+      <if test="secondarypic != null">
+        #{secondarypic,jdbcType=VARCHAR},
+      </if>
+      <if test="phonepic != null">
+        #{phonepic,jdbcType=VARCHAR},
+      </if>
+      <if test="companyregno != null">
+        #{companyregno,jdbcType=VARCHAR},
+      </if>
+      <if test="companylogo != null">
+        #{companylogo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname != null">
+        #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyssmimage != null">
+        #{companyssmimage,jdbcType=VARCHAR},
+      </if>
+      <if test="expireddatessm != null">
+        #{expireddatessm,jdbcType=DATE},
+      </if>
+      <if test="business != null">
+        #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="refenence != null">
+        #{refenence,jdbcType=VARCHAR},
+      </if>
+      <if test="ownername != null">
+        #{ownername,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerphone != null">
+        #{ownerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null">
+        #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logintimes != null">
+        #{logintimes,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.generated.db.SIMerchant">
+    update si_merchant
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="primarypic != null">
+        primaryPIC = #{primarypic,jdbcType=VARCHAR},
+      </if>
+      <if test="secondarypic != null">
+        secondaryPIC = #{secondarypic,jdbcType=VARCHAR},
+      </if>
+      <if test="phonepic != null">
+        phonePIC = #{phonepic,jdbcType=VARCHAR},
+      </if>
+      <if test="companyregno != null">
+        companyRegNo = #{companyregno,jdbcType=VARCHAR},
+      </if>
+      <if test="companylogo != null">
+        companyLogo = #{companylogo,jdbcType=VARCHAR},
+      </if>
+      <if test="companyname != null">
+        companyName = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyssmimage != null">
+        companySSMImage = #{companyssmimage,jdbcType=VARCHAR},
+      </if>
+      <if test="expireddatessm != null">
+        expiredDateSSM = #{expireddatessm,jdbcType=DATE},
+      </if>
+      <if test="business != null">
+        business = #{business,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="refenence != null">
+        refenence = #{refenence,jdbcType=VARCHAR},
+      </if>
+      <if test="ownername != null">
+        ownerName = #{ownername,jdbcType=VARCHAR},
+      </if>
+      <if test="ownerphone != null">
+        ownerPhone = #{ownerphone,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="logintimes != null">
+        loginTimes = #{logintimes,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.generated.db.SIMerchant">
+    update si_merchant
+    set username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      primaryPIC = #{primarypic,jdbcType=VARCHAR},
+      secondaryPIC = #{secondarypic,jdbcType=VARCHAR},
+      phonePIC = #{phonepic,jdbcType=VARCHAR},
+      companyRegNo = #{companyregno,jdbcType=VARCHAR},
+      companyLogo = #{companylogo,jdbcType=VARCHAR},
+      companyName = #{companyname,jdbcType=VARCHAR},
+      companySSMImage = #{companyssmimage,jdbcType=VARCHAR},
+      expiredDateSSM = #{expireddatessm,jdbcType=DATE},
+      business = #{business,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      refenence = #{refenence,jdbcType=VARCHAR},
+      ownerName = #{ownername,jdbcType=VARCHAR},
+      ownerPhone = #{ownerphone,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      loginTimes = #{logintimes,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
