@@ -1,5 +1,9 @@
 package com.exl_si.mapper;
 
+import java.util.List;
+
+import org.apache.ibatis.annotations.Param;
+
 import com.exl_si.db.Event;
 
 public interface EventMapper {
@@ -14,4 +18,8 @@ public interface EventMapper {
     int updateByPrimaryKeySelective(Event record);
 
     int updateByPrimaryKey(Event record);
+    
+    List<Event> selectByMerchant(String merchantName);
+    
+    int updateStatus(@Param("id")Integer id, @Param("status")Integer status);
 }

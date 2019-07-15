@@ -211,4 +211,20 @@
       remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  
+  
+	<!-- created -->
+  <select id="selectByMerchant" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from event where merchantName = #{merchantname,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateStatus" parameterType="map">
+    update event
+    set 
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
 </mapper>
