@@ -21,12 +21,12 @@
 	<mvc:resources mapping="/uploadFiles/**" location="/,/uploadFiles/" /> 
 
 	<!-- 访问拦截  -->  
-  	<mvc:interceptors>
-		<mvc:interceptor>
-			<mvc:mapping path="/**/**"/>
-			<bean class="com.exl_si.interceptor.LoginHandlerInterceptor"/>
-		</mvc:interceptor>
-	</mvc:interceptors>
+<!--   	<mvc:interceptors> -->
+<!-- 		<mvc:interceptor> -->
+<!-- 			<mvc:mapping path="/**/**"/> -->
+<!-- 			<bean class="com.exl_si.interceptor.LoginHandlerInterceptor"/> -->
+<!-- 		</mvc:interceptor> -->
+<!-- 	</mvc:interceptors> -->
 	 
 	<!-- 配置SpringMVC的视图解析器 -->
 	<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
@@ -34,7 +34,7 @@
 		<property name="suffix" value=".jsp"/>
 	</bean>
 	
-	<bean id="exceptionResolver" class="com.exl_si.resolver.MyExceptionResolver"></bean>
+<!-- 	<bean id="exceptionResolver" class="com.exl_si.resolver.MyExceptionResolver"></bean> -->
 	
 	<!-- 上传拦截，如最大上传值及最小上传值 -->
 	  <bean id="multipartResolver"   class="org.springframework.web.multipart.commons.CommonsMultipartResolver" >   

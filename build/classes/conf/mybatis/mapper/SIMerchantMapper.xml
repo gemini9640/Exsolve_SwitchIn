@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.exl_si.generated.dao.SIMerchantMapper">
-  <resultMap id="BaseResultMap" type="com.exl_si.generated.db.SIMerchant">
+<mapper namespace="com.exl_si.mapper.SIMerchantMapper">
+  <resultMap id="BaseResultMap" type="com.exl_si.db.SIMerchant">
     <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="primaryPIC" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -30,7 +29,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, password, primaryPIC, secondaryPIC, phonePIC, companyRegNo, companyLogo, 
+    username, password, primaryPIC, secondaryPIC, phonePIC, companyRegNo, companyLogo, 
     companyName, companySSMImage, expiredDateSSM, business, email, phone, location, refenence, 
     ownerName, ownerPhone, createTime, lastLoginTime, updateTime, loginTimes, status, 
     remark
@@ -39,14 +38,14 @@
     select 
     <include refid="Base_Column_List" />
     from si_merchant
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
     delete from si_merchant
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.exl_si.generated.db.SIMerchant">
-    insert into si_merchant (id, username, password, 
+  <insert id="insert" parameterType="com.exl_si.db.SIMerchant">
+    insert into si_merchant (username, password, 
       primaryPIC, secondaryPIC, phonePIC, 
       companyRegNo, companyLogo, companyName, 
       companySSMImage, expiredDateSSM, business, 
@@ -55,7 +54,7 @@
       createTime, lastLoginTime, updateTime, 
       loginTimes, status, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{primarypic,jdbcType=VARCHAR}, #{secondarypic,jdbcType=VARCHAR}, #{phonepic,jdbcType=VARCHAR}, 
       #{companyregno,jdbcType=VARCHAR}, #{companylogo,jdbcType=VARCHAR}, #{companyname,jdbcType=VARCHAR}, 
       #{companyssmimage,jdbcType=VARCHAR}, #{expireddatessm,jdbcType=DATE}, #{business,jdbcType=VARCHAR}, 
@@ -65,12 +64,9 @@
       #{logintimes,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.exl_si.generated.db.SIMerchant">
+  <insert id="insertSelective" parameterType="com.exl_si.db.SIMerchant">
     insert into si_merchant
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="username != null">
         username,
       </if>
@@ -142,9 +138,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
@@ -216,12 +209,9 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.generated.db.SIMerchant">
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMerchant">
     update si_merchant
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -289,11 +279,11 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.exl_si.generated.db.SIMerchant">
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMerchant">
     update si_merchant
-    set username = #{username,jdbcType=VARCHAR},
+    set 
       password = #{password,jdbcType=VARCHAR},
       primaryPIC = #{primarypic,jdbcType=VARCHAR},
       secondaryPIC = #{secondarypic,jdbcType=VARCHAR},
@@ -316,6 +306,25 @@
       loginTimes = #{logintimes,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR}
   </update>
+  
+  <!-- created -->
+  <select id="selectAll" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_merchant order by createTime
+  </select>
+  <select id="selectByKeyAndPass" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_merchant 
+	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR};
+  </select>
+  <select id="login" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_merchant 
+	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
 </mapper>

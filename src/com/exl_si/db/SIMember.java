@@ -3,8 +3,6 @@ package com.exl_si.db;
 import java.util.Date;
 
 public class SIMember {
-    private Integer id;
-
     private String username;
 
     private String password;
@@ -47,8 +45,7 @@ public class SIMember {
 
     private String remark;
 
-    public SIMember(Integer id, String username, String password, String realname, String sex, Integer age, Date dob, String phone, String email, String occupation, String interested, String usertype, String agentname, String agentaccount, Integer premier, String profilepicture, Date createtime, Date lastlogintime, Date updatetime, Integer logintimes, Integer status, String remark) {
-        this.id = id;
+    public SIMember(String username, String password, String realname, String sex, Integer age, Date dob, String phone, String email, String occupation, String interested, String usertype, String agentname, String agentaccount, Integer premier, String profilepicture, Date createtime, Date lastlogintime, Date updatetime, Integer logintimes, Integer status, String remark) {
         this.username = username;
         this.password = password;
         this.realname = realname;
@@ -74,14 +71,6 @@ public class SIMember {
 
     public SIMember() {
         super();
-    }
-
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
     }
 
     public String getUsername() {
@@ -258,7 +247,6 @@ public class SIMember {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", realname=").append(realname);

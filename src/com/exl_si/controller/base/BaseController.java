@@ -10,6 +10,10 @@ import org.apache.log4j.Logger;
 import org.springframework.web.context.request.RequestContextHolder;
 import org.springframework.web.context.request.ServletRequestAttributes;
 
+import com.exl_si.common.Constants;
+import com.exl_si.db.SIMember;
+import com.exl_si.db.SIMerchant;
+
 
 
 
@@ -18,20 +22,20 @@ public class BaseController {
 	protected Logger logger = Logger.getLogger(this.getClass());
 
 	
-	public Customer getSessionCustomer() {
+	public SIMember getSessionCustomer() {
 		Object o = getSession().getAttribute(Constants.CUSTOMER_SESSION);
 		if(o == null)
 			return null;
 		else 
-			return (Customer) o;
+			return (SIMember) o;
 	}
 	
-	public Staff getSessionStaff() {
+	public SIMerchant getSessionStaff() {
 		Object o = getSession().getAttribute(Constants.STAFF_SESSION);
 		if(o == null)
 			return null;
 		else 
-			return (Staff) o;
+			return (SIMerchant) o;
 	}
 	
 	public HttpServletRequest getRequest() {

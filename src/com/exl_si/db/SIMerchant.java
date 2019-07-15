@@ -3,8 +3,6 @@ package com.exl_si.db;
 import java.util.Date;
 
 public class SIMerchant {
-    private Integer id;
-
     private String username;
 
     private String password;
@@ -51,8 +49,7 @@ public class SIMerchant {
 
     private String remark;
 
-    public SIMerchant(Integer id, String username, String password, String primarypic, String secondarypic, String phonepic, String companyregno, String companylogo, String companyname, String companyssmimage, Date expireddatessm, String business, String email, String phone, String location, String refenence, String ownername, String ownerphone, Date createtime, Date lastlogintime, Date updatetime, Integer logintimes, Integer status, String remark) {
-        this.id = id;
+    public SIMerchant(String username, String password, String primarypic, String secondarypic, String phonepic, String companyregno, String companylogo, String companyname, String companyssmimage, Date expireddatessm, String business, String email, String phone, String location, String refenence, String ownername, String ownerphone, Date createtime, Date lastlogintime, Date updatetime, Integer logintimes, Integer status, String remark) {
         this.username = username;
         this.password = password;
         this.primarypic = primarypic;
@@ -82,13 +79,6 @@ public class SIMerchant {
         super();
     }
 
-    public Integer getId() {
-        return id;
-    }
-
-    public void setId(Integer id) {
-        this.id = id;
-    }
 
     public String getUsername() {
         return username;
@@ -280,7 +270,6 @@ public class SIMerchant {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
-        sb.append(", id=").append(id);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", primarypic=").append(primarypic);

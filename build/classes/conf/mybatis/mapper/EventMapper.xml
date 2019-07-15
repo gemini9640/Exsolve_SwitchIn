@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.exl_si.generated.dao.EventMapper">
-  <resultMap id="BaseResultMap" type="com.exl_si.generated.db.Event">
+<mapper namespace="com.exl_si.mapper.EventMapper">
+  <resultMap id="BaseResultMap" type="com.exl_si.db.Event">
     <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="eventName" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -34,7 +34,7 @@
     delete from event
     where id = #{id,jdbcType=INTEGER}
   </delete>
-  <insert id="insert" parameterType="com.exl_si.generated.db.Event">
+  <insert id="insert" parameterType="com.exl_si.db.Event">
     insert into event (id, eventName, merchantName, 
       startDate, endDate, Tagline, 
       price, updateTime, location, 
@@ -48,7 +48,7 @@
       #{comment,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.exl_si.generated.db.Event">
+  <insert id="insertSelective" parameterType="com.exl_si.db.Event">
     insert into event
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -145,7 +145,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.generated.db.Event">
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.Event">
     update event
     <set>
       <if test="eventname != null">
@@ -193,7 +193,7 @@
     </set>
     where id = #{id,jdbcType=INTEGER}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.exl_si.generated.db.Event">
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.Event">
     update event
     set eventName = #{eventname,jdbcType=VARCHAR},
       merchantName = #{merchantname,jdbcType=VARCHAR},

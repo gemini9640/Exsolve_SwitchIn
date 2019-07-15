@@ -1,9 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.exl_si.generated.dao.SIMemberMapper">
-  <resultMap id="BaseResultMap" type="com.exl_si.generated.db.SIMember">
+<mapper namespace="com.exl_si.mapper.SIMemberMapper">
+  <resultMap id="BaseResultMap" type="com.exl_si.db.SIMember">
     <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="realname" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -28,22 +27,22 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, username, password, realname, sex, age, dob, phone, email, occupation, interested, 
+    username, password, realname, sex, age, dob, phone, email, occupation, interested, 
     userType, agentName, agentAccount, premier, profilePicture, createTime, lastLoginTime, 
     updateTime, loginTimes, status, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from si_member
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from si_member
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.exl_si.generated.db.SIMember">
-    insert into si_member (id, username, password, 
+  <insert id="insert" parameterType="com.exl_si.db.SIMember">
+    insert into si_member (username, password, 
       realname, sex, age, 
       dob, phone, email, occupation, 
       interested, userType, agentName, 
@@ -51,7 +50,7 @@
       createTime, lastLoginTime, updateTime, 
       loginTimes, status, remark
       )
-    values (#{id,jdbcType=INTEGER}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
       #{dob,jdbcType=DATE}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{occupation,jdbcType=VARCHAR}, 
       #{interested,jdbcType=VARCHAR}, #{usertype,jdbcType=VARCHAR}, #{agentname,jdbcType=VARCHAR}, 
@@ -60,12 +59,9 @@
       #{logintimes,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
       )
   </insert>
-  <insert id="insertSelective" parameterType="com.exl_si.generated.db.SIMember">
+  <insert id="insertSelective" parameterType="com.exl_si.db.SIMember">
     insert into si_member
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        id,
-      </if>
       <if test="username != null">
         username,
       </if>
@@ -131,9 +127,6 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="id != null">
-        #{id,jdbcType=INTEGER},
-      </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
@@ -199,12 +192,9 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.generated.db.SIMember">
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMember">
     update si_member
     <set>
-      <if test="username != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -266,11 +256,11 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.exl_si.generated.db.SIMember">
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMember">
     update si_member
-    set username = #{username,jdbcType=VARCHAR},
+    set 
       password = #{password,jdbcType=VARCHAR},
       realname = #{realname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
@@ -291,6 +281,25 @@
       loginTimes = #{logintimes,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where username = #{username,jdbcType=VARCHAR},
   </update>
+  
+  <!-- created -->
+  <select id="selectAll" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_member order by createTime
+  </select>
+  <select id="selectByKeyAndPass" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_member 
+	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR};
+  </select>
+  <select id="login" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_member 
+	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
+  </select>
 </mapper>
