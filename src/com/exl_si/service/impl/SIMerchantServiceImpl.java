@@ -14,7 +14,7 @@ import com.exl_si.utils.MD5Util;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-@Service("sIMerchantService")
+@Service("merchantService")
 public class SIMerchantServiceImpl implements SIMerchantService{
 	@Autowired
 	private SIMerchantMapper merchantMapper;

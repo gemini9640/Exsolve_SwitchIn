@@ -13,7 +13,7 @@ import com.exl_si.service.helper.SIMemberHelper;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
-@Service("sIMemberService")
+@Service("memberService")
 public class SIMemberServiceImpl implements SIMemberService{
 	@Autowired
 	private SIMemberMapper memberMapper;

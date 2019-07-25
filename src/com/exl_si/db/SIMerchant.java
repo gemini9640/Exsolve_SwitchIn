@@ -1,84 +1,166 @@
 package com.exl_si.db;
 
+import java.sql.Timestamp;
 import java.util.Date;
 
 public class SIMerchant {
+    private String id;
+
+    private String companyname;
+
+    private String companyregno;
+
+    private Integer totalstaff;
+
+    private String companytype;
+
+    private String industrytype;
+
+    private String companyaddress;
+
+    private Timestamp expireddatessm;
+
     private String username;
 
     private String password;
 
-    private String primarypic;
+    private String usertitle;
 
-    private String secondarypic;
+    private String realname;
 
-    private String phonepic;
-
-    private String companyregno;
+    private Date dob;
 
     private String companylogo;
 
-    private String companyname;
+    private String credentialno;
 
-    private String companyssmimage;
-
-    private Date expireddatessm;
-
-    private String business;
+    private String credetialtype;
 
     private String email;
 
     private String phone;
 
-    private String location;
+    private String officephone;
 
-    private String refenence;
+    private String facebook;
 
-    private String ownername;
+    private String googleplus;
 
-    private String ownerphone;
+    private String companydiscription;
 
-    private Date createtime;
+    private Timestamp createtime;
 
-    private Date lastlogintime;
+    private Timestamp lastlogintime;
 
-    private Date updatetime;
+    private Timestamp lastupdatetime;
+
+    private String lastloginpictype;
+
+    private String lastloginpicid;
 
     private Integer logintimes;
 
     private Integer status;
 
-    private String remark;
-
-    public SIMerchant(String username, String password, String primarypic, String secondarypic, String phonepic, String companyregno, String companylogo, String companyname, String companyssmimage, Date expireddatessm, String business, String email, String phone, String location, String refenence, String ownername, String ownerphone, Date createtime, Date lastlogintime, Date updatetime, Integer logintimes, Integer status, String remark) {
+    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, Timestamp expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String credentialno, String credetialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Timestamp createtime, Timestamp lastlogintime, Timestamp lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status) {
+        this.id = id;
+        this.companyname = companyname;
+        this.companyregno = companyregno;
+        this.totalstaff = totalstaff;
+        this.companytype = companytype;
+        this.industrytype = industrytype;
+        this.companyaddress = companyaddress;
+        this.expireddatessm = expireddatessm;
         this.username = username;
         this.password = password;
-        this.primarypic = primarypic;
-        this.secondarypic = secondarypic;
-        this.phonepic = phonepic;
-        this.companyregno = companyregno;
+        this.usertitle = usertitle;
+        this.realname = realname;
+        this.dob = dob;
         this.companylogo = companylogo;
-        this.companyname = companyname;
-        this.companyssmimage = companyssmimage;
-        this.expireddatessm = expireddatessm;
-        this.business = business;
+        this.credentialno = credentialno;
+        this.credetialtype = credetialtype;
         this.email = email;
         this.phone = phone;
-        this.location = location;
-        this.refenence = refenence;
-        this.ownername = ownername;
-        this.ownerphone = ownerphone;
+        this.officephone = officephone;
+        this.facebook = facebook;
+        this.googleplus = googleplus;
+        this.companydiscription = companydiscription;
         this.createtime = createtime;
         this.lastlogintime = lastlogintime;
-        this.updatetime = updatetime;
+        this.lastupdatetime = lastupdatetime;
+        this.lastloginpictype = lastloginpictype;
+        this.lastloginpicid = lastloginpicid;
         this.logintimes = logintimes;
         this.status = status;
-        this.remark = remark;
     }
 
     public SIMerchant() {
         super();
     }
 
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
+    }
+
+    public String getCompanyname() {
+        return companyname;
+    }
+
+    public void setCompanyname(String companyname) {
+        this.companyname = companyname == null ? null : companyname.trim();
+    }
+
+    public String getCompanyregno() {
+        return companyregno;
+    }
+
+    public void setCompanyregno(String companyregno) {
+        this.companyregno = companyregno == null ? null : companyregno.trim();
+    }
+
+    public Integer getTotalstaff() {
+        return totalstaff;
+    }
+
+    public void setTotalstaff(Integer totalstaff) {
+        this.totalstaff = totalstaff;
+    }
+
+    public String getCompanytype() {
+        return companytype;
+    }
+
+    public void setCompanytype(String companytype) {
+        this.companytype = companytype == null ? null : companytype.trim();
+    }
+
+    public String getIndustrytype() {
+        return industrytype;
+    }
+
+    public void setIndustrytype(String industrytype) {
+        this.industrytype = industrytype == null ? null : industrytype.trim();
+    }
+
+    public String getCompanyaddress() {
+        return companyaddress;
+    }
+
+    public void setCompanyaddress(String companyaddress) {
+        this.companyaddress = companyaddress == null ? null : companyaddress.trim();
+    }
+
+    public Date getExpireddatessm() {
+        return expireddatessm;
+    }
+
+    public void setExpireddatessm(Timestamp expireddatessm) {
+        this.expireddatessm = expireddatessm;
+    }
 
     public String getUsername() {
         return username;
@@ -96,36 +178,28 @@ public class SIMerchant {
         this.password = password == null ? null : password.trim();
     }
 
-    public String getPrimarypic() {
-        return primarypic;
+    public String getUsertitle() {
+        return usertitle;
     }
 
-    public void setPrimarypic(String primarypic) {
-        this.primarypic = primarypic == null ? null : primarypic.trim();
+    public void setUsertitle(String usertitle) {
+        this.usertitle = usertitle == null ? null : usertitle.trim();
     }
 
-    public String getSecondarypic() {
-        return secondarypic;
+    public String getRealname() {
+        return realname;
     }
 
-    public void setSecondarypic(String secondarypic) {
-        this.secondarypic = secondarypic == null ? null : secondarypic.trim();
+    public void setRealname(String realname) {
+        this.realname = realname == null ? null : realname.trim();
     }
 
-    public String getPhonepic() {
-        return phonepic;
+    public Date getDob() {
+        return dob;
     }
 
-    public void setPhonepic(String phonepic) {
-        this.phonepic = phonepic == null ? null : phonepic.trim();
-    }
-
-    public String getCompanyregno() {
-        return companyregno;
-    }
-
-    public void setCompanyregno(String companyregno) {
-        this.companyregno = companyregno == null ? null : companyregno.trim();
+    public void setDob(Date dob) {
+        this.dob = dob;
     }
 
     public String getCompanylogo() {
@@ -136,36 +210,20 @@ public class SIMerchant {
         this.companylogo = companylogo == null ? null : companylogo.trim();
     }
 
-    public String getCompanyname() {
-        return companyname;
+    public String getCredentialno() {
+        return credentialno;
     }
 
-    public void setCompanyname(String companyname) {
-        this.companyname = companyname == null ? null : companyname.trim();
+    public void setCredentialno(String credentialno) {
+        this.credentialno = credentialno == null ? null : credentialno.trim();
     }
 
-    public String getCompanyssmimage() {
-        return companyssmimage;
+    public String getCredetialtype() {
+        return credetialtype;
     }
 
-    public void setCompanyssmimage(String companyssmimage) {
-        this.companyssmimage = companyssmimage == null ? null : companyssmimage.trim();
-    }
-
-    public Date getExpireddatessm() {
-        return expireddatessm;
-    }
-
-    public void setExpireddatessm(Date expireddatessm) {
-        this.expireddatessm = expireddatessm;
-    }
-
-    public String getBusiness() {
-        return business;
-    }
-
-    public void setBusiness(String business) {
-        this.business = business == null ? null : business.trim();
+    public void setCredetialtype(String credetialtype) {
+        this.credetialtype = credetialtype == null ? null : credetialtype.trim();
     }
 
     public String getEmail() {
@@ -184,43 +242,43 @@ public class SIMerchant {
         this.phone = phone == null ? null : phone.trim();
     }
 
-    public String getLocation() {
-        return location;
+    public String getOfficephone() {
+        return officephone;
     }
 
-    public void setLocation(String location) {
-        this.location = location == null ? null : location.trim();
+    public void setOfficephone(String officephone) {
+        this.officephone = officephone == null ? null : officephone.trim();
     }
 
-    public String getRefenence() {
-        return refenence;
+    public String getFacebook() {
+        return facebook;
     }
 
-    public void setRefenence(String refenence) {
-        this.refenence = refenence == null ? null : refenence.trim();
+    public void setFacebook(String facebook) {
+        this.facebook = facebook == null ? null : facebook.trim();
     }
 
-    public String getOwnername() {
-        return ownername;
+    public String getGoogleplus() {
+        return googleplus;
     }
 
-    public void setOwnername(String ownername) {
-        this.ownername = ownername == null ? null : ownername.trim();
+    public void setGoogleplus(String googleplus) {
+        this.googleplus = googleplus == null ? null : googleplus.trim();
     }
 
-    public String getOwnerphone() {
-        return ownerphone;
+    public String getCompanydiscription() {
+        return companydiscription;
     }
 
-    public void setOwnerphone(String ownerphone) {
-        this.ownerphone = ownerphone == null ? null : ownerphone.trim();
+    public void setCompanydiscription(String companydiscription) {
+        this.companydiscription = companydiscription == null ? null : companydiscription.trim();
     }
 
     public Date getCreatetime() {
         return createtime;
     }
 
-    public void setCreatetime(Date createtime) {
+    public void setCreatetime(Timestamp createtime) {
         this.createtime = createtime;
     }
 
@@ -228,16 +286,32 @@ public class SIMerchant {
         return lastlogintime;
     }
 
-    public void setLastlogintime(Date lastlogintime) {
+    public void setLastlogintime(Timestamp lastlogintime) {
         this.lastlogintime = lastlogintime;
     }
 
-    public Date getUpdatetime() {
-        return updatetime;
+    public Date getLastupdatetime() {
+        return lastupdatetime;
     }
 
-    public void setUpdatetime(Date updatetime) {
-        this.updatetime = updatetime;
+    public void setLastupdatetime(Timestamp lastupdatetime) {
+        this.lastupdatetime = lastupdatetime;
+    }
+
+    public String getLastloginpictype() {
+        return lastloginpictype;
+    }
+
+    public void setLastloginpictype(String lastloginpictype) {
+        this.lastloginpictype = lastloginpictype == null ? null : lastloginpictype.trim();
+    }
+
+    public String getLastloginpicid() {
+        return lastloginpicid;
+    }
+
+    public void setLastloginpicid(String lastloginpicid) {
+        this.lastloginpicid = lastloginpicid == null ? null : lastloginpicid.trim();
     }
 
     public Integer getLogintimes() {
@@ -256,43 +330,41 @@ public class SIMerchant {
         this.status = status;
     }
 
-    public String getRemark() {
-        return remark;
-    }
-
-    public void setRemark(String remark) {
-        this.remark = remark == null ? null : remark.trim();
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
+        sb.append(", companyname=").append(companyname);
+        sb.append(", companyregno=").append(companyregno);
+        sb.append(", totalstaff=").append(totalstaff);
+        sb.append(", companytype=").append(companytype);
+        sb.append(", industrytype=").append(industrytype);
+        sb.append(", companyaddress=").append(companyaddress);
+        sb.append(", expireddatessm=").append(expireddatessm);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
-        sb.append(", primarypic=").append(primarypic);
-        sb.append(", secondarypic=").append(secondarypic);
-        sb.append(", phonepic=").append(phonepic);
-        sb.append(", companyregno=").append(companyregno);
+        sb.append(", usertitle=").append(usertitle);
+        sb.append(", realname=").append(realname);
+        sb.append(", dob=").append(dob);
         sb.append(", companylogo=").append(companylogo);
-        sb.append(", companyname=").append(companyname);
-        sb.append(", companyssmimage=").append(companyssmimage);
-        sb.append(", expireddatessm=").append(expireddatessm);
-        sb.append(", business=").append(business);
+        sb.append(", credentialno=").append(credentialno);
+        sb.append(", credetialtype=").append(credetialtype);
         sb.append(", email=").append(email);
         sb.append(", phone=").append(phone);
-        sb.append(", location=").append(location);
-        sb.append(", refenence=").append(refenence);
-        sb.append(", ownername=").append(ownername);
-        sb.append(", ownerphone=").append(ownerphone);
+        sb.append(", officephone=").append(officephone);
+        sb.append(", facebook=").append(facebook);
+        sb.append(", googleplus=").append(googleplus);
+        sb.append(", companydiscription=").append(companydiscription);
         sb.append(", createtime=").append(createtime);
         sb.append(", lastlogintime=").append(lastlogintime);
-        sb.append(", updatetime=").append(updatetime);
+        sb.append(", lastupdatetime=").append(lastupdatetime);
+        sb.append(", lastloginpictype=").append(lastloginpictype);
+        sb.append(", lastloginpicid=").append(lastloginpicid);
         sb.append(", logintimes=").append(logintimes);
         sb.append(", status=").append(status);
-        sb.append(", remark=").append(remark);
         sb.append("]");
         return sb.toString();
     }
