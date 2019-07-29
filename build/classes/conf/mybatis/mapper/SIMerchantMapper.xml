@@ -50,24 +50,12 @@
     select 
     <include refid="Base_Column_List" />
     from si_merchant
-     where id = #{id,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from si_merchant
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-<!--   <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMerchant"> -->
-<!--     update si_merchant -->
-<!--     <set> -->
-<!--       <if test="remark != null"> -->
-<!--         remark = #{remark,jdbcType=VARCHAR}, -->
-<!--       </if> -->
-<!--     </set> -->
-<!--     where username = #{username,jdbcType=VARCHAR} -->
-<!--   </update> -->
-  
-  
-  
   <insert id="insert" parameterType="com.exl_si.db.SIMerchant">
     insert into si_merchant (id, companyName, companyRegNo, 
       totalStaff, companyType, industryType, 
@@ -271,6 +259,128 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMerchant">
+    update si_merchant
+    <set>
+      <if test="companyname != null">
+        companyName = #{companyname,jdbcType=VARCHAR},
+      </if>
+      <if test="companyregno != null">
+        companyRegNo = #{companyregno,jdbcType=VARCHAR},
+      </if>
+      <if test="totalstaff != null">
+        totalStaff = #{totalstaff,jdbcType=INTEGER},
+      </if>
+      <if test="companytype != null">
+        companyType = #{companytype,jdbcType=VARCHAR},
+      </if>
+      <if test="industrytype != null">
+        industryType = #{industrytype,jdbcType=VARCHAR},
+      </if>
+      <if test="companyaddress != null">
+        companyAddress = #{companyaddress,jdbcType=VARCHAR},
+      </if>
+      <if test="expireddatessm != null">
+        expiredDateSSM = #{expireddatessm,jdbcType=TIMESTAMP},
+      </if>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="usertitle != null">
+        userTitle = #{usertitle,jdbcType=VARCHAR},
+      </if>
+      <if test="realname != null">
+        realName = #{realname,jdbcType=VARCHAR},
+      </if>
+      <if test="dob != null">
+        dob = #{dob,jdbcType=DATE},
+      </if>
+      <if test="companylogo != null">
+        companyLogo = #{companylogo,jdbcType=VARCHAR},
+      </if>
+      <if test="credentialno != null">
+        credentialNo = #{credentialno,jdbcType=VARCHAR},
+      </if>
+      <if test="credetialtype != null">
+        credetialType = #{credetialtype,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="phone != null">
+        phone = #{phone,jdbcType=VARCHAR},
+      </if>
+      <if test="officephone != null">
+        officePhone = #{officephone,jdbcType=VARCHAR},
+      </if>
+      <if test="facebook != null">
+        facebook = #{facebook,jdbcType=VARCHAR},
+      </if>
+      <if test="googleplus != null">
+        googlePlus = #{googleplus,jdbcType=VARCHAR},
+      </if>
+      <if test="companydiscription != null">
+        companyDiscription = #{companydiscription,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createTime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastlogintime != null">
+        lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null">
+        lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastloginpictype != null">
+        lastLoginPICType = #{lastloginpictype,jdbcType=VARCHAR},
+      </if>
+      <if test="lastloginpicid != null">
+        lastLoginPICId = #{lastloginpicid,jdbcType=VARCHAR},
+      </if>
+      <if test="logintimes != null">
+        loginTimes = #{logintimes,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMerchant">
+    update si_merchant
+    set companyName = #{companyname,jdbcType=VARCHAR},
+      companyRegNo = #{companyregno,jdbcType=VARCHAR},
+      totalStaff = #{totalstaff,jdbcType=INTEGER},
+      companyType = #{companytype,jdbcType=VARCHAR},
+      industryType = #{industrytype,jdbcType=VARCHAR},
+      companyAddress = #{companyaddress,jdbcType=VARCHAR},
+      expiredDateSSM = #{expireddatessm,jdbcType=TIMESTAMP},
+      username = #{username,jdbcType=VARCHAR},
+      password = #{password,jdbcType=VARCHAR},
+      userTitle = #{usertitle,jdbcType=VARCHAR},
+      realName = #{realname,jdbcType=VARCHAR},
+      dob = #{dob,jdbcType=DATE},
+      companyLogo = #{companylogo,jdbcType=VARCHAR},
+      credentialNo = #{credentialno,jdbcType=VARCHAR},
+      credetialType = #{credetialtype,jdbcType=VARCHAR},
+      email = #{email,jdbcType=VARCHAR},
+      phone = #{phone,jdbcType=VARCHAR},
+      officePhone = #{officephone,jdbcType=VARCHAR},
+      facebook = #{facebook,jdbcType=VARCHAR},
+      googlePlus = #{googleplus,jdbcType=VARCHAR},
+      companyDiscription = #{companydiscription,jdbcType=VARCHAR},
+      createTime = #{createtime,jdbcType=TIMESTAMP},
+      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
+      lastLoginPICType = #{lastloginpictype,jdbcType=VARCHAR},
+      lastLoginPICId = #{lastloginpicid,jdbcType=VARCHAR},
+      loginTimes = #{logintimes,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
   
   
   <!-- created -->

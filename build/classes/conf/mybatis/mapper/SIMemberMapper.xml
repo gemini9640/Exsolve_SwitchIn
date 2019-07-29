@@ -3,23 +3,25 @@
 <mapper namespace="com.exl_si.mapper.SIMemberMapper">
   <resultMap id="BaseResultMap" type="com.exl_si.db.SIMember">
     <constructor>
-      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <idArg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="realname" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="sex" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="age" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="dob" javaType="java.util.Date" jdbcType="DATE" />
+      <arg column="occupation" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="interesteCategory" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="occupation" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="interested" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="facebook" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="googlePlus" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="userType" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="agentName" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="agentAccount" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="premier" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="agentId" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="profilePicture" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="createTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="lastLoginTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="lastUpdateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="loginTimes" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -27,9 +29,9 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    username, password, realname, sex, age, dob, phone, email, occupation, interested, 
-    userType, agentName, agentAccount, premier, profilePicture, createTime, lastLoginTime, 
-    updateTime, loginTimes, status, remark
+    username, id, password, realname, sex, age, dob, occupation, interesteCategory, phone, 
+    email, facebook, googlePlus, userType, agentId, profilePicture, createTime, lastLoginTime, 
+    lastUpdateTime, updateTime, loginTimes, status, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -42,28 +44,31 @@
     where username = #{username,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.exl_si.db.SIMember">
-    insert into si_member (username, password, 
+    insert into si_member (username, id, password, 
       realname, sex, age, 
-      dob, phone, email, occupation, 
-      interested, userType, agentName, 
-      agentAccount, premier, profilePicture, 
-      createTime, lastLoginTime, updateTime, 
-      loginTimes, status, remark
-      )
-    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+      dob, occupation, interesteCategory, 
+      phone, email, facebook, 
+      googlePlus, userType, agentId, 
+      profilePicture, createTime, lastLoginTime, 
+      lastUpdateTime, updateTime, loginTimes, 
+      status, remark)
+    values (#{username,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
       #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
-      #{dob,jdbcType=DATE}, #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{occupation,jdbcType=VARCHAR}, 
-      #{interested,jdbcType=VARCHAR}, #{usertype,jdbcType=VARCHAR}, #{agentname,jdbcType=VARCHAR}, 
-      #{agentaccount,jdbcType=VARCHAR}, #{premier,jdbcType=INTEGER}, #{profilepicture,jdbcType=VARCHAR}, 
-      #{createtime,jdbcType=TIMESTAMP}, #{lastlogintime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, 
-      #{logintimes,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR}
-      )
+      #{dob,jdbcType=DATE}, #{occupation,jdbcType=VARCHAR}, #{interestecategory,jdbcType=VARCHAR}, 
+      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, 
+      #{googleplus,jdbcType=VARCHAR}, #{usertype,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
+      #{profilepicture,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastlogintime,jdbcType=TIMESTAMP}, 
+      #{lastupdatetime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{logintimes,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.SIMember">
     insert into si_member
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="username != null">
         username,
+      </if>
+      <if test="id != null">
+        id,
       </if>
       <if test="password != null">
         password,
@@ -80,29 +85,29 @@
       <if test="dob != null">
         dob,
       </if>
+      <if test="occupation != null">
+        occupation,
+      </if>
+      <if test="interestecategory != null">
+        interesteCategory,
+      </if>
       <if test="phone != null">
         phone,
       </if>
       <if test="email != null">
         email,
       </if>
-      <if test="occupation != null">
-        occupation,
+      <if test="facebook != null">
+        facebook,
       </if>
-      <if test="interested != null">
-        interested,
+      <if test="googleplus != null">
+        googlePlus,
       </if>
       <if test="usertype != null">
         userType,
       </if>
-      <if test="agentname != null">
-        agentName,
-      </if>
-      <if test="agentaccount != null">
-        agentAccount,
-      </if>
-      <if test="premier != null">
-        premier,
+      <if test="agentid != null">
+        agentId,
       </if>
       <if test="profilepicture != null">
         profilePicture,
@@ -112,6 +117,9 @@
       </if>
       <if test="lastlogintime != null">
         lastLoginTime,
+      </if>
+      <if test="lastupdatetime != null">
+        lastUpdateTime,
       </if>
       <if test="updatetime != null">
         updateTime,
@@ -130,6 +138,9 @@
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
       </if>
@@ -145,29 +156,29 @@
       <if test="dob != null">
         #{dob,jdbcType=DATE},
       </if>
+      <if test="occupation != null">
+        #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="interestecategory != null">
+        #{interestecategory,jdbcType=VARCHAR},
+      </if>
       <if test="phone != null">
         #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
       </if>
-      <if test="occupation != null">
-        #{occupation,jdbcType=VARCHAR},
+      <if test="facebook != null">
+        #{facebook,jdbcType=VARCHAR},
       </if>
-      <if test="interested != null">
-        #{interested,jdbcType=VARCHAR},
+      <if test="googleplus != null">
+        #{googleplus,jdbcType=VARCHAR},
       </if>
       <if test="usertype != null">
         #{usertype,jdbcType=VARCHAR},
       </if>
-      <if test="agentname != null">
-        #{agentname,jdbcType=VARCHAR},
-      </if>
-      <if test="agentaccount != null">
-        #{agentaccount,jdbcType=VARCHAR},
-      </if>
-      <if test="premier != null">
-        #{premier,jdbcType=INTEGER},
+      <if test="agentid != null">
+        #{agentid,jdbcType=VARCHAR},
       </if>
       <if test="profilepicture != null">
         #{profilepicture,jdbcType=VARCHAR},
@@ -177,6 +188,9 @@
       </if>
       <if test="lastlogintime != null">
         #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null">
+        #{lastupdatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="updatetime != null">
         #{updatetime,jdbcType=TIMESTAMP},
@@ -195,6 +209,9 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMember">
     update si_member
     <set>
+      <if test="id != null">
+        id = #{id,jdbcType=VARCHAR},
+      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -210,29 +227,29 @@
       <if test="dob != null">
         dob = #{dob,jdbcType=DATE},
       </if>
+      <if test="occupation != null">
+        occupation = #{occupation,jdbcType=VARCHAR},
+      </if>
+      <if test="interestecategory != null">
+        interesteCategory = #{interestecategory,jdbcType=VARCHAR},
+      </if>
       <if test="phone != null">
         phone = #{phone,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
       </if>
-      <if test="occupation != null">
-        occupation = #{occupation,jdbcType=VARCHAR},
+      <if test="facebook != null">
+        facebook = #{facebook,jdbcType=VARCHAR},
       </if>
-      <if test="interested != null">
-        interested = #{interested,jdbcType=VARCHAR},
+      <if test="googleplus != null">
+        googlePlus = #{googleplus,jdbcType=VARCHAR},
       </if>
       <if test="usertype != null">
         userType = #{usertype,jdbcType=VARCHAR},
       </if>
-      <if test="agentname != null">
-        agentName = #{agentname,jdbcType=VARCHAR},
-      </if>
-      <if test="agentaccount != null">
-        agentAccount = #{agentaccount,jdbcType=VARCHAR},
-      </if>
-      <if test="premier != null">
-        premier = #{premier,jdbcType=INTEGER},
+      <if test="agentid != null">
+        agentId = #{agentid,jdbcType=VARCHAR},
       </if>
       <if test="profilepicture != null">
         profilePicture = #{profilepicture,jdbcType=VARCHAR},
@@ -242,6 +259,9 @@
       </if>
       <if test="lastlogintime != null">
         lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="lastupdatetime != null">
+        lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
       </if>
       <if test="updatetime != null">
         updateTime = #{updatetime,jdbcType=TIMESTAMP},
@@ -260,28 +280,29 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMember">
     update si_member
-    set 
+    set id = #{id,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       realname = #{realname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
       age = #{age,jdbcType=INTEGER},
       dob = #{dob,jdbcType=DATE},
+      occupation = #{occupation,jdbcType=VARCHAR},
+      interesteCategory = #{interestecategory,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
-      occupation = #{occupation,jdbcType=VARCHAR},
-      interested = #{interested,jdbcType=VARCHAR},
+      facebook = #{facebook,jdbcType=VARCHAR},
+      googlePlus = #{googleplus,jdbcType=VARCHAR},
       userType = #{usertype,jdbcType=VARCHAR},
-      agentName = #{agentname,jdbcType=VARCHAR},
-      agentAccount = #{agentaccount,jdbcType=VARCHAR},
-      premier = #{premier,jdbcType=INTEGER},
+      agentId = #{agentid,jdbcType=VARCHAR},
       profilePicture = #{profilepicture,jdbcType=VARCHAR},
       createTime = #{createtime,jdbcType=TIMESTAMP},
       lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
+      lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
       updateTime = #{updatetime,jdbcType=TIMESTAMP},
       loginTimes = #{logintimes,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
-    where username = #{username,jdbcType=VARCHAR},
+    where username = #{username,jdbcType=VARCHAR}
   </update>
   
   <!-- created -->

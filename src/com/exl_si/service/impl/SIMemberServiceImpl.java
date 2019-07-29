@@ -19,17 +19,17 @@ public class SIMemberServiceImpl implements SIMemberService{
 	private SIMemberMapper memberMapper;
 	
 	public ServerResponse<SIMember> query(String username) {
-		SIMember customer = memberMapper.selectByPrimaryKey(username);
-		if(customer == null)
+		SIMember member = memberMapper.selectByPrimaryKey(username);
+		if(member == null)
 			return ServerResponse.createByErrorMsg("user not found, username not exist");
-		return ServerResponse.createBySuccess(customer);
+		return ServerResponse.createBySuccess(member);
 	} 
 	
 	public ServerResponse<SIMember> login(String username, String password) {
-		SIMember customer = memberMapper.login(username, SIMemberHelper.encriptPassword(password));
-		if(customer == null)
+		SIMember member = memberMapper.login(username, SIMemberHelper.encriptPassword(password));
+		if(member == null)
 			return ServerResponse.createByErrorMsg("login fail, username or password incorrect");
-		return ServerResponse.createBySuccess(customer);
+		return ServerResponse.createBySuccess(member);
 	} 
 	
 	public ServerResponse<SIMember> save(SIMember customer) {

@@ -1,4 +1,4 @@
-package com.exl_si.db;
+package com.exl_si.generated.db;
 
 import java.util.Date;
 

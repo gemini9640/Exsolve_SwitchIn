@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.exl_si.mapper.SIMerchantMapper">
-	<resultMap id="BaseResultMap" type="com.exl_si.db.SIMerchant">
+<mapper namespace="com.exl_si.generated.dao.SIMerchantMapper">
+  <resultMap id="BaseResultMap" type="com.exl_si.generated.db.SIMerchant">
     <constructor>
-      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="companyName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="companyRegNo" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="totalStaff" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -35,16 +35,11 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, companyName, companyRegNo, 
-      totalStaff, companyType, industryType, 
-      companyAddress, expiredDateSSM, username, 
-      password, userTitle, realName, 
-      dob, companyLogo, credentialNo, 
-      credetialType, email, phone, 
-      officePhone, facebook, googlePlus, 
-      companyDiscription, createTime, lastLoginTime, 
-      lastUpdateTime, lastLoginPICType, lastLoginPICId, 
-      loginTimes, status
+    id, companyName, companyRegNo, totalStaff, companyType, industryType, companyAddress, 
+    expiredDateSSM, username, password, userTitle, realName, dob, companyLogo, credentialNo, 
+    credetialType, email, phone, officePhone, facebook, googlePlus, companyDiscription, 
+    createTime, lastLoginTime, lastUpdateTime, lastLoginPICType, lastLoginPICId, loginTimes, 
+    status
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -56,7 +51,7 @@
     delete from si_merchant
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.exl_si.db.SIMerchant">
+  <insert id="insert" parameterType="com.exl_si.generated.db.SIMerchant">
     insert into si_merchant (id, companyName, companyRegNo, 
       totalStaff, companyType, industryType, 
       companyAddress, expiredDateSSM, username, 
@@ -78,7 +73,7 @@
       #{lastupdatetime,jdbcType=TIMESTAMP}, #{lastloginpictype,jdbcType=VARCHAR}, #{lastloginpicid,jdbcType=VARCHAR}, 
       #{logintimes,jdbcType=INTEGER}, #{status,jdbcType=INTEGER})
   </insert>
-  <insert id="insertSelective" parameterType="com.exl_si.db.SIMerchant">
+  <insert id="insertSelective" parameterType="com.exl_si.generated.db.SIMerchant">
     insert into si_merchant
     <trim prefix="(" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -259,7 +254,7 @@
       </if>
     </trim>
   </insert>
-  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMerchant">
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.generated.db.SIMerchant">
     update si_merchant
     <set>
       <if test="companyname != null">
@@ -349,7 +344,7 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMerchant">
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.generated.db.SIMerchant">
     update si_merchant
     set companyName = #{companyname,jdbcType=VARCHAR},
       companyRegNo = #{companyregno,jdbcType=VARCHAR},
@@ -381,24 +376,4 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  
-  
-  <!-- created -->
-  <select id="selectAll" resultMap="BaseResultMap">
-  	 select 
-	 <include refid="Base_Column_List" />
-	 from si_merchant order by createTime
-  </select>
-  <select id="selectByKeyAndPass" parameterType="map" resultMap="BaseResultMap">
-  	 select 
-	 <include refid="Base_Column_List" />
-	 from si_merchant 
-	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR};
-  </select>
-  <select id="login" parameterType="map" resultMap="BaseResultMap">
-  	 select 
-	 <include refid="Base_Column_List" />
-	 from si_merchant 
-	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
-  </select>
 </mapper>
