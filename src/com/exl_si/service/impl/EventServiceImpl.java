@@ -7,7 +7,7 @@ import org.springframework.stereotype.Service;
 
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.Event;
-import com.exl_si.enums.StatusEnums;
+import com.exl_si.enums.EventEnums;
 import com.exl_si.mapper.EventMapper;
 import com.exl_si.service.EventService;
 import com.github.pagehelper.PageInfo;
@@ -36,7 +36,7 @@ public class EventServiceImpl implements EventService{
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	} 
 	
-	public ServerResponse updateStatus(Integer id, StatusEnums.Event status) {
+	public ServerResponse updateStatus(Integer id, EventEnums.STATUS status) {
 		if(eventMapper.updateStatus(id, status.getCode())>0)
 			return ServerResponse.createBySuccess();
 		else 

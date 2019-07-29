@@ -1,7 +1,7 @@
 package com.exl_si.mapper;
 
-import com.exl_si.generated.db.SIMerchantPIC;
-import com.exl_si.generated.db.SIMerchantPICKey;
+import com.exl_si.db.SIMerchantPIC;
+import com.exl_si.db.SIMerchantPICKey;
 
 public interface SIMerchantPICMapper {
     int deleteByPrimaryKey(SIMerchantPICKey key);

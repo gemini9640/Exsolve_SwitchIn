@@ -7,7 +7,11 @@ import org.springframework.stereotype.Service;
 
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.SIMerchant;
+import com.exl_si.db.SIMerchantDOC;
+import com.exl_si.db.SIMerchantPIC;
+import com.exl_si.mapper.SIMerchantDOCMapper;
 import com.exl_si.mapper.SIMerchantMapper;
+import com.exl_si.mapper.SIMerchantPICMapper;
 import com.exl_si.service.SIMerchantService;
 import com.exl_si.service.helper.SIMerchantHelper;
 import com.exl_si.utils.MD5Util;
@@ -18,6 +22,10 @@ import com.github.pagehelper.PageInfo;
 public class SIMerchantServiceImpl implements SIMerchantService{
 	@Autowired
 	private SIMerchantMapper merchantMapper;
+	@Autowired
+	private SIMerchantPICMapper picMapper;
+	@Autowired
+	private SIMerchantDOCMapper docMapper;
 	
 	public ServerResponse<SIMerchant> query(String username) {
 		SIMerchant merchant = merchantMapper.selectByPrimaryKey(username);
@@ -59,5 +67,27 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 			return ServerResponse.createBySuccess();
 		else 
 			return ServerResponse.createByErrorMsg("register merchant fail");
+	}
+	
+	public ServerResponse saveWithAssociated(SIMerchant merchant, SIMerchantPIC pic, List<SIMerchantDOC> docs) {
+		String merchantMsg = null;
+		String picMsg = null;
+		String docMsg = null;
+		
+		if(merchantMapper.insertSelective(merchant)<1)
+			merchantMsg = "save merchant error;";
+		
+		if(pic != null && picMapper.insertSelective(pic)<1)
+			picMsg = "save PIC error;";
+		
+		if(docs != null && docs.size()>0 && docMapper.batchInsert(docs) != docs.size())
+			docMsg = "save DOC error;";
+		
+		if(merchantMsg == null && picMsg == null && docMsg == null)
+			return ServerResponse.createBySuccess();
+		else {
+			String resultMsg = (merchantMsg==null?"":merchantMsg)+(picMsg==null?"":picMsg)+(docMsg==null?"":docMsg);
+			return ServerResponse.createByErrorMsg("save merchant fail,"+resultMsg);
+		}
 	}
 }

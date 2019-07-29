@@ -1,6 +1,8 @@
 package com.exl_si.controller.backend;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -12,6 +14,8 @@ import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.db.SIMerchant;
+import com.exl_si.db.SIMerchantDOC;
+import com.exl_si.db.SIMerchantPIC;
 import com.exl_si.enums.ResponseCode;
 import com.exl_si.service.SIMerchantService;
 import com.exl_si.utils.DateUtils;
@@ -24,7 +28,7 @@ public class SIMerchantController extends BaseController {
     private SIMerchantService merchantService;
 	
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
-    public ModelAndView add(SIMerchant merchant) {
+    public ModelAndView add(SIMerchant merchant, SIMerchantPIC pic, SIMerchantDOC doc) {
 		ModelAndView mv = new ModelAndView();
 		String errormsg = null;
 		if(StringUtils.isEmpty(merchant.getUsername()))
@@ -55,7 +59,8 @@ public class SIMerchantController extends BaseController {
 			mv.addObject("errormsg", errormsg);
 			mv.setViewName("/WEB-INF/jsp/user/merchant_detail");
 		} else {
-			ServerResponse response = merchantService.save(merchant);
+			List<SIMerchantDOC> docs = new ArrayList<SIMerchantDOC>();
+			ServerResponse response = merchantService.saveWithAssociated(merchant, pic, docs);
 			if(response.getStatus() == ResponseCode.ERROR.getCode()) {
 				mv.addObject("errormsg", response.getMsg());
 				mv.setViewName("/WEB-INF/jsp/user/merchant_detail");

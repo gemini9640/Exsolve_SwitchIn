@@ -1,15 +1,15 @@
 package com.exl_si.enums;
 
-public final class StatusEnums {
-	public enum Event {
+public final class EventEnums {
+	public enum STATUS {
 		INIT(0,"init"),
 		ACTIVE(1,"active"),
 	    EXPIRE(2,"expire");
-
+		
 	    private int code;
 	    private String desc;
 
-	    private Event(int code, String desc) {
+	    private STATUS(int code, String desc) {
 	        this.code = code;
 	        this.desc = desc;
 	    }
@@ -22,5 +22,4 @@ public final class StatusEnums {
 	        return desc;
 	    }
 	}
-	
 }

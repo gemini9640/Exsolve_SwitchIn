@@ -46,4 +46,24 @@
       </if>
     </trim>
   </insert>
+  
+	<!-- created -->
+	<insert id="batchInsert" parameterType="list">
+	    insert into si_merchant_doc 
+		(
+			merchantId, 
+			type, 
+			index, 
+      		url
+      	)
+	    values
+	    <foreach collection="items" index="index" item="item" separator=",">
+	      (
+		      #{item.merchantId},
+		      #{item.type},
+		      #{item.index},
+		      #{item.url}
+	      )
+	    </foreach>
+	  </insert>
 </mapper>
