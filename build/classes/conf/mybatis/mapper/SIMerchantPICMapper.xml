@@ -3,9 +3,9 @@
 <mapper namespace="com.exl_si.dao.SIMerchantPICMapper">
   <resultMap id="BaseResultMap" type="com.exl_si.db.SIMerchantPIC">
     <constructor>
-      <idArg column="merchantId" javaType="java.lang.String" jdbcType="VARCHAR" />
       <idArg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="merchantId" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="title" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="realName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -19,28 +19,26 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    merchantId, username, password, title, realName, email, phone, discription, createTime, 
+    username, password, merchantId, title, realName, email, phone, discription, createTime, 
     lastLoginTime, lastUpdateTime, loginTimes, status
   </sql>
-  <select id="selectByPrimaryKey" parameterType="com.exl_si.db.SIMerchantPICKey" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from si_merchant_pic
-    where merchantId = #{merchantid,jdbcType=VARCHAR}
-      and username = #{username,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="com.exl_si.db.SIMerchantPICKey">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from si_merchant_pic
-    where merchantId = #{merchantid,jdbcType=VARCHAR}
-      and username = #{username,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.exl_si.db.SIMerchantPIC">
-    insert into si_merchant_pic (merchantId, username, password, 
+    insert into si_merchant_pic (username, password, merchantId, 
       title, realName, email, 
       phone, discription, createTime, 
       lastLoginTime, lastUpdateTime, loginTimes, 
       status)
-    values (#{merchantid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
+    values (#{username,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, #{merchantid,jdbcType=VARCHAR}, 
       #{title,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, 
       #{phone,jdbcType=VARCHAR}, #{discription,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, 
       #{lastlogintime,jdbcType=TIMESTAMP}, #{lastupdatetime,jdbcType=TIMESTAMP}, #{logintimes,jdbcType=INTEGER}, 
@@ -49,14 +47,14 @@
   <insert id="insertSelective" parameterType="com.exl_si.db.SIMerchantPIC">
     insert into si_merchant_pic
     <trim prefix="(" suffix=")" suffixOverrides=",">
-      <if test="merchantid != null">
-        merchantId,
-      </if>
       <if test="username != null">
         username,
       </if>
       <if test="password != null">
         password,
+      </if>
+      <if test="merchantid != null">
+        merchantId,
       </if>
       <if test="title != null">
         title,
@@ -90,14 +88,14 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
-      <if test="merchantid != null">
-        #{merchantid,jdbcType=VARCHAR},
-      </if>
       <if test="username != null">
         #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantid != null">
+        #{merchantid,jdbcType=VARCHAR},
       </if>
       <if test="title != null">
         #{title,jdbcType=VARCHAR},
@@ -137,6 +135,9 @@
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
+      <if test="merchantid != null">
+        merchantId = #{merchantid,jdbcType=VARCHAR},
+      </if>
       <if test="title != null">
         title = #{title,jdbcType=VARCHAR},
       </if>
@@ -168,12 +169,12 @@
         status = #{status,jdbcType=INTEGER},
       </if>
     </set>
-    where merchantId = #{merchantid,jdbcType=VARCHAR}
-      and username = #{username,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMerchantPIC">
     update si_merchant_pic
     set password = #{password,jdbcType=VARCHAR},
+      merchantId = #{merchantid,jdbcType=VARCHAR},
       title = #{title,jdbcType=VARCHAR},
       realName = #{realname,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
@@ -184,7 +185,6 @@
       lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
       loginTimes = #{logintimes,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER}
-    where merchantId = #{merchantid,jdbcType=VARCHAR}
-      and username = #{username,jdbcType=VARCHAR}
+    where username = #{username,jdbcType=VARCHAR}
   </update>
 </mapper>

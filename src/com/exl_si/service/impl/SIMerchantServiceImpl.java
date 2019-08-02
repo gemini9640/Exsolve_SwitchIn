@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
@@ -12,8 +13,10 @@ import com.exl_si.db.SIMerchantPIC;
 import com.exl_si.mapper.SIMerchantDOCMapper;
 import com.exl_si.mapper.SIMerchantMapper;
 import com.exl_si.mapper.SIMerchantPICMapper;
+import com.exl_si.mapper.SequenceNoMapper;
 import com.exl_si.service.SIMerchantService;
 import com.exl_si.service.helper.SIMerchantHelper;
+import com.exl_si.service.helper.SequenceNoHelper;
 import com.exl_si.utils.MD5Util;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
@@ -26,6 +29,8 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 	private SIMerchantPICMapper picMapper;
 	@Autowired
 	private SIMerchantDOCMapper docMapper;
+	@Autowired
+	private SequenceNoMapper sequenceNoMapper;
 	
 	public ServerResponse<SIMerchant> query(String username) {
 		SIMerchant merchant = merchantMapper.selectByPrimaryKey(username);
@@ -74,14 +79,23 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		String picMsg = null;
 		String docMsg = null;
 		
+		int totalMerchant = SequenceNoHelper.getTotalMerchant(sequenceNoMapper)+1;
+		merchant.setId(Constants.IdPrefix.SI_MERCHANT+totalMerchant);
 		if(merchantMapper.insertSelective(merchant)<1)
 			merchantMsg = "save merchant error;";
 		
-		if(pic != null && picMapper.insertSelective(pic)<1)
-			picMsg = "save PIC error;";
+		if(pic != null) {
+			pic.setMerchantid(merchant.getId());
+			if(picMapper.insertSelective(pic)<1)
+				picMsg = "save PIC error;";
+		}
 		
-		if(docs != null && docs.size()>0 && docMapper.batchInsert(docs) != docs.size())
-			docMsg = "save DOC error;";
+		if(docs != null) {
+			for(SIMerchantDOC doc : docs)
+				doc.setMerchantid(merchant.getId());
+			if(docs.size()<1 || docMapper.batchInsert(docs) != docs.size())
+				docMsg = "save DOC error;";
+		}	
 		
 		if(merchantMsg == null && picMsg == null && docMsg == null)
 			return ServerResponse.createBySuccess();

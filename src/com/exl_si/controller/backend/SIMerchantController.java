@@ -13,6 +13,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
+import com.exl_si.controller.vo.SIMerchantReturnMsg;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
@@ -29,12 +30,11 @@ public class SIMerchantController extends BaseController {
 	
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
     public ModelAndView add(SIMerchant merchant, SIMerchantPIC pic, SIMerchantDOC doc) {
+		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
 		ModelAndView mv = new ModelAndView();
 		String errormsg = null;
 		if(StringUtils.isEmpty(merchant.getUsername()))
-			errormsg = "username cannot be empty";
-//		if(StringUtils.isEmpty(merchant.getPassword()))
-//			return ServerResponse.createByErrorMsg("password cannot be empty");
+			returnMsg.setUsername("username cannot be empty");
 //		else if(StringUtils.isEmpty(merchant.getFullName()))
 //			errormsg = "full name cannot be empty";
 //		else if(StringUtils.isEmpty(merchant.getEmail()))
@@ -56,7 +56,7 @@ public class SIMerchantController extends BaseController {
 		merchant.setStatus(Constants.Flag.ENABLE);
 			
 		if(errormsg != null) {
-			mv.addObject("errormsg", errormsg);
+			mv.addObject("returnMsg", returnMsg);
 			mv.setViewName("/WEB-INF/jsp/user/merchant_detail");
 		} else {
 			List<SIMerchantDOC> docs = new ArrayList<SIMerchantDOC>();
@@ -70,4 +70,14 @@ public class SIMerchantController extends BaseController {
 		}
 		return mv;
     }
+	
+	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
+    public ModelAndView edit(SIMerchant merchant, SIMerchantPIC pic, SIMerchantDOC doc) {
+		
+	}
+	
+	@RequestMapping(value = "editPassword.do", method = RequestMethod.POST)
+    public ModelAndView editPassword(String password, String confirmPassword) {
+		
+	}
 }

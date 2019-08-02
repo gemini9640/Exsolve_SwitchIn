@@ -2,8 +2,12 @@ package com.exl_si.db;
 
 import java.util.Date;
 
-public class SIMerchantPIC extends SIMerchantPICKey {
+public class SIMerchantPIC {
+    private String username;
+
     private String password;
+
+    private String merchantid;
 
     private String title;
 
@@ -25,9 +29,10 @@ public class SIMerchantPIC extends SIMerchantPICKey {
 
     private Integer status;
 
-    public SIMerchantPIC(String merchantid, String username, String password, String title, String realname, String email, String phone, String discription, Date createtime, Date lastlogintime, Date lastupdatetime, Integer logintimes, Integer status) {
-        super(merchantid, username);
+    public SIMerchantPIC(String username, String password, String merchantid, String title, String realname, String email, String phone, String discription, Date createtime, Date lastlogintime, Date lastupdatetime, Integer logintimes, Integer status) {
+        this.username = username;
         this.password = password;
+        this.merchantid = merchantid;
         this.title = title;
         this.realname = realname;
         this.email = email;
@@ -44,12 +49,28 @@ public class SIMerchantPIC extends SIMerchantPICKey {
         super();
     }
 
+    public String getUsername() {
+        return username;
+    }
+
+    public void setUsername(String username) {
+        this.username = username == null ? null : username.trim();
+    }
+
     public String getPassword() {
         return password;
     }
 
     public void setPassword(String password) {
         this.password = password == null ? null : password.trim();
+    }
+
+    public String getMerchantid() {
+        return merchantid;
+    }
+
+    public void setMerchantid(String merchantid) {
+        this.merchantid = merchantid == null ? null : merchantid.trim();
     }
 
     public String getTitle() {
@@ -138,7 +159,9 @@ public class SIMerchantPIC extends SIMerchantPICKey {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", username=").append(username);
         sb.append(", password=").append(password);
+        sb.append(", merchantid=").append(merchantid);
         sb.append(", title=").append(title);
         sb.append(", realname=").append(realname);
         sb.append(", email=").append(email);
