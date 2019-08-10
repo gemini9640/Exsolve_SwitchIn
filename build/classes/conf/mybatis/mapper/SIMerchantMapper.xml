@@ -18,7 +18,7 @@
       <arg column="dob" javaType="java.util.Date" jdbcType="DATE" />
       <arg column="companyLogo" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="credentialNo" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="credetialType" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="credentialType" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="phone" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="officePhone" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -40,7 +40,7 @@
       companyAddress, expiredDateSSM, username, 
       password, userTitle, realName, 
       dob, companyLogo, credentialNo, 
-      credetialType, email, phone, 
+      credentialType, email, phone, 
       officePhone, facebook, googlePlus, 
       companyDiscription, createTime, lastLoginTime, 
       lastUpdateTime, lastLoginPICType, lastLoginPICId, 
@@ -62,7 +62,7 @@
       companyAddress, expiredDateSSM, username, 
       password, userTitle, realName, 
       dob, companyLogo, credentialNo, 
-      credetialType, email, phone, 
+      credentialType, email, phone, 
       officePhone, facebook, googlePlus, 
       companyDiscription, createTime, lastLoginTime, 
       lastUpdateTime, lastLoginPICType, lastLoginPICId, 
@@ -72,7 +72,7 @@
       #{companyaddress,jdbcType=VARCHAR}, #{expireddatessm,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{usertitle,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
       #{dob,jdbcType=DATE}, #{companylogo,jdbcType=VARCHAR}, #{credentialno,jdbcType=VARCHAR}, 
-      #{credetialtype,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
+      #{credentialtype,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{officephone,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, #{googleplus,jdbcType=VARCHAR}, 
       #{companydiscription,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastlogintime,jdbcType=TIMESTAMP}, 
       #{lastupdatetime,jdbcType=TIMESTAMP}, #{lastloginpictype,jdbcType=VARCHAR}, #{lastloginpicid,jdbcType=VARCHAR}, 
@@ -126,8 +126,8 @@
       <if test="credentialno != null">
         credentialNo,
       </if>
-      <if test="credetialtype != null">
-        credetialType,
+      <if test="credentialtype != null">
+        credentialType,
       </if>
       <if test="email != null">
         email,
@@ -215,8 +215,8 @@
       <if test="credentialno != null">
         #{credentialno,jdbcType=VARCHAR},
       </if>
-      <if test="credetialtype != null">
-        #{credetialtype,jdbcType=VARCHAR},
+      <if test="credentialtype != null">
+        #{credentialtype,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         #{email,jdbcType=VARCHAR},
@@ -304,8 +304,8 @@
       <if test="credentialno != null">
         credentialNo = #{credentialno,jdbcType=VARCHAR},
       </if>
-      <if test="credetialtype != null">
-        credetialType = #{credetialtype,jdbcType=VARCHAR},
+      <if test="credentialtype != null">
+        credentialType = #{credentialtype,jdbcType=VARCHAR},
       </if>
       <if test="email != null">
         email = #{email,jdbcType=VARCHAR},
@@ -365,7 +365,7 @@
       dob = #{dob,jdbcType=DATE},
       companyLogo = #{companylogo,jdbcType=VARCHAR},
       credentialNo = #{credentialno,jdbcType=VARCHAR},
-      credetialType = #{credetialtype,jdbcType=VARCHAR},
+      credentialType = #{credentialType,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},
       phone = #{phone,jdbcType=VARCHAR},
       officePhone = #{officephone,jdbcType=VARCHAR},
@@ -387,13 +387,32 @@
   <select id="selectAll" resultMap="BaseResultMap">
   	 select 
 	 <include refid="Base_Column_List" />
-	 from si_merchant order by createTime
+	 from si_merchant order by createTime desc
   </select>
-  <select id="selectByKeyAndPass" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByPropertiesSelelcttives" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_merchant 
+	 where 1 = 1
+	 <if test="start != null">
+	   and createTime <![CDATA[ >= ]]> #{start,jdbcType=TIMESTAMP} 
+     </if> 
+     <if test="end != null"> 
+       and createTime <![CDATA[ <= ]]> #{end,jdbcType=TIMESTAMP}
+     </if>
+	 order by createTime desc
+  </select>
+  <select id="selectByUsernameAndPass" parameterType="map" resultMap="BaseResultMap">
   	 select 
 	 <include refid="Base_Column_List" />
 	 from si_merchant 
 	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR};
+  </select>
+  <select id="selectByUsername" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_merchant 
+	 where username = #{username,jdbcType=VARCHAR};
   </select>
   <select id="login" parameterType="map" resultMap="BaseResultMap">
   	 select 

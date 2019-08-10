@@ -33,7 +33,7 @@ public class SIMerchant {
 
     private String credentialno;
 
-    private String credetialtype;
+    private String credentialtype;
 
     private String email;
 
@@ -61,7 +61,7 @@ public class SIMerchant {
 
     private Integer status;
 
-    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, Date expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String credentialno, String credetialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Date createtime, Date lastlogintime, Date lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status) {
+    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, Date expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String credentialno, String credentialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Date createtime, Date lastlogintime, Date lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status) {
         this.id = id;
         this.companyname = companyname;
         this.companyregno = companyregno;
@@ -77,7 +77,7 @@ public class SIMerchant {
         this.dob = dob;
         this.companylogo = companylogo;
         this.credentialno = credentialno;
-        this.credetialtype = credetialtype;
+        this.credentialtype = credentialtype;
         this.email = email;
         this.phone = phone;
         this.officephone = officephone;
@@ -217,12 +217,12 @@ public class SIMerchant {
         this.credentialno = credentialno == null ? null : credentialno.trim();
     }
 
-    public String getCredetialtype() {
-        return credetialtype;
+    public String getCredentialtype() {
+        return credentialtype;
     }
 
-    public void setCredetialtype(String credetialtype) {
-        this.credetialtype = credetialtype == null ? null : credetialtype.trim();
+    public void setCredetialtype(String credentialtype) {
+        this.credentialtype = credentialtype == null ? null : credentialtype.trim();
     }
 
     public String getEmail() {
@@ -350,7 +350,7 @@ public class SIMerchant {
         sb.append(", dob=").append(dob);
         sb.append(", companylogo=").append(companylogo);
         sb.append(", credentialno=").append(credentialno);
-        sb.append(", credetialtype=").append(credetialtype);
+        sb.append(", credentialtype=").append(credentialtype);
         sb.append(", email=").append(email);
         sb.append(", phone=").append(phone);
         sb.append(", officephone=").append(officephone);

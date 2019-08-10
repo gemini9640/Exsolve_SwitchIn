@@ -9,11 +9,13 @@ public interface SIMemberService {
 	
 	public ServerResponse<SIMember> login(String username, String password);
 	
-	public ServerResponse<SIMember> save(SIMember customer);
+	public ServerResponse<SIMember> save(SIMember member);
 	
 	public ServerResponse<PageInfo> selectByPageNumAndPageSize(Integer pageNum, Integer pageSize);
 	
-	public ServerResponse update(SIMember customer);
+	public ServerResponse update(SIMember member);
 	
 	public ServerResponse changePassword(String username, String oldPass, String newPass);
+	
+	public ServerResponse changePasswordWithoutCheckPassword(String username, String password);
 }

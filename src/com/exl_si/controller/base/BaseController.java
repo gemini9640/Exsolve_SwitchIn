@@ -22,16 +22,16 @@ public class BaseController {
 	protected Logger logger = Logger.getLogger(this.getClass());
 
 	
-	public SIMember getSessionCustomer() {
-		Object o = getSession().getAttribute(Constants.CUSTOMER_SESSION);
+	public SIMember getSessionMember() {
+		Object o = getSession().getAttribute(Constants.MEMBER_SESSION);
 		if(o == null)
 			return null;
 		else 
 			return (SIMember) o;
 	}
 	
-	public SIMerchant getSessionStaff() {
-		Object o = getSession().getAttribute(Constants.STAFF_SESSION);
+	public SIMerchant getSessionMerchant() {
+		Object o = getSession().getAttribute(Constants.MERCHANT_SESSION);
 		if(o == null)
 			return null;
 		else 

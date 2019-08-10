@@ -187,4 +187,12 @@
       status = #{status,jdbcType=INTEGER}
     where username = #{username,jdbcType=VARCHAR}
   </update>
+  
+	<!-- created -->
+  <select id="selectByMerchantId" parameterType="java.lang.String" resultType="list">
+    select 
+    <include refid="Base_Column_List" />
+    from si_merchant_pic
+    where merchantId = #{merchantId,jdbcType=VARCHAR}
+  </select>
 </mapper>

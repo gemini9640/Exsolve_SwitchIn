@@ -1,6 +1,7 @@
 package com.exl_si.common;
 import java.io.Serializable;
 
+import com.exl_si.controller.vo.ReturnMsg;
 import com.exl_si.enums.ResponseCode;
 //import com.fasterxml.jackson.annotation.JsonInclude;
 //import org.codehaus.jackson.annotate.JsonIgnore;
@@ -41,11 +42,27 @@ public class ServerResponse<T> implements Serializable {
     public static <T> ServerResponse<T> createByErrorMsg(String errorMsg) {
         return new ServerResponse<T>(ResponseCode.ERROR.getCode(), errorMsg);
     }
+    
+    public static ServerResponse<ReturnMsg> createByErrorMsg(ReturnMsg returnMsg) {
+        return new ServerResponse<ReturnMsg>(ResponseCode.ERROR.getCode(), returnMsg);
+    }
+    
+    public static ServerResponse<ReturnMsg> createByErrorCodeMsg(ResponseCode errorCode, String errorMsg) {
+        return new ServerResponse<ReturnMsg>(errorCode.getCode(), errorMsg);
+    }
+    
+    public static ServerResponse<ReturnMsg> createByErrorCodeMsg(ResponseCode errorCode, ReturnMsg returnMsg) {
+        return new ServerResponse<ReturnMsg>(errorCode.getCode(), returnMsg);
+    }
 
     public static <T> ServerResponse<T> createByErrorCodeMsg(int errorCode, String errorMsg) {
         return new ServerResponse<T>(errorCode, errorMsg);
     }
 
+    public static <T> ServerResponse<T> createByServerError(String errorMsg) {
+        return new ServerResponse<T>(ResponseCode.ERROR_SERVER.getCode(), errorMsg);
+    }
+    
     private Integer status;
     private String msg;
     private T data;

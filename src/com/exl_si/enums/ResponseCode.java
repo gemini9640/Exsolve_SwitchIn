@@ -2,8 +2,10 @@ package com.exl_si.enums;
 
 public enum ResponseCode {
 	SUCCESS(0,"SUCCESS"),
-    ERROR(1,"server error, try again later"),
-    ILLIGAL_ARGUMENT(2,"ILLIGAL_ARGUMENT"),
+	ERROR(1,"error code[1]"),
+    ERROR_SERVER(2,"service error, try again later"),
+    ERROR_PARAM(3,"input parameter error, please check the input"),
+    ILLIGAL_ARGUMENT(4,"ILLIGAL_ARGUMENT"),
     NEED_LOGIN(10,"NEED_LOGIN");
 
     private int code;

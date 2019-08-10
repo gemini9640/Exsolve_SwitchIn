@@ -1,19 +1,27 @@
 package com.exl_si.db;
 
-public class SIMerchantDOC {
+import com.exl_si.db.vo.SubFile;
+
+public class SIMerchantDOC extends SubFile{
     private String merchantid;
 
     private String type;
 
     private Integer index;
 
-    private String url;
+    private String nameOld;
 
-    public SIMerchantDOC(String merchantid, String type, Integer index, String url) {
+    private String nameNew;
+
+    private String path;
+
+    public SIMerchantDOC(String merchantid, String type, Integer index, String nameOld, String nameNew, String path) {
         this.merchantid = merchantid;
         this.type = type;
         this.index = index;
-        this.url = url;
+        this.nameOld = nameOld;
+        this.nameNew = nameNew;
+        this.path = path;
     }
 
     public SIMerchantDOC() {
@@ -44,12 +52,28 @@ public class SIMerchantDOC {
         this.index = index;
     }
 
-    public String getUrl() {
-        return url;
+    public String getNameOld() {
+        return nameOld;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setNameOld(String nameOld) {
+        this.nameOld = nameOld == null ? null : nameOld.trim();
+    }
+
+    public String getNameNew() {
+        return nameNew;
+    }
+
+    public void setNameNew(String nameNew) {
+        this.nameNew = nameNew == null ? null : nameNew.trim();
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path == null ? null : path.trim();
     }
 
     @Override
@@ -61,7 +85,9 @@ public class SIMerchantDOC {
         sb.append(", merchantid=").append(merchantid);
         sb.append(", type=").append(type);
         sb.append(", index=").append(index);
-        sb.append(", url=").append(url);
+        sb.append(", nameOld=").append(nameOld);
+        sb.append(", nameNew=").append(nameNew);
+        sb.append(", path=").append(path);
         sb.append("]");
         return sb.toString();
     }

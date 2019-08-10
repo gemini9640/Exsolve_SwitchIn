@@ -24,4 +24,6 @@ public interface SIMemberMapper {
     SIMember login(@Param("username")String id, @Param("password")String password);
     
     SIMember selectByKeyAndPass(@Param("username")String username, @Param("password")String password);
+    
+    SIMember selectByUsername(@Param("username")String username);
 }

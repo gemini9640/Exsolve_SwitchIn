@@ -22,7 +22,7 @@ public class DateUtils extends org.apache.commons.lang.time.DateUtils {
 	private static SimpleDateFormat yyyy_MM_dd = new SimpleDateFormat("yyyy-MM-dd");
 	private static SimpleDateFormat HH_MM_SS = new SimpleDateFormat("HH:mm:ss");
 	private static GregorianCalendar grc = new GregorianCalendar();
-	private static SimpleDateFormat standardFmtRemoteDetails = new SimpleDateFormat("MM/dd/yyyy HH:mm:ss");
+	private static SimpleDateFormat standardFmtRemoteDetails = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss");
 	private static SimpleDateFormat yyMMddHH = new SimpleDateFormat("yyMMddHH");
 	private static SimpleDateFormat HH = new SimpleDateFormat("HH");
 	private static SimpleDateFormat mm = new SimpleDateFormat("mm");

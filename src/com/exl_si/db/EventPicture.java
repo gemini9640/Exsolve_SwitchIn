@@ -1,19 +1,27 @@
 package com.exl_si.db;
 
-public class EventPicture {
+import com.exl_si.db.vo.SubFile;
+
+public class EventPicture extends SubFile{
     private Integer eventId;
 
     private String type;
 
     private Integer index;
 
-    private String url;
+    private String nameOld;
 
-    public EventPicture(Integer eventId, String type, Integer index, String url) {
+    private String nameNew;
+
+    private String path;
+
+    public EventPicture(Integer eventId, String type, Integer index, String nameOld, String nameNew, String path) {
         this.eventId = eventId;
         this.type = type;
         this.index = index;
-        this.url = url;
+        this.nameOld = nameOld;
+        this.nameNew = nameNew;
+        this.path = path;
     }
 
     public EventPicture() {
@@ -44,12 +52,28 @@ public class EventPicture {
         this.index = index;
     }
 
-    public String getUrl() {
-        return url;
+    public String getNameOld() {
+        return nameOld;
     }
 
-    public void setUrl(String url) {
-        this.url = url == null ? null : url.trim();
+    public void setNameOld(String nameOld) {
+        this.nameOld = nameOld == null ? null : nameOld.trim();
+    }
+
+    public String getNameNew() {
+        return nameNew;
+    }
+
+    public void setNameNew(String nameNew) {
+        this.nameNew = nameNew == null ? null : nameNew.trim();
+    }
+
+    public String getPath() {
+        return path;
+    }
+
+    public void setPath(String path) {
+        this.path = path == null ? null : path.trim();
     }
 
     @Override
@@ -61,7 +85,9 @@ public class EventPicture {
         sb.append(", eventId=").append(eventId);
         sb.append(", type=").append(type);
         sb.append(", index=").append(index);
-        sb.append(", url=").append(url);
+        sb.append(", nameOld=").append(nameOld);
+        sb.append(", nameNew=").append(nameNew);
+        sb.append(", path=").append(path);
         sb.append("]");
         return sb.toString();
     }

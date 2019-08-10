@@ -1,6 +1,20 @@
 package com.exl_si.controller.vo;
 
-public class SIMerchantReturnMsg {
+public class SIMerchantReturnMsg extends ReturnMsg{
+	/**
+	 * todo
+	 */
+	public boolean validatedForNew() {
+		return false;
+	}
+	
+	/**
+	 * todo
+	 */
+	public boolean validatedForEdit() {
+		return false;
+	}
+	
 	private String companyname;
 	private String companyregno;
 	private String totalstaff;

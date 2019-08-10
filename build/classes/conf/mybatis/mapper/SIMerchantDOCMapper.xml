@@ -1,19 +1,26 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
-<mapper namespace="com.exl_si.dao.SIMerchantDOCMapper">
+<mapper namespace="com.exl_si.mapper.SIMerchantDOCMapper">
   <resultMap id="BaseResultMap" type="com.exl_si.db.SIMerchantDOC">
     <constructor>
       <arg column="merchantId" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="index" javaType="java.lang.Integer" jdbcType="INTEGER" />
-      <arg column="url" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="path" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="name_old" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="name_new" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
+  <sql id="Base_Column_List">
+    merchantId, type, index, path, name_old, name_new
+  </sql>
   <insert id="insert" parameterType="com.exl_si.db.SIMerchantDOC">
     insert into si_merchant_doc (merchantId, type, index, 
-      url)
+      path, name_old, name_new
+      )
     values (#{merchantid,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, #{index,jdbcType=INTEGER}, 
-      #{url,jdbcType=VARCHAR})
+      #{path,jdbcType=VARCHAR}, #{nameOld,jdbcType=VARCHAR}, #{nameNew,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.SIMerchantDOC">
     insert into si_merchant_doc
@@ -27,8 +34,14 @@
       <if test="index != null">
         index,
       </if>
-      <if test="url != null">
-        url,
+      <if test="path != null">
+        path,
+      </if>
+      <if test="nameOld != null">
+        name_old,
+      </if>
+      <if test="nameNew != null">
+        name_new,
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
@@ -41,8 +54,14 @@
       <if test="index != null">
         #{index,jdbcType=INTEGER},
       </if>
-      <if test="url != null">
-        #{url,jdbcType=VARCHAR},
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+      <if test="nameOld != null">
+        #{nameOld,jdbcType=VARCHAR},
+      </if>
+      <if test="nameNew != null">
+        #{nameNew,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -54,7 +73,9 @@
 			merchantId, 
 			type, 
 			index, 
-      		url
+      		path,
+      		name_old,
+      		name_new
       	)
 	    values
 	    <foreach collection="items" index="index" item="item" separator=",">
@@ -62,8 +83,16 @@
 		      #{item.merchantId},
 		      #{item.type},
 		      #{item.index},
-		      #{item.url}
+		      #{item.path},
+		      #{item.name_old},
+		      #{item.name_new}
 	      )
 	    </foreach>
-	  </insert>
+	</insert>
+	<select id="selectByMerchantId" parameterType="java.lang.String" resultType="list">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from si_merchant_doc
+	    where merchantId = #{merchantId,jdbcType=VARCHAR}
+	</select>
 </mapper>

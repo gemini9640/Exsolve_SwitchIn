@@ -323,4 +323,10 @@
 	 from si_member 
 	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR}
   </select>
+  <select id="selectByUsername" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_member 
+	 where username = #{username,jdbcType=VARCHAR};
+  </select>
 </mapper>

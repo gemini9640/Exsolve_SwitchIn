@@ -8,7 +8,7 @@ public class Event {
 
     private String eventname;
 
-    private String merchantname;
+    private String merchantId;
 
     private Date createtime;
 
@@ -44,10 +44,10 @@ public class Event {
 
     private String remark;
 
-    public Event(Integer id, String eventname, String merchantname, Date createtime, Date startdate, Date enddate, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark) {
+    public Event(Integer id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark) {
         this.id = id;
         this.eventname = eventname;
-        this.merchantname = merchantname;
+        this.merchantId = merchantId;
         this.createtime = createtime;
         this.startdate = startdate;
         this.enddate = enddate;
@@ -87,12 +87,12 @@ public class Event {
         this.eventname = eventname == null ? null : eventname.trim();
     }
 
-    public String getMerchantname() {
-        return merchantname;
+    public String getMerchantId() {
+        return merchantId;
     }
 
-    public void setMerchantname(String merchantname) {
-        this.merchantname = merchantname == null ? null : merchantname.trim();
+    public void setMerchantId(String merchantId) {
+        this.merchantId = merchantId == null ? null : merchantId.trim();
     }
 
     public Date getCreatetime() {
@@ -239,7 +239,7 @@ public class Event {
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
         sb.append(", eventname=").append(eventname);
-        sb.append(", merchantname=").append(merchantname);
+        sb.append(", merchantId=").append(merchantId);
         sb.append(", createtime=").append(createtime);
         sb.append(", startdate=").append(startdate);
         sb.append(", enddate=").append(enddate);

@@ -19,7 +19,7 @@ public interface EventMapper {
 
     int updateByPrimaryKey(Event record);
     
-    List<Event> selectByMerchant(String merchantName);
+    List<Event> selectByMerchant(String merchantId);
     
     int updateStatus(@Param("id")Integer id, @Param("status")Integer status);
 }

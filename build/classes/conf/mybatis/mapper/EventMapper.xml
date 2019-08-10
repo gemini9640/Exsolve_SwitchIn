@@ -5,7 +5,7 @@
   <constructor>
       <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="eventName" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="merchantName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="merchantId" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="startDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="endDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -26,7 +26,7 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, eventName, merchantName, createtime, startDate, endDate, Tagline, price, updateTime, 
+    id, eventName, merchantId, createtime, startDate, endDate, Tagline, price, updateTime, 
     csPhone, location, address, map, maxpax, maxpaxPerRegister, status, comment, description, 
     reminder, remark
   </sql>
@@ -41,14 +41,14 @@
     where id = #{id,jdbcType=INTEGER}
   </delete>
   <insert id="insert" parameterType="com.exl_si.db.Event">
-    insert into event (id, eventName, merchantName, 
+    insert into event (id, eventName, merchantId, 
       createtime, startDate, endDate, 
       Tagline, price, updateTime, 
       csPhone, location, address, 
       map, maxpax, maxpaxPerRegister, 
       status, comment, description, 
       reminder, remark)
-    values (#{id,jdbcType=INTEGER}, #{eventname,jdbcType=VARCHAR}, #{merchantname,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=INTEGER}, #{eventname,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
       #{tagline,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{csphone,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
@@ -65,8 +65,8 @@
       <if test="eventname != null">
         eventName,
       </if>
-      <if test="merchantname != null">
-        merchantName,
+      <if test="merchantId != null">
+        merchantId,
       </if>
       <if test="createtime != null">
         createtime,
@@ -127,8 +127,8 @@
       <if test="eventname != null">
         #{eventname,jdbcType=VARCHAR},
       </if>
-      <if test="merchantname != null">
-        #{merchantname,jdbcType=VARCHAR},
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
         #{createtime,jdbcType=TIMESTAMP},
@@ -189,8 +189,8 @@
       <if test="eventname != null">
         eventName = #{eventname,jdbcType=VARCHAR},
       </if>
-      <if test="merchantname != null">
-        merchantName = #{merchantname,jdbcType=VARCHAR},
+      <if test="merchantId != null">
+        merchantId = #{merchantId,jdbcType=VARCHAR},
       </if>
       <if test="createtime != null">
         createtime = #{createtime,jdbcType=TIMESTAMP},
@@ -249,7 +249,7 @@
   <update id="updateByPrimaryKey" parameterType="com.exl_si.db.Event">
     update event
     set eventName = #{eventname,jdbcType=VARCHAR},
-      merchantName = #{merchantname,jdbcType=VARCHAR},
+      merchantId = #{merchantId,jdbcType=VARCHAR},
       createtime = #{createtime,jdbcType=TIMESTAMP},
       startDate = #{startdate,jdbcType=TIMESTAMP},
       endDate = #{enddate,jdbcType=TIMESTAMP},
@@ -275,7 +275,7 @@
   <select id="selectByMerchant" parameterType="java.lang.String" resultMap="BaseResultMap">
   	 select 
 	 <include refid="Base_Column_List" />
-	 from event where merchantName = #{merchantname,jdbcType=VARCHAR}
+	 from event where merchantId = #{merchantId,jdbcType=VARCHAR}
   </select>
   
   <update id="updateStatus" parameterType="map">
