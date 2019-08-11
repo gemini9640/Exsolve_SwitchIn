@@ -9,9 +9,6 @@ import org.springframework.web.servlet.ModelAndView;
 @Controller
 public class HomeController {
 	
-	
-	
-	
 	@RequestMapping(value="/user/merchant/list.htm")
 	public ModelAndView merchant_list(){
 		return new ModelAndView("user/merchant/list");
@@ -30,5 +27,25 @@ public class HomeController {
 	@RequestMapping(value="/user/member/add.htm")
 	public ModelAndView member_add(){
 		return new ModelAndView("user/member/create");
+	}
+	
+	@RequestMapping(value="/user/exlagent/list.htm")
+	public ModelAndView exl_agent_list(){
+		return new ModelAndView("user/exl_agent/list");
+	}
+	
+	@RequestMapping(value="/user/exlagent/add.htm")
+	public ModelAndView exl_agent_add(){
+		return new ModelAndView("user/exl_agent/create");
+	}
+	
+	@RequestMapping(value="/user/exlclient/list.htm")
+	public ModelAndView exl_client_list(){
+		return new ModelAndView("user/exl_client/list");
+	}
+	
+	@RequestMapping(value="/user/exlclient/add.htm")
+	public ModelAndView exl_client_add(){
+		return new ModelAndView("user/exl_client/create");
 	}
 }

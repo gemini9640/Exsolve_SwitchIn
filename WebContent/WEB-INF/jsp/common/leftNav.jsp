@@ -41,14 +41,14 @@
 					<b class="arrow"></b>
 				</li>
 				<li class="">
-					<a href="tables-ExL-Agent.html">
+					<a href="${base}user/exlagent/list.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						ExL-Agent
 					</a>
 					<b class="arrow"></b>
 				</li>
 				<li class="">
-					<a href="tables-ExL-Client.html">
+					<a href="${base}user/exlclient/list.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						ExL-Client
 					</a>

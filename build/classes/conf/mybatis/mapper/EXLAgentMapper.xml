@@ -307,4 +307,17 @@
 	 from exl_agent 
 	 where username = #{username,jdbcType=VARCHAR};
   </select>
+  <select id="selectByPropertiesSelelctives" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from exl_agent 
+	 where 1 = 1
+	 <if test="start != null">
+	   and createTime <![CDATA[ >= ]]> #{start,jdbcType=TIMESTAMP} 
+     </if> 
+     <if test="end != null"> 
+       and createTime <![CDATA[ <= ]]> #{end,jdbcType=TIMESTAMP}
+     </if>
+	 order by createTime desc
+  </select>
 </mapper>

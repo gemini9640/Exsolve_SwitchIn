@@ -61,11 +61,11 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																</div>
 																<div class="vspace-12-sm"></div>
 																<div class="col-xs-12 col-sm-10">
-																	<div class="form-group has-error">
+																	<div class="form-group "> <!--error class has-error -->
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-companyname">Company Name</label>
 																		<div class="col-sm-10">
 																			<input name="merchant.companyname" class="col-xs-12 col-sm-10" type="text" id="form-field-companyname" placeholder="" value="" />
-																			<div class="help-block col-xs-12 col-sm-reset inline">* Please Enter Company Name.</div>
+<!-- 																			<div class="help-block col-xs-12 col-sm-reset inline">* Please Enter Company Name.</div> -->
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -276,70 +276,72 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<div class="checkbox">
 																	<label class="col-sm-7 control-label no-padding-right" >
 																	<div class="col-sm-8">
-																	<input name="form-field-checkbox" type="checkbox" class="ace">
+																		<input onchange="switchPICSection(this);" name="form-field-checkbox" type="checkbox" class="ace">
 																		<span class="lbl">Same as the director’s info</span>
 																	</div>
 																	</label>
 																</div>
 															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-select-1">Title</label>
-																<div class="col-sm-2">
-																	<select class="form-control" id="form-field-select-1">
-																		<option value="AL">Mr.</option>
-																		<option value="AK">Mrs.</option>
-																		<option value="AZ">Mdm</option>
-																		<option value="AK">Ms.</option>
-																		<option value="AZ">Dr.</option>
-																		<option value="AK">Others</option>
-																	</select>
+															<div class="merchant_pic_form">
+																<div class="form-group">
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-select-1">Title</label>
+																	<div class="col-sm-2">
+																		<select class="form-control" id="form-field-select-1">
+																			<option value="AL">Mr.</option>
+																			<option value="AK">Mrs.</option>
+																			<option value="AZ">Mdm</option>
+																			<option value="AK">Ms.</option>
+																			<option value="AZ">Dr.</option>
+																			<option value="AK">Others</option>
+																		</select>
+																	</div>
 																</div>
-															</div>
-															<div class="form-group hide">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Others</label>
-																<div class="col-sm-9">
-																	<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																<div class="form-group hide">
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Others</label>
+																	<div class="col-sm-9">
+																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																	</div>
 																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Name</label>
-																<div class="col-sm-9">
-																	<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																<div class="form-group">
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Name</label>
+																	<div class="col-sm-9">
+																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																	</div>
 																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Designation</label>
-																<div class="col-sm-9">
-																	<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																<div class="form-group">
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Designation</label>
+																	<div class="col-sm-9">
+																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																	</div>
 																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input type="email" id="form-field-email" value="" />
-																		<i class="ace-icon fa fa-envelope"></i>
-																	</span>
+																<div class="form-group">
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
+																	<div class="col-sm-9">
+																		<span class="input-icon input-icon-right">
+																			<input type="email" id="form-field-email" value="" />
+																			<i class="ace-icon fa fa-envelope"></i>
+																		</span>
+																	</div>
 																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Office Contact No.</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input class="" type="text" id="form-field-phone" />
-																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																	</span>
-																</div>
-															</div>																	
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">mobile</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input class="input-mask-phone" type="text" id="form-field-phone" />
-																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																	</span>
-																</div>
-															</div>																																		
+																<div class="form-group">
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Office Contact No.</label>
+																	<div class="col-sm-9">
+																		<span class="input-icon input-icon-right">
+																			<input class="" type="text" id="form-field-phone" />
+																			<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
+																		</span>
+																	</div>
+																</div>																	
+																<div class="form-group">
+																	<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">mobile</label>
+																	<div class="col-sm-9">
+																		<span class="input-icon input-icon-right">
+																			<input class="input-mask-phone" type="text" id="form-field-phone" />
+																			<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
+																		</span>
+																	</div>
+																</div>												
+															</div>																						
 															<h4 class="header blue bolder smaller">Company Description</h4>
 															<div class="form-group">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-11">Description</label>
@@ -406,13 +408,20 @@ request.setAttribute("title", "Tables - SI-Merchant");
 
 
 
-<!-- dynamiic-table -->
 
 <script src="${assets}js/bootstrap-datepicker.min.js"></script>
 <script>
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });
+
+function switchPICSection(obj) {
+	if($(obj).prop('checked')) {
+		$(".merchant_pic_form").hide();
+	} else {
+		$(".merchant_pic_form").show();
+	}
+}
 </script>
 
 </body>

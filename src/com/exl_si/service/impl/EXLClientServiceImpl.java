@@ -1,6 +1,7 @@
 package com.exl_si.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -8,7 +9,6 @@ import org.springframework.stereotype.Service;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.EXLClient;
 import com.exl_si.helper.EXLClientHelper;
-import com.exl_si.helper.SIMemberHelper;
 import com.exl_si.helper.SequenceNoHelper;
 import com.exl_si.helper.ServiceHelper;
 import com.exl_si.mapper.EXLClientMapper;
@@ -54,6 +54,12 @@ public class EXLClientServiceImpl implements EXLClientService{
 	public ServerResponse<PageInfo> selectByPageNumAndPageSize(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<EXLClient> list = exlClientMapper.selectAll();
+		return ServerResponse.createBySuccess(new PageInfo(list));
+	}
+	
+	public ServerResponse<PageInfo> selectPageByProperties(Map<String, Object> properties, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<EXLClient> list = exlClientMapper.selectByPropertiesSelelctives(properties);
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	}
 	

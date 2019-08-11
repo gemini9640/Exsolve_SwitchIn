@@ -1,6 +1,7 @@
 package com.exl_si.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -22,6 +23,8 @@ public interface EXLClientMapper {
     EXLClient login(@Param("username")String username, @Param("password")String password);
     
     List<EXLClient> selectAll();
+    
+    List<EXLClient> selectByPropertiesSelelctives(Map<String, Object> map);
     
     EXLClient selectByUsernameAndPass(@Param("username")String username, @Param("password")String password);
     

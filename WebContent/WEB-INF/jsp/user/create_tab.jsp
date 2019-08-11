@@ -10,13 +10,13 @@
 			SI-Member
 		</a>
 	</li>
-	<li class="creation_tab tab_si_agent">
-		<a href="#create-agent">
+	<li class="creation_tab tab_exl_agent">
+		<a href="${base}user/exlagent/add.htm">
 			ExL-Agent
 		</a>
 	</li>
-	<li class="creation_tab tab_si_client">
-		<a href="#create-client">
+	<li class="creation_tab tab_exl_client">
+		<a href="${base}user/exlclient/add.htm">
 			ExL-Client
 		</a>
 	</li>

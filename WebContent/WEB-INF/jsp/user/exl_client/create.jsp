@@ -44,352 +44,19 @@ request.setAttribute("title", "Tables - SI-Merchant");
 									<div id="user-profile-3" class="user-profile row">
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
-											<form class="form-horizontal">
+											<form action="${base}manage/exlclient/add.do" method="post" class="form-horizontal">
 												<div class="tabbable">
-													<ul class="nav nav-tabs padding-16">
-														<li class="active">
-															<a data-toggle="tab" href="#create-merchant">
-																SI-Merchant
-															</a>
-														</li>
-														<li>
-															<a data-toggle="tab" href="#create-member">
-																SI-Member
-															</a>
-														</li>
-														<li>
-															<a data-toggle="tab" href="#create-agent">
-																ExL-Agent
-															</a>
-														</li>
-														<li>
-															<a data-toggle="tab" href="#create-client">
-																ExL-Client
-															</a>
-														</li>
-
-														</ul>
+													<jsp:include page="../create_tab.jsp"/>
+													<script>
+														activeCreationTab("exl_client");
+													</script>
 													<div class="tab-content profile-edit-tab-content">
-														<div id="create-merchant" class="tab-pane in active">
+														<div id="create-client" class="tab-pane in active">
 															<h4 class="header blue bolder smaller">General</h4>
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span class="profile-picture">
-																		<img id="merchantlogo" class="editable img-responsive" alt="Alex's Avatar" src="assets/images/avatars/merchant01.jpg" />
-																	</span>
-																</div>
-																<div class="vspace-12-sm"></div>
-																<div class="col-xs-12 col-sm-10">
-																	<div class="form-group has-error">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Company Name</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		<div class="help-block col-xs-12 col-sm-reset inline">* Please Enter Company Name.</div>
-
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Company Reg. No</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">No. of Staff</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-1">Company Type</label>
-																		<div class="col-sm-2">
-																			<select class="form-control" id="form-field-select-1">
-																				<option value="AL">Sdn. Bhd.</option>
-																				<option value="AK">Bhd</option>
-																				<option value="AZ">Partnership</option>
-																				<option value="AK">Sole Proprietor</option>
-																				<option value="AZ">Others</option>
-																			</select>
-																		</div>
-																	</div>
-																	<div class="form-group hide">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Others</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-1">Industry</label>
-																		<div class="col-sm-2">
-																			<select class="form-control" id="form-field-select-1">
-																				<option value="AL">Service</option>
-																				<option value="AK">Retail</option>
-																				<option value="AZ">Finance</option>
-																				<option value="AK">F & B</option>
-																				<option value="AZ">Public Sector</option>
-																				<option value="AK">Others</option>
-																				</select>
-																		</div>
-																	</div>
-																	<div class="form-group hide">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Others</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Company Address</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-date">SSM Expired Date</label>
-																		<div class="col-sm-10">
-																			<div class="input-medium">
-																				<div class="input-group">
-																					<input class="input-medium date-picker" id="form-field-date" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
-																					<span class="input-group-addon">
-																						<i class="ace-icon fa fa-calendar"></i>
-																					</span>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Password</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-1">Title</label>
-																		<div class="col-sm-2">
-																			<select class="form-control" id="form-field-select-1">
-																				<option value="AL">Mr.</option>
-																				<option value="AK">Mrs.</option>
-																				<option value="AZ">Mdm</option>
-																				<option value="AK">Ms.</option>
-																				<option value="AZ">Dr.</option>
-																				<option value="AK">Others</option>
-																			</select>
-																		</div>
-																	</div>
-																	<div class="form-group hide">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Others</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Director Name</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Mykad/Passport No.</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-email">Email</label>
-																		<div class="col-sm-10">
-																			<span class="input-icon input-icon-right">
-																				<input type="email" id="form-field-email" value="" />
-																				<i class="ace-icon fa fa-envelope"></i>
-																			</span>
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-phone">Office Contact No.</label>
-																		<div class="col-sm-10">
-																			<span class="input-icon input-icon-right">
-																				<input class="" type="text" id="form-field-phone" />
-																				<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																			</span>
-																		</div>
-																	</div>																	
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-phone">mobile</label>
-																		<div class="col-sm-10">
-																			<span class="input-icon input-icon-right">
-																				<input class=" input-mask-phone" type="text" id="form-field-phone" />
-																				<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																			</span>
-																		</div>
-																	</div>																																		
-																</div>
-															</div>
-															<h4 class="header blue bolder smaller">Contact</h4>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input type="email" id="form-field-email" value="" />
-																		<i class="ace-icon fa fa-envelope"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-website">Website</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input type="url" id="form-field-website" value="" />
-																		<i class="ace-icon fa fa-globe"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Phone Support</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input class="" type="text" id="form-field-phone" />
-																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																	</span>
-																</div>
-															</div>
-															<h4 class="header blue bolder smaller">Social</h4>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
-																<div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-facebook" />
-																		<i class="ace-icon fa fa-facebook blue"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-twitter">Twitter</label>
-																<div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-twitter" />
-																		<i class="ace-icon fa fa-twitter light-blue"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">Instagram</label>
-																<div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-gplus" />
-																		<i class="ace-icon fa fa-instagram red"></i>
-																	</span>
-																</div>
-															</div>
-															<h4 class="header blue bolder smaller">
-																Person In Charge
-																<small>The representative who direct in charge on communicating and coordinating with Switch-inTM Team. </small>
-															</h4>
-															<div class="form-group">
-																<div class="checkbox">
-																	<label class="col-sm-7 control-label no-padding-right" >
-																	<div class="col-sm-8">
-																	<input name="form-field-checkbox" type="checkbox" class="ace">
-																		<span class="lbl">Same as the director’s info</span>
-																	</div>
-																	</label>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-select-1">Title</label>
-																<div class="col-sm-2">
-																	<select class="form-control" id="form-field-select-1">
-																		<option value="AL">Mr.</option>
-																		<option value="AK">Mrs.</option>
-																		<option value="AZ">Mdm</option>
-																		<option value="AK">Ms.</option>
-																		<option value="AZ">Dr.</option>
-																		<option value="AK">Others</option>
-																	</select>
-																</div>
-															</div>
-															<div class="form-group hide">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Others</label>
-																<div class="col-sm-9">
-																	<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Name</label>
-																<div class="col-sm-9">
-																	<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-username">Designation</label>
-																<div class="col-sm-9">
-																	<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input type="email" id="form-field-email" value="" />
-																		<i class="ace-icon fa fa-envelope"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Office Contact No.</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input class="" type="text" id="form-field-phone" />
-																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																	</span>
-																</div>
-															</div>																	
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">mobile</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input class="input-mask-phone" type="text" id="form-field-phone" />
-																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																	</span>
-																</div>
-															</div>																																		
-															<h4 class="header blue bolder smaller">Company Description</h4>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-11">Description</label>
-																<div class="col-sm-9">
-																<textarea id="form-field-11" class="autosize-transition form-control"></textarea>
-																</div>
-															</div>
-															<h4 class="header blue bolder smaller">Document</h4>
-															<div class="row">
-																<div class="col-xs-12 col-sm-2">
-																	<input type="file" />
-																</div>
-															</div>
-															<h4 class="header blue bolder smaller">Banner Picture
-																<small>Size 1440px X 550px , Maximum no exceed 500kb</small>															
-															</h4>
-															<div class="row">
-																<div class="col-xs-12 col-sm-2">
-																	<input type="file" />
-																</div>
-															</div>
-															<h4 class="header blue bolder smaller">QR Code</h4>
-															<div class="row">
-																<div class="col-xs-12 col-sm-2">
-																	<input type="file" />
-																</div>
-															</div>
-														</div>
-														<div id="create-member" class="tab-pane">
-															<h4 class="header blue bolder smaller">General</h4>
-															<div class="row">
-																<div class="col-xs-12 col-sm-2">
-																	<span class="profile-picture">
-																		<img id="memberpic1" class="editable img-responsive" alt="" src="assets/images/avatars/profile-pic-member01.jpg" />
+																		<img id="clientpic1" class="editable img-responsive" alt="" src="${assets}/images/avatars/profile-pic-member01.jpg" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -397,19 +64,19 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
 																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Password</label>
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-password">Password</label>
 																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																			<input name="password" class="col-xs-12 col-sm-10" type="password" id="form-field-password" placeholder="" value="" />
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Name</label>
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-realname">Name</label>
 																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																			<input name="realname" class="col-xs-12 col-sm-10" type="text" id="form-field-realname" placeholder="" value="" />
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -417,7 +84,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																		<div class="col-sm-10">
 																			<div class="input-medium">
 																				<div class="input-group">
-																					<input class="input-medium date-picker" id="form-field-date" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
+																					<input name="dob" class="input-medium date-picker" id="form-field-date" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
 																					<span class="input-group-addon">
 																						<i class="ace-icon fa fa-calendar"></i>
 																					</span>
@@ -428,10 +95,22 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-1">Gender</label>
 																		<div class="col-sm-2">
-																			<select class="form-control" id="form-field-select-1">
-																				<option value="AK">Male</option>
-																				<option value="AZ">Female</option>
+																			<select name="sex" class="form-control" id="form-field-select-1">
+																				<option value="M">Male</option>
+																				<option value="F">Female</option>
 																			</select>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-agentid">Agent ID No.</label>
+																		<div class="col-sm-10">
+																			<input name="agentid" class="col-xs-12 col-sm-10" type="text" id="form-field-agentid" placeholder="" value="" />
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-policyno">Policy No.</label>
+																		<div class="col-sm-10">
+																			<input name="policyno" class="col-xs-12 col-sm-10" type="text" id="form-field-policyno" placeholder="" value="" />
 																		</div>
 																	</div>
 																</div>
@@ -440,7 +119,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
-																		<input type="email" id="form-field-email" value="" />
+																		<input name="email" type="email" id="form-field-email" value="" />
 																		<i class="ace-icon fa fa-envelope"></i>
 																	</span>
 																</div>
@@ -449,7 +128,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Phone No.</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
-																		<input class=" input-mask-phone" type="text" id="form-field-phone" />
+																		<input name="phone" class=" input-mask-phone" type="text" id="form-field-phone" />
 																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 																	</span>
 																</div>
@@ -459,7 +138,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
 																<div class="col-sm-9">
 																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-facebook" />
+																		<input name="facebook" type="text" value="" id="form-field-facebook" />
 																		<i class="ace-icon fa fa-facebook blue"></i>
 																	</span>
 																</div>
@@ -468,213 +147,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">GooglePlus</label>
 																<div class="col-sm-9">
 																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-gplus" />
-																		<i class="ace-icon fa fa-google-plus red"></i>
-																	</span>
-																</div>
-															</div>
-														</div>
-													</div>
-														<div id="create-agent" class="tab-pane">
-															<h4 class="header blue bolder smaller">General</h4>
-															<div class="row">
-																<div class="col-xs-12 col-sm-2">
-																	<span class="profile-picture">
-																		<img id="agentpic1" class="editable img-responsive" alt="" src="assets/images/avatars/profile-pic-member01.jpg" />
-																	</span>
-																</div>
-																<div class="vspace-12-sm"></div>
-																<div class="col-xs-12 col-sm-10">
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Password</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Name</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-date">Date of Birth</label>
-																		<div class="col-sm-10">
-																			<div class="input-medium">
-																				<div class="input-group">
-																					<input class="input-medium date-picker" id="form-field-date" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
-																					<span class="input-group-addon">
-																						<i class="ace-icon fa fa-calendar"></i>
-																					</span>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-1">Gender</label>
-																		<div class="col-sm-2">
-																			<select class="form-control" id="form-field-select-1">
-																				<option value="AK">Male</option>
-																				<option value="AZ">Female</option>
-																			</select>
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Agent ID No.</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Position</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																</div>
-																<h4 class="header blue bolder smaller">Contact</h4>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input type="email" id="form-field-email" value="" />
-																		<i class="ace-icon fa fa-envelope"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Phone No.</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input class=" input-mask-phone" type="text" id="form-field-phone" />
-																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																	</span>
-																</div>
-															</div>
-															<h4 class="header blue bolder smaller">Social</h4>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
-																<div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-facebook" />
-																		<i class="ace-icon fa fa-facebook blue"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">GooglePlus</label>
-																<div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-gplus" />
-																		<i class="ace-icon fa fa-google-plus red"></i>
-																	</span>
-																</div>
-															</div>
-														</div>
-													</div>
-														<div id="create-client" class="tab-pane">
-															<h4 class="header blue bolder smaller">General</h4>
-															<div class="row">
-																<div class="col-xs-12 col-sm-2">
-																	<span class="profile-picture">
-																		<img id="clientpic1" class="editable img-responsive" alt="" src="assets/images/avatars/profile-pic-member01.jpg" />
-																	</span>
-																</div>
-																<div class="vspace-12-sm"></div>
-																<div class="col-xs-12 col-sm-10">
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Password</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Name</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-date">Date of Birth</label>
-																		<div class="col-sm-10">
-																			<div class="input-medium">
-																				<div class="input-group">
-																					<input class="input-medium date-picker" id="form-field-date" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
-																					<span class="input-group-addon">
-																						<i class="ace-icon fa fa-calendar"></i>
-																					</span>
-																				</div>
-																			</div>
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-1">Gender</label>
-																		<div class="col-sm-2">
-																			<select class="form-control" id="form-field-select-1">
-																				<option value="AK">Male</option>
-																				<option value="AZ">Female</option>
-																			</select>
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Agent ID No.</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Policy No.</label>
-																		<div class="col-sm-10">
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																</div>
-															<h4 class="header blue bolder smaller">Contact</h4>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input type="email" id="form-field-email" value="" />
-																		<i class="ace-icon fa fa-envelope"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Phone No.</label>
-																<div class="col-sm-9">
-																	<span class="input-icon input-icon-right">
-																		<input class=" input-mask-phone" type="text" id="form-field-phone" />
-																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
-																	</span>
-																</div>
-															</div>
-															<h4 class="header blue bolder smaller">Social</h4>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
-																<div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-facebook" />
-																		<i class="ace-icon fa fa-facebook blue"></i>
-																	</span>
-																</div>
-															</div>
-															<div class="form-group">
-																<label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">GooglePlus</label>
-																<div class="col-sm-9">
-																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-gplus" />
+																		<input name="googleplus" type="text" value="" id="form-field-gplus" />
 																		<i class="ace-icon fa fa-google-plus red"></i>
 																	</span>
 																</div>
@@ -684,7 +157,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 												</div>
 												<div class="clearfix form-actions">
 													<div class="col-md-offset-3 col-md-9">
-														<button class="btn btn-info" type="button">
+														<button class="btn btn-info" type="submit">
 															<i class="ace-icon fa fa-check bigger-110"></i>
 															Save
 														</button>
@@ -707,25 +180,16 @@ request.setAttribute("title", "Tables - SI-Merchant");
 					</div><!-- /.page-content -->
 				</div>
 			</div><!-- /.main-content -->
-			
 			<jsp:include page="../../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>
 <jsp:include page="../../common/jsUtils.jsp"/>
-
-
-
-
-<!-- dynamiic-table -->
-<script src="${assets}js/jquery.dataTables.min.js"></script>
-<script src="${assets}js/jquery.dataTables.bootstrap.min.js"></script>
-<script src="${assets}js/dataTables.buttons.min.js"></script>
-<script src="${assets}js/buttons.flash.min.js"></script>
-<script src="${assets}js/buttons.html5.min.js"></script>
-<script src="${assets}js/buttons.print.min.js"></script>
-<script src="${assets}js/buttons.colVis.min.js"></script>
-<script src="${assets}js/dataTables.select.min.js"></script>
-
+<script src="${assets}js/bootstrap-datepicker.min.js"></script>
+<script>
+$('.date-picker').datepicker().next().on(ace.click_event, function(){
+	$(this).prev().focus();
+});
+</script>
 </body>
 </html>
 
