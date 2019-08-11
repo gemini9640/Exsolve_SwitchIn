@@ -47,6 +47,9 @@ request.setAttribute("title", "Tables - SI-Merchant");
 											<form action="${base}manage/merchant/add.do" method="post" class="form-horizontal">
 												<div class="tabbable">
 													<jsp:include page="../create_tab.jsp"/>
+													<script>
+														activeCreationTab("si_merchant");
+													</script>
 													<div class="tab-content profile-edit-tab-content">
 														<div id="create-merchant" class="tab-pane in active">
 															<h4 class="header blue bolder smaller">General</h4>

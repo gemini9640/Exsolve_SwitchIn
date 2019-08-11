@@ -38,8 +38,10 @@ $.DateTimeConfig = {
 // 			picker.val(moment().subtract(6, 'days').format('DD/MM/YYYY') + ' to ' + moment().format('DD/MM/YYYY'));
 		},
 		DateRange : function(rangePicker) {
-			this.start = $.trim(rangePicker.split("to")[0])+ " 00:00:00";
-			this.end = $.trim(rangePicker.split("to")[1])+ " 23:59:59";
+			var startDate = $.trim(rangePicker.split("to")[0]);
+			var endDate = $.trim(rangePicker.split("to")[1]);
+			this.start = startDate==""?"":startDate+ " 00:00:00";
+			this.end = + endDate==""?"":endDate+ " 23:59:59";
 		}
 }
 

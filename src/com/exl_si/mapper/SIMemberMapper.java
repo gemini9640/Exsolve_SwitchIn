@@ -1,19 +1,20 @@
 package com.exl_si.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
 import com.exl_si.db.SIMember;
 
 public interface SIMemberMapper {
-    int deleteByPrimaryKey(String username);
+    int deleteByPrimaryKey(String id);
 
     int insert(SIMember record);
 
     int insertSelective(SIMember record);
 
-    SIMember selectByPrimaryKey(String username);
+    SIMember selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(SIMember record);
 
@@ -21,7 +22,9 @@ public interface SIMemberMapper {
     
     List<SIMember> selectAll();
     
-    SIMember login(@Param("username")String id, @Param("password")String password);
+    List<SIMember> selectByPropertiesSelelctives(Map<String, Object> map);
+    
+    SIMember login(@Param("username")String username, @Param("password")String password);
     
     SIMember selectByKeyAndPass(@Param("username")String username, @Param("password")String password);
     

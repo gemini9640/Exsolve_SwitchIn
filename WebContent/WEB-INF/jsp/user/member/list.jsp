@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="../../common/common.inc"%>
 <%
-request.setAttribute("title", "Tables - SI-Merchant");
+request.setAttribute("title", "Tables - SI-Member");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,13 +26,13 @@ request.setAttribute("title", "Tables - SI-Merchant");
 							<li>
 								<a href="#">User Management</a>
 							</li>
-							<li class="active">SI-Merchant</li>
+							<li class="active">SI-Member</li>
 						</ul>
 					</div>
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								SI-Merchant
+								SI-Member
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
 									Listing
@@ -43,7 +43,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 							<div class="col-xs-12">
 								<div class="row">
 									<div class="col-xs-12">
-										<h3 class="header smaller lighter blue">SI-Merchant dataTables</h3>
+										<h3 class="header smaller lighter blue">SI-Member dataTables</h3>
 										<div class="pull-left">
 											<label>Date Range Picker</label>
 											<div class="row">
@@ -52,10 +52,10 @@ request.setAttribute("title", "Tables - SI-Merchant");
 														<span class="input-group-addon">
 															<i class="ace-icon fa fa-calendar"></i>
 														</span>
-														<input class="form-control" type="text" name="date-range-picker" id="merchant-date-range-picker" />
+														<input class="form-control" type="text" name="date-range-picker" id="member-date-range-picker" />
 													</div>
 												</div>
-												<button onclick="si_merchant_list(1);" class="btn_search btn btn-primary">
+												<button onclick="si_member_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
 													Search
 												</button>
@@ -66,10 +66,10 @@ request.setAttribute("title", "Tables - SI-Merchant");
 											<div class="pull-right tableTools-container"></div>
 										</div>
 										<div class="table-header">
-											Results for "SI-Merchant Listing"
+											Results for "SI-Member Listing"
 										</div>
 										<div class="dataTables_wrapper">
-											<div id="sample-table-2_length" class="row si_merchant_sizeSelector" style="padding-bottom: 0px;">
+											<div id="sample-table-2_length" class="row si_member_sizeSelector" style="padding-bottom: 0px;">
 											</div>
 											<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 												<thead>
@@ -82,26 +82,20 @@ request.setAttribute("title", "Tables - SI-Merchant");
 														</th>
 														<th>ID</th>
 														<th>Username</th>
-														<th class="hidden-480">Company Name</th>
 														<th>Email</th>
 														<th>Phone No.</th>
-														<th>Industry</th>
 														<th>
 															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-															Joined Date
-														</th>
-														<th>
-															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-															SSM Expired Date
+															Reg. Date
 														</th>
 														<th class="hidden-480">Action</th>
 														<th></th>
 													</tr>
 												</thead>
-												<tbody class="tabaleData_si_merchant">
+												<tbody class="tabaleData_si_member">
 												</tbody>
 											</table>
-											<div class="row si_merchant_pageInfo">
+											<div class="row si_member_pageInfo">
 											</div>
 										</div>
 									</div>
@@ -116,29 +110,29 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <jsp:include page="../../common/jsConfig.jsp"/>
 <jsp:include page="../../common/jsUtils.jsp"/>
 <script>
-$.DateTimeConfig.init("#merchant-date-range-picker");
-$.TableDataConfig.generateSizeSelector("si_merchant", 25);
+$.DateTimeConfig.init("#member-date-range-picker");
+$.TableDataConfig.generateSizeSelector("si_member", 25);
 
-function si_merchant_list(pageNumber) {
-	var dateRange = new $.DateTimeConfig.DateRange($('#merchant-date-range-picker').val());
-	$(".tabaleData_si_merchant").html("");
-	$.post("${base}manage/merchant/listPageByProperties.do", {
+function si_member_list(pageNumber) {
+	var dateRange = new $.DateTimeConfig.DateRange($('#member-date-range-picker').val());
+	$(".tabaleData_si_member").html("");
+	$.post("${base}manage/member/listPageByProperties.do", {
 		start : dateRange.start,
 		end : dateRange.end,
 		pageNum : pageNumber,
-		pageSize : $("#si_merchant_size_selected").val()
+		pageSize : $("#si_member_size_selected").val()
 	},function(result) {
-		si_merchant_html(result);
+		si_member_html(result);
 	});
 }
 
-function si_merchant_html(result) {
+function si_member_html(result) {
 	if(result.status == 0) {
 		var pageResp = result.data;
 		var data = pageResp.list;
 		var tr = "";
 		for(var key in data) {
-			var merchant = data[key];
+			var member = data[key];
 			tr += "<tr>"+
 					"<td class='center'>"+
 						"<label class='pos-rel'>"+
@@ -147,15 +141,12 @@ function si_merchant_html(result) {
 						"</label>"+
 					"</td>"+
 					"<td class='dataValue'>"+
-						"<a href='#'>"+merchant.id+"</a>"+
+						"<a href='#'>"+member.id+"</a>"+
 					"</td>"+
-					"<td class='dataValue'>"+merchant.username+"</td>"+
-					"<td class='dataValue hidden-480'>"+merchant.companyname+"</td>"+
-					"<td class='dataValue'>"+merchant.email+"</td>"+
-					"<td class='dataValue'>"+merchant.phone+"</td>"+
-					"<td class='dataValue'>"+merchant.industrytype+"</td>"+
-					"<td class='dataValue'>"+merchant.createtime+"</td>"+		
-					"<td class='dataValue'>"+merchant.expireddatessm+"</td>"+		
+					"<td class='dataValue'>"+member.username+"</td>"+
+					"<td class='dataValue'>"+member.email+"</td>"+
+					"<td class='dataValue'>"+member.phone+"</td>"+
+					"<td class='dataValue'>"+member.createtime+"</td>"+		
 					"<td class='hidden-480'>"+
 						"<button class='btn btn-minier btn-success'>Approve</button>"+
 						"<button class='btn btn-minier btn-danger'>Reject</button>"+
@@ -175,12 +166,12 @@ function si_merchant_html(result) {
 					"</td>"+
 				"</tr>";
 		}
-		$(".tabaleData_si_merchant").html(tr);
+		$(".tabaleData_si_member").html(tr);
 		$.JsUtil.undefinedRed(".dataValue");	
-		$.TableDataConfig.pagination("si_merchant", pageResp.pageSize, pageResp.navigatepageNums, pageResp.pageNum, pageResp.startRow, pageResp.endRow, pageResp.total);
+		$.TableDataConfig.pagination("si_member", pageResp.pageSize, pageResp.navigatepageNums, pageResp.pageNum, pageResp.startRow, pageResp.endRow, pageResp.total);
 	}
 }
-si_merchant_list(1);
+si_member_list(1);
 </script>
 
 
@@ -206,12 +197,6 @@ si_merchant_list(1);
 			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
-			  { "bSortable": false },
-			  { "bSortable": false },
-			  { "bSortable": false },
-			  { "bSortable": false },
-			  { "bSortable": false },
-			  { "bSortable": false }
 			],
 			"aaSorting": [],
 			"bPaginate": false,
@@ -264,7 +249,6 @@ si_merchant_list(1);
 		} );
 		myTable.buttons().container().appendTo( $('.tableTools-container') );
 		
-// 		//style the message box
 		var defaultCopyAction = myTable.button(1).action();
 		myTable.button(1).action(function (e, dt, button, config) {
 			defaultCopyAction(e, dt, button, config);

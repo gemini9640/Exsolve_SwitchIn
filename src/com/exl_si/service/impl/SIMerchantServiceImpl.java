@@ -64,7 +64,7 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 	
 	public ServerResponse<PageInfo> selectPageByProperties(Map<String, Object> properties, Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<SIMerchant> list = merchantMapper.selectByPropertiesSelelcttives(properties);
+		List<SIMerchant> list = merchantMapper.selectByPropertiesSelelctives(properties);
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	}
 	

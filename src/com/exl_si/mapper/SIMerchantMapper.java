@@ -22,7 +22,7 @@ public interface SIMerchantMapper {
     
     List<SIMerchant> selectAll();
     
-    List<SIMerchant> selectByPropertiesSelelcttives(Map<String, Object> map);
+    List<SIMerchant> selectByPropertiesSelelctives(Map<String, Object> map);
     
     SIMerchant login(@Param("username")String id, @Param("password")String password);
     

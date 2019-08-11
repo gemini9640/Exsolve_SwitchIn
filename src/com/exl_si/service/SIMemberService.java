@@ -1,5 +1,7 @@
 package com.exl_si.service;
 
+import java.util.Map;
+
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.SIMember;
 import com.github.pagehelper.PageInfo;
@@ -12,6 +14,8 @@ public interface SIMemberService {
 	public ServerResponse<SIMember> save(SIMember member);
 	
 	public ServerResponse<PageInfo> selectByPageNumAndPageSize(Integer pageNum, Integer pageSize);
+	
+	public ServerResponse<PageInfo> selectPageByProperties(Map<String, Object> properties, Integer pageNum, Integer pageSize);
 	
 	public ServerResponse update(SIMember member);
 	

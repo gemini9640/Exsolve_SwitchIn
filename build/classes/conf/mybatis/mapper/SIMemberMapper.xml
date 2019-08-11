@@ -37,11 +37,11 @@
     select 
     <include refid="Base_Column_List" />
     from si_member
-    where username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
   <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from si_member
-    where username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.exl_si.db.SIMember">
     insert into si_member (username, id, password, 
@@ -210,7 +210,7 @@
     update si_member
     <set>
       <if test="id != null">
-        id = #{id,jdbcType=VARCHAR},
+        username = #{username,jdbcType=VARCHAR},
       </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
@@ -276,11 +276,11 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMember">
     update si_member
-    set id = #{id,jdbcType=VARCHAR},
+    set username = #{username,jdbcType=VARCHAR},
       password = #{password,jdbcType=VARCHAR},
       realname = #{realname,jdbcType=VARCHAR},
       sex = #{sex,jdbcType=VARCHAR},
@@ -302,7 +302,7 @@
       loginTimes = #{logintimes,jdbcType=INTEGER},
       status = #{status,jdbcType=INTEGER},
       remark = #{remark,jdbcType=VARCHAR}
-    where username = #{username,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   
   <!-- created -->
@@ -316,6 +316,19 @@
 	 <include refid="Base_Column_List" />
 	 from si_member 
 	 where username = #{username,jdbcType=VARCHAR} and password = #{password,jdbcType=VARCHAR};
+  </select>
+  <select id="selectByPropertiesSelelctives" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from si_member 
+	 where 1 = 1
+	 <if test="start != null">
+	   and createTime <![CDATA[ >= ]]> #{start,jdbcType=TIMESTAMP} 
+     </if> 
+     <if test="end != null"> 
+       and createTime <![CDATA[ <= ]]> #{end,jdbcType=TIMESTAMP}
+     </if>
+	 order by createTime desc
   </select>
   <select id="login" parameterType="map" resultMap="BaseResultMap">
   	 select 

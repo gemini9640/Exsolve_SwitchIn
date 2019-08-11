@@ -389,7 +389,7 @@
 	 <include refid="Base_Column_List" />
 	 from si_merchant order by createTime desc
   </select>
-  <select id="selectByPropertiesSelelcttives" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByPropertiesSelelctives" parameterType="map" resultMap="BaseResultMap">
   	 select 
 	 <include refid="Base_Column_List" />
 	 from si_merchant 

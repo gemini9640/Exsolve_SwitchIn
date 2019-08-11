@@ -1,6 +1,7 @@
 package com.exl_si.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -51,6 +52,12 @@ public class SIMemberServiceImpl implements SIMemberService{
 	public ServerResponse<PageInfo> selectByPageNumAndPageSize(Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<SIMember> list = memberMapper.selectAll();
+		return ServerResponse.createBySuccess(new PageInfo(list));
+	}
+	
+	public ServerResponse<PageInfo> selectPageByProperties(Map<String, Object> properties, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<SIMember> list = memberMapper.selectByPropertiesSelelctives(properties);
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	}
 	

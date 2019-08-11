@@ -20,7 +20,7 @@
 			<b class="arrow"></b>
 			<ul class="submenu">
 				<li class="">
-					<a href="">
+					<a href="${base}user/merchant/add.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Create User
 					</a>
@@ -34,7 +34,7 @@
 					<b class="arrow"></b>
 				</li>
 				<li class="">
-					<a href="tables-SI-Member.html">
+					<a href="${base}user/member/list.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						SI-Member
 					</a>
