@@ -11,7 +11,7 @@
 				<div class="navbar-header pull-left">
 					<a href="index.html" class="navbar-brand">
 						<small>
-						<img class="nav-user-photo" src="${assets}images/logo/SI-Logo.png" alt="SWITCH-IN's Logo">						
+						<img class="nav-user-photo" src="${base}static/images/SI-Logo.png" alt="SWITCH-IN's Logo">						
 						</small>
 					</a>
 				</div>
@@ -19,7 +19,7 @@
 					<ul class="nav ace-nav">
 						<li class="light-blue dropdown-modal">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="${assets}images/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="${ace}images/avatars/user.jpg" alt="Jason's Photo" />
 								<span class="user-info">
 									<small>Welcome,</small>
 									Mr Gan

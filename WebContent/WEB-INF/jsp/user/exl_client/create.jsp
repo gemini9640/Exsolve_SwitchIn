@@ -56,7 +56,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span class="profile-picture">
-																		<img id="clientpic1" class="editable img-responsive" alt="" src="${assets}/images/avatars/profile-pic-member01.jpg" />
+																		<img id="clientpic1" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -184,7 +184,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>
 <jsp:include page="../../common/jsUtils.jsp"/>
-<script src="${assets}js/bootstrap-datepicker.min.js"></script>
+<script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();

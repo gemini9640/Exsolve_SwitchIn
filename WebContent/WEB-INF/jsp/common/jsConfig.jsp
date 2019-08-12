@@ -1,15 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<link rel="stylesheet" href="${assets}css/daterangepicker.min.css" />
-<script src="${assets}js/moment.min.js"></script>
-<script src="${assets}js/daterangepicker.min.js"></script>
-
+<!-- 加这个空标签可以是以下的js方法正常执行 无解 -->
+<script></script>
 <script>
 $.DateTimeConfig = {
 		init : function(dateTimeSelector) {
 			$(dateTimeSelector).daterangepicker({
-// 					startDate: moment().subtract(1, 'days').format('DD/MM/YYYY'),
-// 			        endDate: moment().format('DD/MM/YYYY'),
-					
 		   	        ranges: {
 		   	            'Today': [moment(),moment()],
 		   	            'Yestoday': [moment().subtract(1, 'days'),moment().subtract(1, 'days')],
@@ -58,15 +53,15 @@ $.TableDataConfig = {
 				if(navigatepage[index] == nowPage) {
 					active = "active";
 				}
-				navigation+="<li class='pageNumber "+active+"'><a href='###' "+$.TableDataConfig.generateQueryFunc(selectGroup, navigatepage[index])+">"+navigatepage[index]+"</a></li>"; 
+				navigation+="<li class='pageNumber "+active+"'><a href='javascript:void(0);' "+$.TableDataConfig.generateQueryFunc(selectGroup, navigatepage[index])+">"+navigatepage[index]+"</a></li>"; 
 			}
 			var prevPage = "";
 			var nextPage = "";
 			if(nowPage-1>0) {
-				prevPage = "<li class='prev'><a href='###' "+$.TableDataConfig.generateQueryFunc(selectGroup, nowPage-1)+">Previous</a></li> ";
+				prevPage = "<li class='prev'><a href='javascript:void(0);' "+$.TableDataConfig.generateQueryFunc(selectGroup, nowPage-1)+">Previous</a></li> ";
 			} 
 			if(nowPage<navigatepage.length) {
-				nextPage = "<li class='next'><a href='###' "+$.TableDataConfig.generateQueryFunc(selectGroup, nowPage+1)+">Next</a></li> ";
+				nextPage = "<li class='next'><a href='javascript:void(0);' "+$.TableDataConfig.generateQueryFunc(selectGroup, nowPage+1)+">Next</a></li> ";
 			}
 			var pageInfo = "<div class='col-sm-6'> "+
 								"<div class='pagination_info dataTables_info' id='sample-table-2_info'>Showing "+firstRow+" to "+lastRow+" of "+totalRow+" entries</div> "+

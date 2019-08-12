@@ -176,14 +176,14 @@ exl_client_list(1);
 
 
 <!-- dynamiic-table -->
-<script src="${assets}js/jquery.dataTables.min.js"></script>
-<script src="${assets}js/jquery.dataTables.bootstrap.min.js"></script>
-<script src="${assets}js/dataTables.buttons.min.js"></script>
-<script src="${assets}js/buttons.flash.min.js"></script>
-<script src="${assets}js/buttons.html5.min.js"></script>
-<script src="${assets}js/buttons.print.min.js"></script>
-<script src="${assets}js/buttons.colVis.min.js"></script>
-<script src="${assets}js/dataTables.select.min.js"></script>
+<script src="${ace}js/jquery.dataTables.min.js"></script>
+<script src="${ace}js/jquery.dataTables.bootstrap.min.js"></script>
+<script src="${ace}js/dataTables.buttons.min.js"></script>
+<script src="${ace}js/buttons.flash.min.js"></script>
+<script src="${ace}js/buttons.html5.min.js"></script>
+<script src="${ace}js/buttons.print.min.js"></script>
+<script src="${ace}js/buttons.colVis.min.js"></script>
+<script src="${ace}js/dataTables.select.min.js"></script>
 <script type="text/javascript">
 	jQuery(function($) {
 		//initiate dataTables plugin

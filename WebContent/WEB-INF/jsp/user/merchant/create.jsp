@@ -56,7 +56,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span class="profile-picture">
-																		<img id="merchantlogo" class="editable img-responsive" alt="Alex's Avatar" src="${assets}images/avatars/merchant01.jpg" />
+																		<img id="merchantlogo" class="editable img-responsive" alt="Alex's Avatar" src="${base}static/images/merchant01.jpg" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -409,7 +409,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 
 
 
-<script src="${assets}js/bootstrap-datepicker.min.js"></script>
+<script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
