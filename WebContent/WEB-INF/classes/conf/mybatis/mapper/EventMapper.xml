@@ -1,0 +1,287 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exl_si.mapper.EventMapper">
+  <resultMap id="BaseResultMap" type="com.exl_si.db.Event">
+  <constructor>
+      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="eventName" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="merchantId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="startDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="endDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="Tagline" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
+      <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="csPhone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="location" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="map" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="maxpax" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="maxpaxPerRegister" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="comment" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="reminder" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, eventName, merchantId, createtime, startDate, endDate, Tagline, price, updateTime, 
+    csPhone, location, address, map, maxpax, maxpaxPerRegister, status, comment, description, 
+    reminder, remark
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from event
+    where id = #{id,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from event
+    where id = #{id,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.exl_si.db.Event">
+    insert into event (id, eventName, merchantId, 
+      createtime, startDate, endDate, 
+      Tagline, price, updateTime, 
+      csPhone, location, address, 
+      map, maxpax, maxpaxPerRegister, 
+      status, comment, description, 
+      reminder, remark)
+    values (#{id,jdbcType=INTEGER}, #{eventname,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=TIMESTAMP}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
+      #{tagline,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP}, 
+      #{csphone,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{map,jdbcType=VARCHAR}, #{maxpax,jdbcType=INTEGER}, #{maxpaxperregister,jdbcType=INTEGER}, 
+      #{status,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{reminder,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.exl_si.db.Event">
+    insert into event
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="eventname != null">
+        eventName,
+      </if>
+      <if test="merchantId != null">
+        merchantId,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="startdate != null">
+        startDate,
+      </if>
+      <if test="enddate != null">
+        endDate,
+      </if>
+      <if test="tagline != null">
+        Tagline,
+      </if>
+      <if test="price != null">
+        price,
+      </if>
+      <if test="updatetime != null">
+        updateTime,
+      </if>
+      <if test="csphone != null">
+        csPhone,
+      </if>
+      <if test="location != null">
+        location,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="map != null">
+        map,
+      </if>
+      <if test="maxpax != null">
+        maxpax,
+      </if>
+      <if test="maxpaxperregister != null">
+        maxpaxPerRegister,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="comment != null">
+        comment,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="reminder != null">
+        reminder,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=INTEGER},
+      </if>
+      <if test="eventname != null">
+        #{eventname,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startdate != null">
+        #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagline != null">
+        #{tagline,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="updatetime != null">
+        #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="csphone != null">
+        #{csphone,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="map != null">
+        #{map,jdbcType=VARCHAR},
+      </if>
+      <if test="maxpax != null">
+        #{maxpax,jdbcType=INTEGER},
+      </if>
+      <if test="maxpaxperregister != null">
+        #{maxpaxperregister,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null">
+        #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.Event">
+    update event
+    <set>
+      <if test="eventname != null">
+        eventName = #{eventname,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        merchantId = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startdate != null">
+        startDate = #{startdate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="enddate != null">
+        endDate = #{enddate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="tagline != null">
+        Tagline = #{tagline,jdbcType=VARCHAR},
+      </if>
+      <if test="price != null">
+        price = #{price,jdbcType=DECIMAL},
+      </if>
+      <if test="updatetime != null">
+        updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="csphone != null">
+        csPhone = #{csphone,jdbcType=VARCHAR},
+      </if>
+      <if test="location != null">
+        location = #{location,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="map != null">
+        map = #{map,jdbcType=VARCHAR},
+      </if>
+      <if test="maxpax != null">
+        maxpax = #{maxpax,jdbcType=INTEGER},
+      </if>
+      <if test="maxpaxperregister != null">
+        maxpaxPerRegister = #{maxpaxperregister,jdbcType=INTEGER},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="comment != null">
+        comment = #{comment,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null">
+        reminder = #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.Event">
+    update event
+    set eventName = #{eventname,jdbcType=VARCHAR},
+      merchantId = #{merchantId,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      startDate = #{startdate,jdbcType=TIMESTAMP},
+      endDate = #{enddate,jdbcType=TIMESTAMP},
+      Tagline = #{tagline,jdbcType=VARCHAR},
+      price = #{price,jdbcType=DECIMAL},
+      updateTime = #{updatetime,jdbcType=TIMESTAMP},
+      csPhone = #{csphone,jdbcType=VARCHAR},
+      location = #{location,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      map = #{map,jdbcType=VARCHAR},
+      maxpax = #{maxpax,jdbcType=INTEGER},
+      maxpaxPerRegister = #{maxpaxperregister,jdbcType=INTEGER},
+      status = #{status,jdbcType=INTEGER},
+      comment = #{comment,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      reminder = #{reminder,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  
+	<!-- created -->
+  <select id="selectByMerchant" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from event where merchantId = #{merchantId,jdbcType=VARCHAR}
+  </select>
+  
+  <update id="updateStatus" parameterType="map">
+    update event
+    set 
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+</mapper>
