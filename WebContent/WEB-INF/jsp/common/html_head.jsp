@@ -41,6 +41,7 @@
 	<link rel="stylesheet" href="${ace}css/bootstrap-datetimepicker.min.css" />
 	
 		<script src="${ace}js/jquery-2.1.4.min.js"></script>
+		<script src="${base}static/js/jquery.form.js"></script>
 		<script src="${ace}js/bootstrap.min.js"></script>
 		<script src="${ace}js/ace-extra.min.js"></script>
 <!-- 		<script type="text/javascript"> -->

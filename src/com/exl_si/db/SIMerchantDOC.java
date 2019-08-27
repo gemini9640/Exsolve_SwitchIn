@@ -3,6 +3,8 @@ package com.exl_si.db;
 import com.exl_si.db.vo.SubFile;
 
 public class SIMerchantDOC extends SubFile{
+    private String id;
+
     private String merchantid;
 
     private String type;
@@ -15,7 +17,8 @@ public class SIMerchantDOC extends SubFile{
 
     private String path;
 
-    public SIMerchantDOC(String merchantid, String type, Integer index, String nameOld, String nameNew, String path) {
+    public SIMerchantDOC(String id, String merchantid, String type, Integer index, String nameOld, String nameNew, String path) {
+        this.id = id;
         this.merchantid = merchantid;
         this.type = type;
         this.index = index;
@@ -26,6 +29,14 @@ public class SIMerchantDOC extends SubFile{
 
     public SIMerchantDOC() {
         super();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getMerchantid() {
@@ -82,6 +93,7 @@ public class SIMerchantDOC extends SubFile{
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", merchantid=").append(merchantid);
         sb.append(", type=").append(type);
         sb.append(", index=").append(index);

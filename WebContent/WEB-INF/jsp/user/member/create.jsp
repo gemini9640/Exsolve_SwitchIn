@@ -43,7 +43,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 									<div id="user-profile-3" class="user-profile row">
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
-											<form action="${base}manage/member/add.do" method="post" class="form-horizontal">
+											<form action="${base}manage/member/add.do" method="post" class="form-horizontal" enctype="multipart/form-data">
 												<div class="tabbable">
 													<jsp:include page="../create_tab.jsp"/>
 													<script>
@@ -54,8 +54,8 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<h4 class="header blue bolder smaller">General</h4>
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
-																	<span class="profile-picture">
-																		<img id="memberpic1" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
+																	<span  onclick="uploadProfilePic();" class="profile-picture">
+																		<img id="PROFILE_PIC" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -157,6 +157,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 													</div>
 												</div>
 												</div>
+												<input id="uploadFile" type="file" name="file" style="display:none;"/>
 											</form>
 										</div><!-- /.span -->
 									</div><!-- /.user-profile -->
@@ -172,12 +173,45 @@ request.setAttribute("title", "Tables - SI-Merchant");
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>
 <jsp:include page="../../common/jsUtils.jsp"/>
+<jsp:include page="../../common/script.jsp"/>
 
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });
+
+function uploadProfilePic() {
+	$("#uploadFile").click();
+}
+$(function() {
+	$("#uploadFile").on("change", function() {
+		$(this).prev().css("opacity","1")
+		
+
+		var filePath = $(this).val();//读取图片路径
+		
+		var fr = new FileReader();//创建new FileReader()对象
+		var imgObj = this.files[0];//获取图片
+		fr.readAsDataURL(imgObj);//将图片读取为DataURL
+		if(filePath.indexOf("jpg") != -1 || filePath.indexOf("JPG") != -1 || filePath.indexOf("PNG") != -1 || filePath.indexOf("png") != -1) {
+			console.log(imgObj);
+			var arr = filePath.split('\\');
+			var fileName = arr[arr.length - 1];
+		
+			$(this).parent().next().show();
+			fr.onload = function() {
+				$("#PROFILE_PIC").attr("src",this.result);
+			};
+		} else {
+			$(this).parent().next().show();
+			$(this).parent().next().children("i").html("您未上传文件，或者您上传文件类型有误！").css("color", "red");
+			//$(this).parent().next().html("您未上传文件，或者您上传文件类型有误！").css("color","red");
+			return false
+		}
+	});
+});
+
 </script>
 </body>
 </html>

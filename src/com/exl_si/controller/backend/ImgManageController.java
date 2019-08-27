@@ -11,6 +11,8 @@ import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+
+import com.exl_si.common.AppProperties;
 import com.exl_si.common.Constants;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.utils.UploadUtil;
@@ -25,7 +27,7 @@ public class ImgManageController extends BaseController {
 	@ResponseBody
 	public void showByPath(String path) {
 		try{
-			String filePath = Constants.UPLOAD_PATH+path;
+			String filePath = AppProperties.UPLOAD_PATH+path;
 			getResponse().setHeader("Pragma", "No-cache");
 			getResponse().setHeader("Cache-Control", "no-cache");
 			getResponse().setDateHeader("Expires", 0);

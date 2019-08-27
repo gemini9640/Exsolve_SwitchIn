@@ -13,7 +13,7 @@ public class EventHelper {
 			EventPicture picture = (EventPicture)files.get(i);
 			picture.setEventId(eventId);
 			picture.setType(type);
-			picture.setIndex(i);
+			picture.setIndex(-1);
 			eventPictures.add(picture);
 		}
 		return eventPictures;

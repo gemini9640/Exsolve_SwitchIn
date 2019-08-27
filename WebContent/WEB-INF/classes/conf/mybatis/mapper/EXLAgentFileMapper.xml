@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exl_si.dao.EXLAgentFileMapper">
+  <resultMap id="BaseResultMap" type="com.exl_si.db.EXLAgentFile">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="agentId" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="index" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="name_old" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="name_new" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="path" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, agentId, type, index, name_old, name_new, path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from exl_agent_file
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from exl_agent_file
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.exl_si.db.EXLAgentFile">
+    insert into exl_agent_file (id, agentId, type, 
+      index, name_old, name_new, 
+      path)
+    values (#{id,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{index,jdbcType=INTEGER}, #{nameOld,jdbcType=VARCHAR}, #{nameNew,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.exl_si.db.EXLAgentFile">
+    insert into exl_agent_file
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="agentid != null">
+        agentId,
+      </if>
+      <if test="type != null">
+        type,
+      </if>
+      <if test="index != null">
+        index,
+      </if>
+      <if test="nameOld != null">
+        name_old,
+      </if>
+      <if test="nameNew != null">
+        name_new,
+      </if>
+      <if test="path != null">
+        path,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="agentid != null">
+        #{agentid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null">
+        #{index,jdbcType=INTEGER},
+      </if>
+      <if test="nameOld != null">
+        #{nameOld,jdbcType=VARCHAR},
+      </if>
+      <if test="nameNew != null">
+        #{nameNew,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        #{path,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.EXLAgentFile">
+    update exl_agent_file
+    <set>
+      <if test="agentid != null">
+        agentId = #{agentid,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null">
+        index = #{index,jdbcType=INTEGER},
+      </if>
+      <if test="nameOld != null">
+        name_old = #{nameOld,jdbcType=VARCHAR},
+      </if>
+      <if test="nameNew != null">
+        name_new = #{nameNew,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.EXLAgentFile">
+    update exl_agent_file
+    set agentId = #{agentid,jdbcType=VARCHAR},
+      type = #{type,jdbcType=VARCHAR},
+      index = #{index,jdbcType=INTEGER},
+      name_old = #{nameOld,jdbcType=VARCHAR},
+      name_new = #{nameNew,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+</mapper>

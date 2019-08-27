@@ -23,7 +23,7 @@
 	</context:component-scan>
 	
 	<aop:aspectj-autoproxy proxy-target-class="true"/>
-	
+	<bean class="com.exl_si.utils.PropertiesUtil" init-method="initProperySet" />
 	<!-- 读取参数配置 -->
 	<bean id="propertyConfigurer" class="org.springframework.beans.factory.config.PropertyPlaceholderConfigurer">  
 		<property name="locations">  

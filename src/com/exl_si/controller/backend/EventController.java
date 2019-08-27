@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.exl_si.common.AppProperties;
 import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
@@ -41,7 +42,7 @@ public class EventController extends BaseController {
 	@ResponseBody
 	public ServerResponse uploadImg(HttpSession session, MultipartHttpServletRequest request, Integer eventId){
 		try {
-			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, Constants.UPLOAD_PATH, FileObjectEnums.EVENT_PICTURE);
+			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, AppProperties.UPLOAD_PATH, FileObjectEnums.EVENT_PICTURE);
 			if(uploadedFiles != null && !uploadedFiles.isEmpty())
 				return eventService.saveEventPicture(EventHelper.assembleEventPicture(eventId, "", uploadedFiles));
 			return ServerResponse.createByErrorMsg("upload fail");

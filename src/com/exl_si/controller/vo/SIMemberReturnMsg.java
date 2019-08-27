@@ -1,6 +1,5 @@
 package com.exl_si.controller.vo;
 
-import java.util.Date;
 
 public class SIMemberReturnMsg extends ReturnMsg{
 	/**

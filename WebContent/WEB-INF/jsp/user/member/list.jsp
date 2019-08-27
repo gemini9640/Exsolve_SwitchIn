@@ -109,6 +109,7 @@ request.setAttribute("title", "Tables - SI-Member");
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>
 <jsp:include page="../../common/jsUtils.jsp"/>
+<jsp:include page="../../common/script.jsp"/>
 <script>
 $.DateTimeConfig.init("#member-date-range-picker");
 $.TableDataConfig.generateSizeSelector("si_member", 25);

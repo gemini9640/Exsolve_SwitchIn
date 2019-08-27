@@ -3,6 +3,8 @@ package com.exl_si.db;
 import com.exl_si.db.vo.SubFile;
 
 public class EventPicture extends SubFile{
+    private String id;
+
     private Integer eventId;
 
     private String type;
@@ -15,7 +17,8 @@ public class EventPicture extends SubFile{
 
     private String path;
 
-    public EventPicture(Integer eventId, String type, Integer index, String nameOld, String nameNew, String path) {
+    public EventPicture(String id, Integer eventId, String type, Integer index, String nameOld, String nameNew, String path) {
+        this.id = id;
         this.eventId = eventId;
         this.type = type;
         this.index = index;
@@ -26,6 +29,14 @@ public class EventPicture extends SubFile{
 
     public EventPicture() {
         super();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public Integer getEventId() {
@@ -82,6 +93,7 @@ public class EventPicture extends SubFile{
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", eventId=").append(eventId);
         sb.append(", type=").append(type);
         sb.append(", index=").append(index);

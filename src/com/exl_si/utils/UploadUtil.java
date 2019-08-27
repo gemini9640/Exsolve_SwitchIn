@@ -19,6 +19,7 @@ import net.coobird.thumbnailator.Thumbnails;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.exl_si.common.AppProperties;
 import com.exl_si.db.vo.FileObjectProvider;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.db.vo.SubFile;
@@ -26,7 +27,7 @@ import com.exl_si.exception.UploadException;
 
 
 public class UploadUtil {
-	final public static String allow_suffix_List="jpg,gif,png,jpeg";  
+	final public static String allow_suffix_List="jpg,gif,png,jpeg,pdf";  
 	
 	private static boolean checkFileSuffix(String suffix){  
         return allow_suffix_List.contains(suffix.trim().toLowerCase());
@@ -99,24 +100,30 @@ public class UploadUtil {
 		String fullPath = null;
 		try {
 			for(MultipartFile multipartFile : multipartFiles) { 
-	    		SubFile updateFile = FileObjectProvider.newFileObject(obj);
-		        if (StringUtils.isNotEmpty(multipartFile.getOriginalFilename())) {  
-		            String filename = multipartFile.getOriginalFilename();  
-		            String suffix = filename.substring(filename.lastIndexOf(".")+1, filename.length());
-		            if(checkFileSuffix(suffix)) {
-		            	String dateStr = DateUtils.fmtyyyyMMddHHmmss(new Date());
-		                String newFileName = dateStr + "_"+filename;
-		                newFileName.replace(" ", "");
-		                fullPath = uploadPath+newFileName;
-		                method.upload(multipartFile, fullPath);
-		                updateFile.setNameOld(filename);
-		                updateFile.setNameNew(newFileName);
-		                updateFile.setPath(fullPath);
-		                resultList.add(updateFile);
-		            } else 
-		            	throw new UploadException("file type must be \""+allow_suffix_List+"\"");
-		        } else 
-		        	throw new UploadException("file must have a name");
+				if (!multipartFile.isEmpty()) {
+		    		SubFile updateFile = FileObjectProvider.newFileObject(obj);
+			        if (StringUtils.isNotEmpty(multipartFile.getOriginalFilename())) {  
+			            String filename = multipartFile.getOriginalFilename();  
+			            String suffix = filename.substring(filename.lastIndexOf(".")+1, filename.length());
+			            if(checkFileSuffix(suffix)) {
+			            	String dateStr = DateUtils.fmtyyyyMMddHHmmss(new Date());
+			                String newFileName = dateStr + "_"+filename;
+			                newFileName.replace(" ", "");
+			                File folder = new File(uploadPath);
+			                if (!folder.exists())
+			                    folder.mkdirs();
+			                fullPath = uploadPath+newFileName;
+			                method.upload(multipartFile, fullPath);
+			                updateFile.setId(UuidUtil.get32UUID());
+			                updateFile.setNameOld(filename);
+			                updateFile.setNameNew(newFileName);
+			                updateFile.setPath(fullPath.replace(AppProperties.UPLOAD_PATH, ""));
+			                resultList.add(updateFile);
+			            } else 
+			            	throw new UploadException("file type must be \""+allow_suffix_List+"\"");
+			        } else 
+			        	throw new UploadException("file must have a name");
+				}
 	    	}
 	    	return resultList;
 		} catch(IOException ioe) {

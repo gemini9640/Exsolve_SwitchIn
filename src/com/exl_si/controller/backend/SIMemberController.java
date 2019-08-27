@@ -3,27 +3,39 @@ package com.exl_si.controller.backend;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.exl_si.common.AppProperties;
 import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.controller.vo.SIMemberReturnMsg;
 import com.exl_si.db.SIMember;
+import com.exl_si.db.vo.SubFile;
+import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.enums.MemberEnums;
+import com.exl_si.enums.MemberEnums.STATUS;
 import com.exl_si.enums.ResponseCode;
+import com.exl_si.exception.UploadException;
+import com.exl_si.helper.EventHelper;
+import com.exl_si.helper.SIMemberHelper;
 import com.exl_si.service.SIMemberService;
 import com.exl_si.utils.DateUtils;
+import com.exl_si.utils.DeleteFileUtil;
 import com.exl_si.utils.StringUtils;
+import com.exl_si.utils.UploadUtil;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -33,23 +45,35 @@ public class SIMemberController extends BaseController {
 	private SIMemberService memberService;
 //	add
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
-	@ResponseBody
-	public ServerResponse add(SIMember member) {
+//	@ResponseBody
+	public ModelAndView add(SIMember member, MultipartHttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
 		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
-		String errormsg = null;
-		if(StringUtils.isEmpty(member.getUsername()))
+		if(StringUtils.isEmpty(member.getUsername())) 
 			returnMsg.setUsername("username cannot be empty");
-		
+			
 //		if(!returnMsg.validatedForNew())
-		if(returnMsg.validatedForNew())//test
-			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);
-		else {
+		if(returnMsg.validatedForNew()) { //test
+			mv.addObject("returnMsg", returnMsg);
+			mv.setViewName("user/member/create");
+		} else {
 			Timestamp createTime = DateUtils.convertToTimestamp(new Date());
 			member.setCreatetime(createTime);
 			member.setLastupdatetime(createTime);
-			member.setStatus(MemberEnums.STATUS.INIT.getCode());
-			return memberService.save(member);
+			member.setStatus(STATUS.INIT.getCode());
+			ServerResponse response =  memberService.save(member, request);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("member creation succeed");
+				mv.addObject("returnMsg", returnMsg);
+				mv.addObject("result",response.getData());
+				mv.setViewName("user/member/detail");
+			} else {
+				returnMsg.setErrormsg(response.getMsg());
+				mv.addObject("returnMsg", returnMsg);
+				mv.setViewName("user/member/create");
+			}
 		}
+		return mv;
 	}
 	
 //	edit password
@@ -102,4 +126,28 @@ public class SIMemberController extends BaseController {
         return memberService.selectPageByProperties(properties, pageNum, pageSize);
     }
 	
+	@RequestMapping(value="/uploadProfile")
+	@ResponseBody
+	public ServerResponse uploadProfile(HttpSession session, MultipartHttpServletRequest request, String type){
+		try {
+			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, AppProperties.UPLOAD_PATH, FileObjectEnums.EVENT_PICTURE);
+			if(uploadedFiles != null && !uploadedFiles.isEmpty())
+				return memberService.initUploadFile(SIMemberHelper.assembleInitMemberFile("", type, uploadedFiles));
+			return ServerResponse.createByErrorMsg("upload fail");
+		} catch (UploadException ue) {
+			if(ue.getIoe() != null) {
+				ue.getIoe().printStackTrace();
+				if(ue.getPath() != null)
+					DeleteFileUtil.delete(ue.getPath());
+			} else 
+				ue.printStackTrace();
+			return ServerResponse.createByErrorMsg(ue.getMessage());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return ServerResponse.createByErrorMsg(e.getMessage());
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return ServerResponse.createByErrorMsg(e.getMessage());
+		} 
+	}
 }

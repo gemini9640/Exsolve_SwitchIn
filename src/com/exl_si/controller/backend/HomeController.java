@@ -48,4 +48,10 @@ public class HomeController {
 	public ModelAndView exl_client_add(){
 		return new ModelAndView("user/exl_client/create");
 	}
+	
+	
+	@RequestMapping(value="/user/event/list.htm")
+	public ModelAndView event_list(){
+		return new ModelAndView("user/event/list");
+	}
 }

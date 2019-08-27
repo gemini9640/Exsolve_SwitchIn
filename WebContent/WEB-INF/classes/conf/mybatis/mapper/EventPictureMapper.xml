@@ -3,6 +3,7 @@
 <mapper namespace="com.exl_si.mapper.EventPictureMapper">
   <resultMap id="BaseResultMap" type="com.exl_si.db.EventPicture">
     <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="event_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="index" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -11,17 +12,33 @@
       <arg column="path" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
+  <sql id="Base_Column_List">
+    id, event_id, type, index, name_old, name_new, path
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from event_picture
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from event_picture
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
   <insert id="insert" parameterType="com.exl_si.db.EventPicture">
-    insert into event_picture (event_id, type, index, 
-      name_old, name_new, path
-      )
-    values (#{eventId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, #{index,jdbcType=INTEGER}, 
-      #{nameOld,jdbcType=VARCHAR}, #{nameNew,jdbcType=VARCHAR}, #{path,jdbcType=VARCHAR}
-      )
+    insert into event_picture (id, event_id, type, 
+      index, name_old, name_new, 
+      path)
+    values (#{id,jdbcType=VARCHAR}, #{eventId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+      #{index,jdbcType=INTEGER}, #{nameOld,jdbcType=VARCHAR}, #{nameNew,jdbcType=VARCHAR}, 
+      #{path,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.EventPicture">
     insert into event_picture
     <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
       <if test="eventId != null">
         event_id,
       </if>
@@ -42,6 +59,9 @@
       </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
       <if test="eventId != null">
         #{eventId,jdbcType=INTEGER},
       </if>
@@ -62,17 +82,51 @@
       </if>
     </trim>
   </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.EventPicture">
+    update event_picture
+    <set>
+      <if test="eventId != null">
+        event_id = #{eventId,jdbcType=INTEGER},
+      </if>
+      <if test="type != null">
+        type = #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="index != null">
+        index = #{index,jdbcType=INTEGER},
+      </if>
+      <if test="nameOld != null">
+        name_old = #{nameOld,jdbcType=VARCHAR},
+      </if>
+      <if test="nameNew != null">
+        name_new = #{nameNew,jdbcType=VARCHAR},
+      </if>
+      <if test="path != null">
+        path = #{path,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.EventPicture">
+    update event_picture
+    set event_id = #{eventId,jdbcType=INTEGER},
+      type = #{type,jdbcType=VARCHAR},
+      index = #{index,jdbcType=INTEGER},
+      name_old = #{nameOld,jdbcType=VARCHAR},
+      name_new = #{nameNew,jdbcType=VARCHAR},
+      path = #{path,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
   
 	<!-- created -->
 	<insert id="batchInsert" parameterType="list">
 	    insert into event_picture 
 		(
-			event_id, type, index, name_old, name_new, path
+			 id, event_id, type, index, name_old, name_new, path
       	)
 	    values
 	    <foreach collection="items" index="index" item="item" separator=",">
 	      (
-		      #{item.eventId,jdbcType=INTEGER}, #{item.type,jdbcType=VARCHAR}, #{item.index,jdbcType=INTEGER}, 
+		     #{item.id,jdbcType=VARCHAR}, #{item.eventId,jdbcType=INTEGER}, #{item.type,jdbcType=VARCHAR}, #{item.index,jdbcType=INTEGER}, 
       		#{item.nameOld,jdbcType=VARCHAR}, #{item.nameNew,jdbcType=VARCHAR}, #{item.path,jdbcType=VARCHAR}
 	      )
 	    </foreach>

@@ -184,6 +184,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>
 <jsp:include page="../../common/jsUtils.jsp"/>
+<jsp:include page="../../common/script.jsp"/>
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
 $('.date-picker').datepicker().next().on(ace.click_event, function(){

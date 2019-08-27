@@ -115,6 +115,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>
 <jsp:include page="../../common/jsUtils.jsp"/>
+<jsp:include page="../../common/script.jsp"/>
 <script>
 $.DateTimeConfig.init("#merchant-date-range-picker");
 $.TableDataConfig.generateSizeSelector("si_merchant", 25);

@@ -110,6 +110,7 @@ request.setAttribute("title", "Tables - ExL-Client");
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>
 <jsp:include page="../../common/jsUtils.jsp"/>
+<jsp:include page="../../common/script.jsp"/>
 <script>
 $.DateTimeConfig.init("#exlclient-date-range-picker");
 $.TableDataConfig.generateSizeSelector("exl_client", 25);

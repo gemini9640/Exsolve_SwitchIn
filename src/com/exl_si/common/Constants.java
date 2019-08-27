@@ -6,7 +6,7 @@ public class Constants {
     public static final String MEMBER_SESSION = "MEMBER_SESSION";
     public static final String MERCHANT_SESSION = "MERCHANT_SESSION";
     public static final String MD5_SALT = "HELLO_GIRL";
-    public static final String UPLOAD_PATH = "/Users/gemini9640/Documents/work/uploadFiles/";
+//    public static final String UPLOAD_PATH = "/Users/gemini9640/Documents/work/uploadFiles/";
     
     
     public interface Flag {
