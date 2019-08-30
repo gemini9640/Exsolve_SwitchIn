@@ -143,13 +143,13 @@ function exl_agent_html(result) {
 						"</label>"+
 					"</td>"+
 					"<td class='dataValue'>"+
-						"<a href='#'>"+exlagent.id+"</a>"+
+						"<a href='${base}manage/exlagent/detail.do?id="+exlagent.id+"'>"+exlagent.id+"</a>"+
 					"</td>"+
 					"<td class='dataValue'>"+exlagent.agentidno+"</td>"+
 					"<td class='dataValue'>"+exlagent.username+"</td>"+
 					"<td class='dataValue'>"+exlagent.email+"</td>"+
 					"<td class='dataValue'>"+exlagent.phone+"</td>"+
-					"<td class='dataValue'>"+exlagent.createtime+"</td>"+		
+					"<td class='dataValue'>"+$.JsUtil.convertDate(exlagent.createtime)+"</td>"+		
 					"<td class='hidden-480'>"+
 						"<button class='btn btn-minier btn-success'>Approve</button>"+
 						"<button class='btn btn-minier btn-danger'>Reject</button>"+
@@ -203,6 +203,7 @@ exl_agent_list(1);
 			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
+			  { "bSortable": false }
 			],
 			"aaSorting": [],
 			"bPaginate": false,

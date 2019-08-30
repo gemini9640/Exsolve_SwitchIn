@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="../../common/common.inc"%>
 <%
-request.setAttribute("title", "Tables - SI-Client");
+request.setAttribute("title", "Tables - EXL-Client");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -44,9 +44,9 @@ request.setAttribute("title", "Tables - SI-Client");
 									<div id="user-profile-3" class="user-profile row">
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
-											<form action="${base}manage/exlclient/add.do" method="post" class="form-horizontal"  enctype="multipart/form-data">
+											<form action="${base}manage/exlclient/edit.do" method="post" class="form-horizontal"  enctype="multipart/form-data">
 												<div class="tabbable">
-													<jsp:include page="../create_tab.jsp"/>
+													<jsp:include page="tab.jsp"/>
 													<script>
 														activeCreationTab("exl_client");
 													</script>
@@ -56,27 +56,34 @@ request.setAttribute("title", "Tables - SI-Client");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span onclick="uploadProfilePic();" class="profile-picture">
-																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
+																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${client.profilepicture}" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
 																<div class="col-xs-12 col-sm-10">
 																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-id">ClientID</label>
 																		<div class="col-sm-10">
-																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																			<input type="hidden" name="id" value="${client.id}"/>
+																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-id" placeholder="" value="${client.id}" disabled/>
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-password">Password</label>
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
 																		<div class="col-sm-10">
-																			<input name="password" class="col-xs-12 col-sm-10" type="password" id="form-field-password" placeholder="" value="" />
+																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="${client.username}" />
 																		</div>
 																	</div>
+<!-- 																	<div class="form-group"> -->
+<!-- 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-password">Password</label> -->
+<!-- 																		<div class="col-sm-10"> -->
+<!-- 																			<input name="password" class="col-xs-12 col-sm-10" type="password" id="form-field-password" placeholder="" value="" /> -->
+<!-- 																		</div> -->
+<!-- 																	</div> -->
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-realname">Name</label>
 																		<div class="col-sm-10">
-																			<input name="realname" class="col-xs-12 col-sm-10" type="text" id="form-field-realname" placeholder="" value="" />
+																			<input name="realname" class="col-xs-12 col-sm-10" type="text" id="form-field-realname" placeholder="" value="${client.realname}" />
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -84,7 +91,7 @@ request.setAttribute("title", "Tables - SI-Client");
 																		<div class="col-sm-10">
 																			<div class="input-medium">
 																				<div class="input-group">
-																					<input name="dob" class="input-medium date-picker" id="form-field-date" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
+																					<input name="dob" class="input-medium date-picker" id="form-field-date" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="<fmt:formatDate value="${client.dob}" pattern="dd-MM-yyyy"/>"/>
 																					<span class="input-group-addon">
 																						<i class="ace-icon fa fa-calendar"></i>
 																					</span>
@@ -99,18 +106,21 @@ request.setAttribute("title", "Tables - SI-Client");
 																				<option value="M">Male</option>
 																				<option value="F">Female</option>
 																			</select>
+																			<script>
+																				$("#form-field-select-1").find("option[value='${client.sex}']").attr("selected",true);
+																			</script>
 																		</div>
 																	</div>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-agentid">Agent ID No.</label>
 																		<div class="col-sm-10">
-																			<input name="agentid" class="col-xs-12 col-sm-10" type="text" id="form-field-agentid" placeholder="" value="" />
+																			<input name="agentid" class="col-xs-12 col-sm-10" type="text" id="form-field-agentid" placeholder="" value="${client.agentid}" />
 																		</div>
 																	</div>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-policyno">Policy No.</label>
 																		<div class="col-sm-10">
-																			<input name="policyno" class="col-xs-12 col-sm-10" type="text" id="form-field-policyno" placeholder="" value="" />
+																			<input name="policyno" class="col-xs-12 col-sm-10" type="text" id="form-field-policyno" placeholder="" value="${client.policyno}" />
 																		</div>
 																	</div>
 																</div>
@@ -119,7 +129,7 @@ request.setAttribute("title", "Tables - SI-Client");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
-																		<input name="email" type="email" id="form-field-email" value="" />
+																		<input name="email" type="email" id="form-field-email" value="${client.email}" />
 																		<i class="ace-icon fa fa-envelope"></i>
 																	</span>
 																</div>
@@ -128,7 +138,7 @@ request.setAttribute("title", "Tables - SI-Client");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Phone No.</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
-																		<input name="phone" class=" input-mask-phone" type="text" id="form-field-phone" />
+																		<input name="phone" class=" input-mask-phone" type="text" id="form-field-phone" value="${client.phone}"/>
 																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 																	</span>
 																</div>
@@ -138,7 +148,7 @@ request.setAttribute("title", "Tables - SI-Client");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
 																<div class="col-sm-9">
 																	<span class="input-icon">
-																		<input name="facebook" type="text" value="" id="form-field-facebook" />
+																		<input name="facebook" type="text" value="${client.facebook}" id="form-field-facebook" />
 																		<i class="ace-icon fa fa-facebook blue"></i>
 																	</span>
 																</div>
@@ -147,7 +157,7 @@ request.setAttribute("title", "Tables - SI-Client");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">GooglePlus</label>
 																<div class="col-sm-9">
 																	<span class="input-icon">
-																		<input name="googleplus" type="text" value="" id="form-field-gplus" />
+																		<input name="googleplus" type="text" value="${client.googleplus}" id="form-field-gplus" />
 																		<i class="ace-icon fa fa-google-plus red"></i>
 																	</span>
 																</div>

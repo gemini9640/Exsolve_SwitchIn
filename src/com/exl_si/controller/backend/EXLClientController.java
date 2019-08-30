@@ -12,9 +12,13 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+import org.springframework.web.servlet.ModelAndView;
+
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.controller.vo.EXLClientReturnMsg;
+import com.exl_si.controller.vo.SIMemberReturnMsg;
 import com.exl_si.db.EXLClient;
 import com.exl_si.enums.EXLClientEnums;
 import com.exl_si.enums.ResponseCode;
@@ -28,27 +32,73 @@ import com.github.pagehelper.PageInfo;
 public class EXLClientController extends BaseController {
 	@Autowired
 	private EXLClientService exlClientService;
-//	add
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
-	@ResponseBody
-	public ServerResponse add(EXLClient client) {
+	public ModelAndView add(EXLClient client, MultipartHttpServletRequest request) {
 		EXLClientReturnMsg returnMsg = new EXLClientReturnMsg();
-		String errormsg = null;
+		ModelAndView mv = new ModelAndView();
 		if(StringUtils.isEmpty(client.getUsername()))
 			returnMsg.setUsername("username cannot be empty");
 		
 //		if(!returnMsg.validatedForNew())
-		if(returnMsg.validatedForNew())
-			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);
-		else {
+		if(returnMsg.validatedForNew()) {
+			mv.addObject("returnMsg", returnMsg);
+			mv.setViewName("user/exl_client/create");
+		} else {
 			Timestamp createTime = DateUtils.convertToTimestamp(new Date());
 			client.setCreatetime(createTime);
 			client.setLastupdatetime(createTime);
 			client.setStatus(EXLClientEnums.STATUS.INIT.getCode());
-			return exlClientService.save(client);
+			ServerResponse<EXLClient> response = exlClientService.save(client, request);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("client creation succeed");
+				mv.addObject("returnMsg", returnMsg);
+				mv.addObject("client",response.getData());
+				mv.setViewName("user/exl_client/detail");
+			} else {
+				returnMsg.setErrormsg(response.getMsg());
+				mv.addObject("returnMsg", returnMsg);
+				mv.setViewName("user/exl_client/create");
+			}
 		}
+		return mv;
 	}
 	
+	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
+    public ModelAndView edit(EXLClient client, MultipartHttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/exl_client/detail");
+		EXLClientReturnMsg returnMsg = new EXLClientReturnMsg();
+		if(returnMsg.validatedForEdit())
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+			client.setLastupdatetime(lastupdatetime);
+			ServerResponse<EXLClient> response = exlClientService.update(client, request);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("client info updated");
+				mv.addObject("client",response.getData());
+			} else
+				returnMsg.setErrormsg(response.getMsg());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "detail.do")
+    public ModelAndView detail(String id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/exl_client/detail");
+		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
+		if(returnMsg.validatedForEdit())  //test
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			ServerResponse<EXLClient> response = exlClientService.query(id);
+			if(response.isSuccess()) 
+				mv.addObject("client",response.getData());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
 //	edit password
 	@RequestMapping(value = "editPassword.do", method = RequestMethod.POST)
 	@ResponseBody
@@ -62,20 +112,6 @@ public class EXLClientController extends BaseController {
 		if(errormsg != null)
 			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, errormsg);
 		return exlClientService.changePasswordWithoutCheckPassword(getSessionMerchant().getUsername(), password);
-	}
-	
-//	edit
-	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
-	@ResponseBody
-    public ServerResponse edit(EXLClient client) {
-		EXLClientReturnMsg returnMsg = new EXLClientReturnMsg();
-		if(!returnMsg.validatedForEdit())
-			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);
-		else {
-			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
-			client.setLastupdatetime(lastupdatetime);
-			return exlClientService.update(client);
-		}
 	}
 	
 	@RequestMapping(value = "listPageByProperties.do", method = RequestMethod.POST)

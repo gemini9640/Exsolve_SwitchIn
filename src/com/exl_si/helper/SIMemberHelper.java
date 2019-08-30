@@ -27,9 +27,17 @@ public class SIMemberHelper {
 		}
 		return memberFiles;
 	}
+	
+	public static SIMemberFile assembleEdittedMemberFile(SIMemberFile file, List<SubFile> files) {
+		SIMemberFile memberFile = (SIMemberFile) files.get(0);
+		file.setNameNew(memberFile.getNameNew());
+		file.setNameOld(memberFile.getNameOld());
+		file.setPath(memberFile.getPath());
+		return file;
+	}
 
-	public static <T> SIMemberWithAssociated assembleSIMemberWithAssociated(SIMember member, T file) {
-		return new SIMemberWithAssociated(member, (SIMemberFile) file);
+	public static SIMemberWithAssociated assembleSIMemberWithAssociated(SIMember member, SIMemberFile file) {
+		return new SIMemberWithAssociated(member, file);
 	}
 	
 }

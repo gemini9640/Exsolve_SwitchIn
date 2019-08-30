@@ -55,7 +55,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span  onclick="uploadProfilePic();" class="profile-picture">
-																		<img id="PROFILE_PIC" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
+																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -149,11 +149,11 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															Save
 														</button>
 
-														&nbsp; &nbsp;
-														<button class="btn" type="reset">
-															<i class="ace-icon glyphicon glyphicon-remove bigger-110"></i>
-															cancel
-														</button>
+<!-- 														&nbsp; &nbsp; -->
+<!-- 														<button class="btn" type="reset"> -->
+<!-- 															<i class="ace-icon glyphicon glyphicon-remove bigger-110"></i> -->
+<!-- 															cancel -->
+<!-- 														</button> -->
 													</div>
 												</div>
 												</div>
@@ -184,34 +184,7 @@ $('.date-picker').datepicker().next().on(ace.click_event, function(){
 function uploadProfilePic() {
 	$("#uploadFile").click();
 }
-$(function() {
-	$("#uploadFile").on("change", function() {
-		$(this).prev().css("opacity","1")
-		
-
-		var filePath = $(this).val();//读取图片路径
-		
-		var fr = new FileReader();//创建new FileReader()对象
-		var imgObj = this.files[0];//获取图片
-		fr.readAsDataURL(imgObj);//将图片读取为DataURL
-		if(filePath.indexOf("jpg") != -1 || filePath.indexOf("JPG") != -1 || filePath.indexOf("PNG") != -1 || filePath.indexOf("png") != -1) {
-			console.log(imgObj);
-			var arr = filePath.split('\\');
-			var fileName = arr[arr.length - 1];
-		
-			$(this).parent().next().show();
-			fr.onload = function() {
-				$("#PROFILE_PIC").attr("src",this.result);
-			};
-		} else {
-			$(this).parent().next().show();
-			$(this).parent().next().children("i").html("您未上传文件，或者您上传文件类型有误！").css("color", "red");
-			//$(this).parent().next().html("您未上传文件，或者您上传文件类型有误！").css("color","red");
-			return false
-		}
-	});
-});
-
+$.UploadConfig.onchange("#uploadFile", "#profile_pic");
 </script>
 </body>
 </html>

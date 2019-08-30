@@ -21,6 +21,13 @@ $.JsUtil = {
 		    }
 		}
 	},
+	convertDate : function(date) {
+		var date = new Date(date);
+	    var year = date.getFullYear();
+	    var month = date.getMonth()+1;
+	    var day = date.getDate();
+	    return day+"-"+month+"-"+year;
+	},
 	undefinedRed : function (selector) {
 		$(selector).each(function() {
 			if($(this).text() == "undefined") {

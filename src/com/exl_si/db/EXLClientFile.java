@@ -1,13 +1,15 @@
 package com.exl_si.db;
 
-public class EXLClientFile {
+import com.exl_si.db.vo.SubFile;
+
+public class EXLClientFile extends SubFile{
     private String id;
 
-    private String clientid;
+    private String clientId;
 
     private String type;
 
-    private Integer index;
+    private Integer indx;
 
     private String nameOld;
 
@@ -15,11 +17,11 @@ public class EXLClientFile {
 
     private String path;
 
-    public EXLClientFile(String id, String clientid, String type, Integer index, String nameOld, String nameNew, String path) {
+    public EXLClientFile(String id, String clientId, String type, Integer indx, String nameOld, String nameNew, String path) {
         this.id = id;
-        this.clientid = clientid;
+        this.clientId = clientId;
         this.type = type;
-        this.index = index;
+        this.indx = indx;
         this.nameOld = nameOld;
         this.nameNew = nameNew;
         this.path = path;
@@ -37,12 +39,12 @@ public class EXLClientFile {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getClientid() {
-        return clientid;
+    public String getClientId() {
+        return clientId;
     }
 
-    public void setClientid(String clientid) {
-        this.clientid = clientid == null ? null : clientid.trim();
+    public void setClientId(String clientId) {
+        this.clientId = clientId == null ? null : clientId.trim();
     }
 
     public String getType() {
@@ -53,12 +55,12 @@ public class EXLClientFile {
         this.type = type == null ? null : type.trim();
     }
 
-    public Integer getIndex() {
-        return index;
+    public Integer getIndx() {
+        return indx;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setIndx(Integer indx) {
+        this.indx = indx;
     }
 
     public String getNameOld() {
@@ -92,9 +94,9 @@ public class EXLClientFile {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", clientid=").append(clientid);
+        sb.append(", clientId=").append(clientId);
         sb.append(", type=").append(type);
-        sb.append(", index=").append(index);
+        sb.append(", indx=").append(indx);
         sb.append(", nameOld=").append(nameOld);
         sb.append(", nameNew=").append(nameNew);
         sb.append(", path=").append(path);

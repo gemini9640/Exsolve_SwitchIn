@@ -155,8 +155,8 @@ function si_merchant_html(result) {
 					"<td class='dataValue'>"+merchant.email+"</td>"+
 					"<td class='dataValue'>"+merchant.phone+"</td>"+
 					"<td class='dataValue'>"+merchant.industrytype+"</td>"+
-					"<td class='dataValue'>"+merchant.createtime+"</td>"+		
-					"<td class='dataValue'>"+merchant.expireddatessm+"</td>"+		
+					"<td class='dataValue'>"+$.JsUtil.convertDate(merchant.createtime)+"</td>"+		
+					"<td class='dataValue'>"+$.JsUtil.convertDate(merchant.expireddatessm)+"</td>"+		
 					"<td class='hidden-480'>"+
 						"<button class='btn btn-minier btn-success'>Approve</button>"+
 						"<button class='btn btn-minier btn-danger'>Reject</button>"+

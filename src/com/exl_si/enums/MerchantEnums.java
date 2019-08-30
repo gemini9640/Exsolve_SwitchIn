@@ -43,4 +43,27 @@ public final class MerchantEnums {
 	        return desc;
 	    }
 	}
+	
+	public enum FileType {
+		PROFILE(0, "PROFILE"),
+		DCUMENT(1, "DCUMENT"),
+		BANNER(2, "BANNER"),
+		QR(3, "QR");
+		
+		private int code;
+	    private String desc;
+	    
+		private FileType(int code, String desc) {
+			 this.code = code;
+		     this.desc = desc;
+		}
+	    
+		public int getCode() {
+	        return code;
+	    }
+
+	    public String getDesc() {
+	        return desc;
+	    }
+	}
 }

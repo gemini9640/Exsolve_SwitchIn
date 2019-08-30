@@ -142,12 +142,12 @@ function si_member_html(result) {
 						"</label>"+
 					"</td>"+
 					"<td class='dataValue'>"+
-						"<a href='#'>"+member.id+"</a>"+
+						"<a href='${base}manage/member/detail.do?id="+member.id+"'>"+member.id+"</a>"+
 					"</td>"+
 					"<td class='dataValue'>"+member.username+"</td>"+
 					"<td class='dataValue'>"+member.email+"</td>"+
 					"<td class='dataValue'>"+member.phone+"</td>"+
-					"<td class='dataValue'>"+member.createtime+"</td>"+		
+					"<td class='dataValue'>"+$.JsUtil.convertDate(member.createtime)+"</td>"+		
 					"<td class='hidden-480'>"+
 						"<button class='btn btn-minier btn-success'>Approve</button>"+
 						"<button class='btn btn-minier btn-danger'>Reject</button>"+

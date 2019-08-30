@@ -32,7 +32,7 @@ request.setAttribute("title", "Tables - SI-Member");
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								Create User
+								SI-Member Info
 							</h1>
 						</div>
 
@@ -43,9 +43,9 @@ request.setAttribute("title", "Tables - SI-Member");
 									<div id="user-profile-3" class="user-profile row">
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
-											<form action="${base}manage/member/add.do" method="post" class="form-horizontal" enctype="multipart/form-data">
+											<form action="${base}manage/member/edit.do" method="post" class="form-horizontal" enctype="multipart/form-data">
 												<div class="tabbable">
-													<jsp:include page="../create_tab.jsp"/>
+													<jsp:include page="tab.jsp"/>
 													<script>
 														activeCreationTab("si_member");
 													</script>
@@ -54,7 +54,7 @@ request.setAttribute("title", "Tables - SI-Member");
 															<h4 class="header blue bolder smaller">General</h4>
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
-																	<span  onclick="uploadProfilePic();" class="profile-picture">
+																	<span onclick="uploadProfilePic();" class="profile-picture">
 																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${result.file.path}" />
 																	</span>
 																</div>
@@ -63,7 +63,8 @@ request.setAttribute("title", "Tables - SI-Member");
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-id">MemberID</label>
 																		<div class="col-sm-10">
-																			<input name="id" class="col-xs-12 col-sm-10" type="text" id="form-field-id" placeholder="" value="${result.member.id}" disabled/>
+																			<input type="hidden" name="id" value="${result.member.id}"/>
+																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-id" placeholder="" value="${result.member.id}" disabled/>
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -72,12 +73,14 @@ request.setAttribute("title", "Tables - SI-Member");
 																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="${result.member.username}" />
 																		</div>
 																	</div>
+																	<%--
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-password">Password</label>
 																		<div class="col-sm-10">
 																			<input name="password" class="col-xs-12 col-sm-10" type="password" id="form-field-password" placeholder="" value="${result.member.password}" />
 																		</div>
 																	</div>
+																	 --%>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-realname">Name</label>
 																		<div class="col-sm-10">
@@ -89,7 +92,7 @@ request.setAttribute("title", "Tables - SI-Member");
 																		<div class="col-sm-10">
 																			<div class="input-medium">
 																				<div class="input-group">
-																					<input name="dob" class="input-medium date-picker" id="form-field-dob" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="${result.member.dob}"/>
+																					<input name="dob" class="input-medium date-picker" id="form-field-dob" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="<fmt:formatDate value="${result.member.dob}" pattern="dd-MM-yyyy"/>"/>
 																					<span class="input-group-addon">
 																						<i class="ace-icon fa fa-calendar"></i>
 																					</span>
@@ -104,6 +107,9 @@ request.setAttribute("title", "Tables - SI-Member");
 																				<option value="M">Male</option>
 																				<option value="F">Female</option>
 																			</select>
+																			<script>
+																				$("#form-field-select-sex").find("option[value='${result.member.sex}']").attr("selected",true);
+																			</script>
 																		</div>
 																	</div>
 																</div>
@@ -155,11 +161,11 @@ request.setAttribute("title", "Tables - SI-Member");
 															Save
 														</button>
 
-														&nbsp; &nbsp;
-														<button class="btn" type="reset">
-															<i class="ace-icon glyphicon glyphicon-remove bigger-110"></i>
-															cancel
-														</button>
+<!-- 														&nbsp; &nbsp; -->
+<!-- 														<button class="btn" type="reset"> -->
+<!-- 															<i class="ace-icon glyphicon glyphicon-remove bigger-110"></i> -->
+<!-- 															cancel -->
+<!-- 														</button> -->
 													</div>
 												</div>
 												</div>
@@ -186,38 +192,10 @@ request.setAttribute("title", "Tables - SI-Member");
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });
-
 function uploadProfilePic() {
 	$("#uploadFile").click();
 }
-$(function() {
-	$("#uploadFile").on("change", function() {
-		$(this).prev().css("opacity","1")
-		
-
-		var filePath = $(this).val();//读取图片路径
-		
-		var fr = new FileReader();//创建new FileReader()对象
-		var imgObj = this.files[0];//获取图片
-		fr.readAsDataURL(imgObj);//将图片读取为DataURL
-		if(filePath.indexOf("jpg") != -1 || filePath.indexOf("JPG") != -1 || filePath.indexOf("PNG") != -1 || filePath.indexOf("png") != -1) {
-			console.log(imgObj);
-			var arr = filePath.split('\\');
-			var fileName = arr[arr.length - 1];
-		
-			$(this).parent().next().show();
-			fr.onload = function() {
-				$("#profile_pic").attr("src",this.result);
-			};
-		} else {
-			$(this).parent().next().show();
-			$(this).parent().next().children("i").html("您未上传文件，或者您上传文件类型有误！").css("color", "red");
-			//$(this).parent().next().html("您未上传文件，或者您上传文件类型有误！").css("color","red");
-			return false
-		}
-	});
-});
-
+$.UploadConfig.onchange("#uploadFile", "#profile_pic");
 </script>
 </body>
 </html>

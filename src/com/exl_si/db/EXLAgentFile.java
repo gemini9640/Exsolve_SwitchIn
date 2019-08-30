@@ -1,13 +1,15 @@
 package com.exl_si.db;
 
-public class EXLAgentFile {
+import com.exl_si.db.vo.SubFile;
+
+public class EXLAgentFile extends SubFile{
     private String id;
 
-    private String agentid;
+    private String agentId;
 
     private String type;
 
-    private Integer index;
+    private Integer indx;
 
     private String nameOld;
 
@@ -15,11 +17,11 @@ public class EXLAgentFile {
 
     private String path;
 
-    public EXLAgentFile(String id, String agentid, String type, Integer index, String nameOld, String nameNew, String path) {
+    public EXLAgentFile(String id, String agentId, String type, Integer indx, String nameOld, String nameNew, String path) {
         this.id = id;
-        this.agentid = agentid;
+        this.agentId = agentId;
         this.type = type;
-        this.index = index;
+        this.indx = indx;
         this.nameOld = nameOld;
         this.nameNew = nameNew;
         this.path = path;
@@ -37,12 +39,12 @@ public class EXLAgentFile {
         this.id = id == null ? null : id.trim();
     }
 
-    public String getAgentid() {
-        return agentid;
+    public String getAgentId() {
+        return agentId;
     }
 
-    public void setAgentid(String agentid) {
-        this.agentid = agentid == null ? null : agentid.trim();
+    public void setAgentId(String agentId) {
+        this.agentId = agentId == null ? null : agentId.trim();
     }
 
     public String getType() {
@@ -53,12 +55,12 @@ public class EXLAgentFile {
         this.type = type == null ? null : type.trim();
     }
 
-    public Integer getIndex() {
-        return index;
+    public Integer getIndx() {
+        return indx;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setIndx(Integer indx) {
+        this.indx = indx;
     }
 
     public String getNameOld() {
@@ -92,9 +94,9 @@ public class EXLAgentFile {
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
         sb.append(", id=").append(id);
-        sb.append(", agentid=").append(agentid);
+        sb.append(", agentId=").append(agentId);
         sb.append(", type=").append(type);
-        sb.append(", index=").append(index);
+        sb.append(", indx=").append(indx);
         sb.append(", nameOld=").append(nameOld);
         sb.append(", nameNew=").append(nameNew);
         sb.append(", path=").append(path);

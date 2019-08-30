@@ -44,7 +44,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 									<div id="user-profile-3" class="user-profile row">
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
-											<form action="${base}manage/exlagent/add.do" method="post" class="form-horizontal">
+											<form action="${base}manage/exlagent/add.do" method="post" class="form-horizontal" enctype="multipart/form-data">
 												<div class="tabbable">
 													<jsp:include page="../create_tab.jsp"/>
 													<script>
@@ -55,8 +55,8 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<h4 class="header blue bolder smaller">General</h4>
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
-																	<span class="profile-picture">
-																		<img id="agentpic1" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
+																	<span onclick="uploadProfilePic();" class="profile-picture">
+																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -161,15 +161,10 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<i class="ace-icon fa fa-check bigger-110"></i>
 															Save
 														</button>
-
-														&nbsp; &nbsp;
-														<button class="btn" type="reset">
-															<i class="ace-icon glyphicon glyphicon-remove bigger-110"></i>
-															cancel
-														</button>
 													</div>
 												</div>
 												</div>
+												<input id="uploadFile" type="file" name="file" style="display:none;"/>
 											</form>
 										</div><!-- /.span -->
 									</div><!-- /.user-profile -->
@@ -191,6 +186,10 @@ request.setAttribute("title", "Tables - SI-Merchant");
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });
+function uploadProfilePic() {
+	$("#uploadFile").click();
+}
+$.UploadConfig.onchange("#uploadFile", "#profile_pic");
 </script>
 </body>
 </html>

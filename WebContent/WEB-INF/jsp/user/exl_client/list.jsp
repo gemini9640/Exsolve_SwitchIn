@@ -143,14 +143,14 @@ function exl_client_html(result) {
 						"</label>"+
 					"</td>"+
 					"<td class='dataValue'>"+
-						"<a href='#'>"+exlclient.id+"</a>"+
+						"<a href='${base}manage/exlclient/detail.do?id="+exlclient.id+"'>"+exlclient.id+"</a>"+
 					"</td>"+
 					"<td class='dataValue'>"+exlclient.username+"</td>"+
 					"<td class='dataValue'>"+exlclient.email+"</td>"+
 					"<td class='dataValue'>"+exlclient.phone+"</td>"+
 					"<td class='dataValue'>"+exlclient.policyno+"</td>"+		
 					"<td class='dataValue'>"+exlclient.agentname+"</td>"+
-					"<td class='dataValue'>"+exlclient.createtime+"</td>"+		
+					"<td class='dataValue'>"+$.JsUtil.convertDate(exlclient.createtime)+"</td>"+		
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
 							"<a class='blue' href='#'>"+

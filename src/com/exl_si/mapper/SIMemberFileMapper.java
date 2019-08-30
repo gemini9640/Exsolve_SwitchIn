@@ -20,4 +20,6 @@ public interface SIMemberFileMapper {
     int updateByPrimaryKey(SIMemberFile record);
     
     int batchInsert(@Param("items")List<SIMemberFile> items);
+    
+    SIMemberFile selectByMemberId(String memberId);
 }

@@ -1,6 +1,7 @@
 package com.exl_si.controller.backend;
 
 import java.sql.Timestamp;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
@@ -10,7 +11,10 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.propertyeditors.CustomDateEditor;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.WebDataBinder;
+import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -25,11 +29,9 @@ import com.exl_si.controller.vo.SIMemberReturnMsg;
 import com.exl_si.db.SIMember;
 import com.exl_si.db.vo.SubFile;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
-import com.exl_si.enums.MemberEnums;
 import com.exl_si.enums.MemberEnums.STATUS;
 import com.exl_si.enums.ResponseCode;
 import com.exl_si.exception.UploadException;
-import com.exl_si.helper.EventHelper;
 import com.exl_si.helper.SIMemberHelper;
 import com.exl_si.service.SIMemberService;
 import com.exl_si.utils.DateUtils;
@@ -43,9 +45,8 @@ import com.github.pagehelper.PageInfo;
 public class SIMemberController extends BaseController {
 	@Autowired
 	private SIMemberService memberService;
-//	add
+
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
-//	@ResponseBody
 	public ModelAndView add(SIMember member, MultipartHttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
@@ -75,8 +76,44 @@ public class SIMemberController extends BaseController {
 		}
 		return mv;
 	}
+
+	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
+    public ModelAndView edit(SIMember member, MultipartHttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/member/detail");
+		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
+		if(returnMsg.validatedForEdit())  //test
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+			member.setLastupdatetime(lastupdatetime);
+			ServerResponse response = memberService.update(member, request);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("member info updated");
+				mv.addObject("result",response.getData());
+			} else
+				returnMsg.setErrormsg(response.getMsg());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
 	
-//	edit password
+	@RequestMapping(value = "detail.do")
+    public ModelAndView detail(String id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/member/detail");
+		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
+		if(returnMsg.validatedForEdit())  //test
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			ServerResponse response = memberService.query(id);
+			if(response.isSuccess()) 
+				mv.addObject("result",response.getData());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
+	 
 	@RequestMapping(value = "editPassword.do", method = RequestMethod.POST)
 	@ResponseBody
     public ServerResponse editPassword(String password, String confirmPassword) {
@@ -89,20 +126,6 @@ public class SIMemberController extends BaseController {
 		if(errormsg != null)
 			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, errormsg);
 		return memberService.changePasswordWithoutCheckPassword(getSessionMerchant().getUsername(), password);
-	}
-	
-//	edit
-	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
-	@ResponseBody
-    public ServerResponse edit(SIMember member) {
-		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
-		if(!returnMsg.validatedForEdit())
-			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);
-		else {
-			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
-			member.setLastupdatetime(lastupdatetime);
-			return memberService.update(member);
-		}
 	}
 	
 	@RequestMapping(value = "listPageByProperties.do", method = RequestMethod.POST)

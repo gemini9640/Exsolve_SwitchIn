@@ -6,14 +6,14 @@
       <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="merchantId" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="index" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="indx" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="name_old" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="name_new" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="path" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, merchantId, type, index, name_old, name_new, path
+    id, merchantId, type, indx, name_old, name_new, path
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -27,10 +27,10 @@
   </delete>
   <insert id="insert" parameterType="com.exl_si.db.SIMerchantDOC">
     insert into si_merchant_doc (id, merchantId, type, 
-      index, name_old, name_new, 
+      indx, name_old, name_new, 
       path)
-    values (#{id,jdbcType=VARCHAR}, #{merchantid,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
-      #{index,jdbcType=INTEGER}, #{nameOld,jdbcType=VARCHAR}, #{nameNew,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+      #{indx,jdbcType=INTEGER}, #{nameOld,jdbcType=VARCHAR}, #{nameNew,jdbcType=VARCHAR}, 
       #{path,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.SIMerchantDOC">
@@ -39,14 +39,14 @@
       <if test="id != null">
         id,
       </if>
-      <if test="merchantid != null">
+      <if test="merchantId != null">
         merchantId,
       </if>
       <if test="type != null">
         type,
       </if>
-      <if test="index != null">
-        index,
+      <if test="indx != null">
+        indx,
       </if>
       <if test="nameOld != null">
         name_old,
@@ -62,14 +62,14 @@
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="merchantid != null">
-        #{merchantid,jdbcType=VARCHAR},
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
       </if>
-      <if test="index != null">
-        #{index,jdbcType=INTEGER},
+      <if test="indx != null">
+        #{indx,jdbcType=INTEGER},
       </if>
       <if test="nameOld != null">
         #{nameOld,jdbcType=VARCHAR},
@@ -85,14 +85,14 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMerchantDOC">
     update si_merchant_doc
     <set>
-      <if test="merchantid != null">
-        merchantId = #{merchantid,jdbcType=VARCHAR},
+      <if test="merchantId != null">
+        merchantId = #{merchantId,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
       </if>
-      <if test="index != null">
-        index = #{index,jdbcType=INTEGER},
+      <if test="indx != null">
+        indx = #{indx,jdbcType=INTEGER},
       </if>
       <if test="nameOld != null">
         name_old = #{nameOld,jdbcType=VARCHAR},
@@ -108,9 +108,9 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMerchantDOC">
     update si_merchant_doc
-    set merchantId = #{merchantid,jdbcType=VARCHAR},
+    set merchantId = #{merchantId,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
-      index = #{index,jdbcType=INTEGER},
+      indx = #{indx,jdbcType=INTEGER},
       name_old = #{nameOld,jdbcType=VARCHAR},
       name_new = #{nameNew,jdbcType=VARCHAR},
       path = #{path,jdbcType=VARCHAR}
@@ -124,25 +124,25 @@
 			id, 
 			merchantId, 
 			type, 
-			index, 
+			indx, 
       		path,
       		name_old,
       		name_new
       	)
 	    values
-	    <foreach collection="items" index="index" item="item" separator=",">
+	    <foreach collection="items" index="indx" item="item" separator=",">
 	      (
 	      	  #{item.id}
 		      #{item.merchantId},
 		      #{item.type},
-		      #{item.index},
+		      #{item.indx},
 		      #{item.path},
 		      #{item.name_old},
 		      #{item.name_new}
 	      )
 	    </foreach>
 	</insert>
-	<select id="selectByMerchantId" parameterType="java.lang.String" resultType="list">
+	<select id="selectBymerchantId" parameterType="java.lang.String" resultType="list">
 	    select 
 	    <include refid="Base_Column_List" />
 	    from si_merchant_doc

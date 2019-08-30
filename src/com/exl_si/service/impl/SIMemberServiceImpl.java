@@ -1,6 +1,5 @@
 package com.exl_si.service.impl;
 
-import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -39,12 +38,20 @@ public class SIMemberServiceImpl implements SIMemberService{
 	private SequenceNoMapper sequenceNoMapper;
 	
 	private ServerResponse uploadProfile(MultipartHttpServletRequest request, String memberId, String type) {
+		String baseFolder = AppProperties.UPLOAD_PATH+"/si_member/"+memberId+"/"+type+"/";
 		try {
-			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, AppProperties.UPLOAD_PATH+"/"+memberId+"/"+type+"/", FileObjectEnums.SIMEMBER_FILE);
+			SIMemberFile profilePic = memberFileMapper.selectByMemberId(memberId);
+			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, baseFolder, FileObjectEnums.SIMEMBER_FILE);
 			if(uploadedFiles != null && !uploadedFiles.isEmpty()) {
-				if(memberFileMapper.batchInsert(SIMemberHelper.assembleInitMemberFile(memberId, type, uploadedFiles)) > 0)
+				if(profilePic != null) {
+					DeleteFileUtil.delete(AppProperties.UPLOAD_PATH+profilePic.getPath());
+					memberFileMapper.updateByPrimaryKeySelective(SIMemberHelper.assembleEdittedMemberFile(profilePic, uploadedFiles));
 					return ServerResponse.createBySuccess(uploadedFiles.get(0));
-			} return ServerResponse.createByErrorMsg("upload fail");
+				}else if(memberFileMapper.batchInsert(SIMemberHelper.assembleInitMemberFile(memberId, type, uploadedFiles)) > 0)
+					return ServerResponse.createBySuccess(uploadedFiles.get(0));
+			} else if(profilePic != null)
+				return ServerResponse.createBySuccess("no file to upload", profilePic);
+			return ServerResponse.createByErrorMsg("nothing to do for uploading profile picture!");
 		} catch (UploadException ue) {
 			if(ue.getIoe() != null) {
 				ue.getIoe().printStackTrace();
@@ -62,21 +69,23 @@ public class SIMemberServiceImpl implements SIMemberService{
 		} 
 	}
 	
-	public ServerResponse<SIMember> query(String username) {
-		SIMember member = memberMapper.selectByPrimaryKey(username);
+	public ServerResponse<SIMemberWithAssociated> query(String id) {
+		SIMember member = memberMapper.selectByPrimaryKey(id);
 		if(member == null)
-			return ServerResponse.createByServerError("user not found, username not exist");
-		return ServerResponse.createBySuccess(member);
+			return ServerResponse.createByServerError("member not found, id not exist");
+		SIMemberFile profilePic = memberFileMapper.selectByMemberId(id); 
+		return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member,  profilePic));
 	} 
 	
-	public ServerResponse<SIMember> login(String username, String password) {
+	public ServerResponse<SIMemberWithAssociated> login(String username, String password) {
 		SIMember member = memberMapper.login(username, ServiceHelper.encriptPassword(password));
 		if(member == null)
 			return ServerResponse.createByServerError("login fail, username or password incorrect");
-		return ServerResponse.createBySuccess(member);
+		SIMemberFile profilePic = memberFileMapper.selectByMemberId(member.getId());
+		return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member,  profilePic));
 	} 
 	
-	public ServerResponse save(SIMember member, MultipartHttpServletRequest request) {
+	public ServerResponse<SIMemberWithAssociated> save(SIMember member, MultipartHttpServletRequest request) {
 		if(memberMapper.selectByUsername(member.getUsername()) != null)
 			return ServerResponse.createByServerError("member is already exist.");
 		SequenceNoHelper.setMemberSequenceId(member, sequenceNoMapper);
@@ -84,11 +93,22 @@ public class SIMemberServiceImpl implements SIMemberService{
 			SequenceNoHelper.updateMemberSequenceNo(sequenceNoMapper);
 			ServerResponse uploadResp = uploadProfile(request, member.getId(), FileType.PROFILE.getDesc());
 			if(uploadResp.isSuccess())
-				return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member, uploadResp.getData()));
+				return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member, (SIMemberFile) uploadResp.getData()));
 			else 
 				return ServerResponse.createBySuccess(uploadResp.getMsg(), SIMemberHelper.assembleSIMemberWithAssociated(member, null));
 		} else 
-			return ServerResponse.createByServerError("register fail");
+			return ServerResponse.createByServerError("add member fail");
+	}
+	
+	public ServerResponse<SIMemberWithAssociated> update(SIMember member, MultipartHttpServletRequest request) {
+		if(memberMapper.updateByPrimaryKeySelective(member)>0) {
+			ServerResponse uploadResp = uploadProfile(request, member.getId(), FileType.PROFILE.getDesc());
+			if(uploadResp.isSuccess())
+				return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member, (SIMemberFile) uploadResp.getData()));
+			else 
+				return ServerResponse.createBySuccess(uploadResp.getMsg(), SIMemberHelper.assembleSIMemberWithAssociated(member, null));
+		} else 
+			return ServerResponse.createByServerError("update fail");
 	}
 	
 	public ServerResponse<PageInfo> selectByPageNumAndPageSize(Integer pageNum, Integer pageSize) {
@@ -101,13 +121,6 @@ public class SIMemberServiceImpl implements SIMemberService{
 		PageHelper.startPage(pageNum, pageSize);
 		List<SIMember> list = memberMapper.selectByPropertiesSelelctives(properties);
 		return ServerResponse.createBySuccess(new PageInfo(list));
-	}
-	
-	public ServerResponse update(SIMember member) {
-		if(memberMapper.updateByPrimaryKeySelective(member)>0)
-			return ServerResponse.createBySuccess();
-		else 
-			return ServerResponse.createByServerError("update fail");
 	}
 	
 	public ServerResponse changePassword(String username, String oldPass, String newPass) {

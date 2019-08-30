@@ -29,7 +29,7 @@
     insert into si_member_file (id, memberId, type, 
       indx, name_old, name_new, 
       path)
-    values (#{id,jdbcType=VARCHAR}, #{memberid,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{memberId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{indx,jdbcType=INTEGER}, #{nameOld,jdbcType=VARCHAR}, #{nameNew,jdbcType=VARCHAR}, 
       #{path,jdbcType=VARCHAR})
   </insert>
@@ -39,7 +39,7 @@
       <if test="id != null">
         id,
       </if>
-      <if test="memberid != null">
+      <if test="memberId != null">
         memberId,
       </if>
       <if test="type != null">
@@ -62,8 +62,8 @@
       <if test="id != null">
         #{id,jdbcType=VARCHAR},
       </if>
-      <if test="memberid != null">
-        #{memberid,jdbcType=VARCHAR},
+      <if test="memberId != null">
+        #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
@@ -85,8 +85,8 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMemberFile">
     update si_member_file
     <set>
-      <if test="memberid != null">
-        memberId = #{memberid,jdbcType=VARCHAR},
+      <if test="memberId != null">
+        memberId = #{memberId,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
@@ -108,7 +108,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMemberFile">
     update si_member_file
-    set memberId = #{memberid,jdbcType=VARCHAR},
+    set memberId = #{memberId,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       indx = #{indx,jdbcType=INTEGER},
       name_old = #{nameOld,jdbcType=VARCHAR},
@@ -133,4 +133,11 @@
 	    	</foreach>
 		)
 	</insert>
+	
+	<select id="selectByMemberId" parameterType="java.lang.String" resultMap="BaseResultMap">
+		select 
+	    <include refid="Base_Column_List" />
+	    from si_member_file
+	    where memberId = #{memberId,jdbcType=VARCHAR}
+	</select>
 </mapper>
