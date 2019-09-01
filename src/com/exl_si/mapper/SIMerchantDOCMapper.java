@@ -21,5 +21,5 @@ public interface SIMerchantDOCMapper {
     
     int batchInsert(List<SIMerchantDOC> items);
     
-    List<SIMerchantDOC> selectByMerchantId(@Param("merchantId")String merchantId);
+    List<SIMerchantDOC> selectBymerchantIdAndType(@Param("merchantId")String merchantId, @Param("type")String type);
 }

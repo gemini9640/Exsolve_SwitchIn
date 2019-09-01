@@ -171,6 +171,11 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<i class="ace-icon fa fa-check bigger-110"></i>
 															Save
 														</button>
+														&nbsp; &nbsp;
+														<button class="btn" type="reset">
+															<i class="ace-icon glyphicon glyphicon-remove bigger-110"></i>
+															cancel
+														</button>
 													</div>
 												</div>
 												</div>

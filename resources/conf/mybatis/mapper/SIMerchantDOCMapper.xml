@@ -142,10 +142,13 @@
 	      )
 	    </foreach>
 	</insert>
-	<select id="selectBymerchantId" parameterType="java.lang.String" resultType="list">
+	<select id="selectBymerchantIdAndType" parameterType="map" resultType="list">
 	    select 
 	    <include refid="Base_Column_List" />
 	    from si_merchant_doc
-	    where merchantId = #{merchantId,jdbcType=VARCHAR}
+	    where merchantId = #{merchantId,jdbcType=VARCHAR} 
+	    <if test="type != null">
+        	and type = #{type,jdbcType=VARCHAR}
+      	</if>
 	</select>
 </mapper>

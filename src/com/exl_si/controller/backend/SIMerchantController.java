@@ -15,17 +15,19 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.controller.vo.SIMerchantReturnMsg;
-import com.exl_si.controller.vo.SIMerchantWithAssociatedParam;
+import com.exl_si.controller.vo.SIMerchantWithPICParam;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
 import com.exl_si.db.vo.SIMerchantWithAssociated;
+import com.exl_si.db.vo.SIMerchantWithPIC;
 import com.exl_si.enums.MerchantEnums;
 import com.exl_si.enums.ResponseCode;
 import com.exl_si.service.SIMerchantService;
@@ -40,11 +42,9 @@ public class SIMerchantController extends BaseController {
     private SIMerchantService merchantService;
 	
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
-	@ResponseBody
-    public ServerResponse add(SIMerchantWithAssociatedParam sIMerchantWithAssociatedParam) {
-//		SIMerchant merchant, SIMerchantPIC pic, SIMerchantDOC doc
+    public ModelAndView add(SIMerchantWithPICParam sIMerchantWithAssociatedParam, MultipartHttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
 		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
-		String errormsg = null;
 		SIMerchant merchant = sIMerchantWithAssociatedParam.getMerchant();
 		SIMerchantPIC pic = sIMerchantWithAssociatedParam.getMerchantPIC();
 		if(StringUtils.isEmpty(merchant.getUsername()))
@@ -66,11 +66,11 @@ public class SIMerchantController extends BaseController {
 //		if(StringUtils.isEmpty(merchant.getRole()))
 //			return ServerResponse.createByErrorMsg("must assign a role");
 		
-			
 //		if(!returnMsg.validatedForNew())
-		if(returnMsg.validatedForNew())//test
-			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);
-		else {
+		if(returnMsg.validatedForNew()) {
+			mv.addObject("returnMsg", returnMsg);
+			mv.setViewName("user/merchant/create");
+		} else{
 			Timestamp createTime = DateUtils.convertToTimestamp(new Date());
 			merchant.setCreatetime(createTime);
 			merchant.setLastupdatetime(createTime);
@@ -81,22 +81,32 @@ public class SIMerchantController extends BaseController {
 				pic.setLastupdatetime(createTime);
 				pic.setStatus(MerchantEnums.STATUS.INIT.getCode());
 			}
-			List<SIMerchantDOC> docs = new ArrayList<SIMerchantDOC>();
-			return merchantService.saveWithAssociated(merchant, pic, docs);
+			ServerResponse<SIMerchantWithPIC> response = merchantService.saveWithPIC(merchant, pic, request);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("merchant creation succeed");
+				mv.addObject("returnMsg", returnMsg);
+				mv.addObject("result",response.getData());
+				mv.setViewName("user/merchant/detail");
+			} else {
+				returnMsg.setErrormsg(response.getMsg());
+				mv.addObject("returnMsg", returnMsg);
+				mv.setViewName("user/merchant/create");
+			}
 		}
+		return mv;
     }
 	
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
 	@ResponseBody
-    public ServerResponse edit(SIMerchant merchant, SIMerchantPIC pic) {
+    public ServerResponse edit(SIMerchantWithPICParam param, MultipartHttpServletRequest request) {
 		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
 		if(!returnMsg.validatedForEdit())
 			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);
 		else {
 			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
-			merchant.setLastupdatetime(lastupdatetime);
-			pic.setLastupdatetime(lastupdatetime);
-			return merchantService.updateWithPIC(merchant, pic);
+			param.getMerchant().setLastupdatetime(lastupdatetime);
+			param.getMerchantPIC().setLastupdatetime(lastupdatetime);
+			return merchantService.updateWithPIC(param.getMerchant(), param.getMerchantPIC(), request);
 		}
 	}
 	

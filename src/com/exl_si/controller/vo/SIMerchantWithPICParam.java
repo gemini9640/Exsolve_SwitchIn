@@ -1,24 +1,18 @@
 package com.exl_si.controller.vo;
 
-import java.util.List;
-
 import com.exl_si.db.SIMerchant;
-import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
 
-public class SIMerchantWithAssociatedParam {
+public class SIMerchantWithPICParam {
 	private SIMerchant merchant;
 	private SIMerchantPIC merchantPIC;
-	private List<SIMerchantDOC> merchantDOC;
 	
-	public SIMerchantWithAssociatedParam() {
+	public SIMerchantWithPICParam() {
 	}
 	
-	public SIMerchantWithAssociatedParam(SIMerchant merchant, SIMerchantPIC merchantPIC,
-			List<SIMerchantDOC> merchantDOC) {
+	public SIMerchantWithPICParam(SIMerchant merchant, SIMerchantPIC merchantPIC) {
 		this.merchant = merchant;
 		this.merchantPIC = merchantPIC;
-		this.merchantDOC = merchantDOC;
 	}
 	public SIMerchant getMerchant() {
 		return merchant;
@@ -31,12 +25,6 @@ public class SIMerchantWithAssociatedParam {
 	}
 	public void setMerchantPIC(SIMerchantPIC merchantPIC) {
 		this.merchantPIC = merchantPIC;
-	}
-	public List<SIMerchantDOC> getMerchantDOC() {
-		return merchantDOC;
-	}
-	public void setMerchantDOC(List<SIMerchantDOC> merchantDOC) {
-		this.merchantDOC = merchantDOC;
 	}
 	
 }

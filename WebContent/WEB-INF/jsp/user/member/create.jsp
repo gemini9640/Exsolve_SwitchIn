@@ -54,7 +54,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<h4 class="header blue bolder smaller">General</h4>
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
-																	<span  onclick="uploadProfilePic();" class="profile-picture">
+																	<span onclick="uploadProfilePic();" class="profile-picture">
 																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
 																	</span>
 																</div>
@@ -149,11 +149,11 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															Save
 														</button>
 
-<!-- 														&nbsp; &nbsp; -->
-<!-- 														<button class="btn" type="reset"> -->
-<!-- 															<i class="ace-icon glyphicon glyphicon-remove bigger-110"></i> -->
-<!-- 															cancel -->
-<!-- 														</button> -->
+														&nbsp; &nbsp;
+														<button class="btn" type="reset">
+															<i class="ace-icon glyphicon glyphicon-remove bigger-110"></i>
+															cancel
+														</button>
 													</div>
 												</div>
 												</div>

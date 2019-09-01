@@ -3,11 +3,14 @@ package com.exl_si.service;
 import java.util.List;
 import java.util.Map;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
 import com.exl_si.db.vo.SIMerchantWithAssociated;
+import com.exl_si.db.vo.SIMerchantWithPIC;
 import com.github.pagehelper.PageInfo;
 
 public interface SIMerchantService {
@@ -23,7 +26,7 @@ public interface SIMerchantService {
 	
 	public ServerResponse update(SIMerchant merchant);
 	
-	public ServerResponse updateWithPIC(SIMerchant merchant, SIMerchantPIC pic);
+	public ServerResponse<SIMerchantWithPIC> updateWithPIC(SIMerchant merchant, SIMerchantPIC pic, MultipartHttpServletRequest request);
 	
 	public ServerResponse changePassword(String username, String oldPass, String newPass);
 	
@@ -31,5 +34,5 @@ public interface SIMerchantService {
 		
 	public ServerResponse save(SIMerchant merchant);
 	
-	public ServerResponse saveWithAssociated(SIMerchant merchant, SIMerchantPIC pic, List<SIMerchantDOC> docs);
+	public ServerResponse<SIMerchantWithPIC> saveWithPIC(SIMerchant merchant, SIMerchantPIC pic, MultipartHttpServletRequest request);
 }

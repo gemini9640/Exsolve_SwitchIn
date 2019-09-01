@@ -9,7 +9,7 @@ public class SIMerchantDOC extends SubFile{
 
     private String type;
 
-    private Integer index;
+    private Integer indx;
 
     private String nameOld;
 
@@ -17,11 +17,11 @@ public class SIMerchantDOC extends SubFile{
 
     private String path;
 
-    public SIMerchantDOC(String id, String merchantId, String type, Integer index, String nameOld, String nameNew, String path) {
+    public SIMerchantDOC(String id, String merchantId, String type, Integer indx, String nameOld, String nameNew, String path) {
         this.id = id;
         this.merchantId = merchantId;
         this.type = type;
-        this.index = index;
+        this.indx = indx;
         this.nameOld = nameOld;
         this.nameNew = nameNew;
         this.path = path;
@@ -55,12 +55,12 @@ public class SIMerchantDOC extends SubFile{
         this.type = type == null ? null : type.trim();
     }
 
-    public Integer getIndex() {
-        return index;
+    public Integer getIndx() {
+        return indx;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setIndx(Integer indx) {
+        this.indx = indx;
     }
 
     public String getNameOld() {
@@ -96,7 +96,7 @@ public class SIMerchantDOC extends SubFile{
         sb.append(", id=").append(id);
         sb.append(", merchantId=").append(merchantId);
         sb.append(", type=").append(type);
-        sb.append(", index=").append(index);
+        sb.append(", indx=").append(indx);
         sb.append(", nameOld=").append(nameOld);
         sb.append(", nameNew=").append(nameNew);
         sb.append(", path=").append(path);
