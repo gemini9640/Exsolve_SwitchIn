@@ -1,8 +1,13 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
 <ul class="nav nav-tabs padding-16">
 	<li class="detail_tab  tab_si_merchant">
-		<a href="${base}manage/merchant/detail.do?id=${result.merchant.id}">
+		<a href="${base}manage/merchant/detail.do?id=${merchant.id}">
 			SI-Merchant
+		</a>
+	</li>
+	<li class="detail_tab  tab_si_merchant_pic">
+		<a href="${base}manage/merchant/pic.do?id=${pic.id}">
+			PIC
 		</a>
 	</li>
 </ul>

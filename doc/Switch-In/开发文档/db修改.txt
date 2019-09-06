@@ -1,0 +1,20 @@
+1.文件实体表添加主键
+文件实体表id的意义在于当上传文件的时候先创建一个文件实体数据保存到db，等文件所属实体数据成功添加以后再更新所属实体的id
+alter table event_picture add `id` varchar(32) Not Null first;
+ALTER TABLE `event_picture` ADD PRIMARY KEY ( `id` );
+ALTER TABLE `event_picture` MODIFY COLUMN event_id INT(11) NULL;
+
+
+ALTER TABLE `si_merchant_doc` add `id` varchar(32) Not Null first;
+ALTER TABLE `si_merchant_doc` ADD PRIMARY KEY ( `id` );
+ALTER TABLE `si_merchant_doc` MODIFY COLUMN merchantId varchar(50) NULL;
+ALTER TABLE `si_merchant_doc` MODIFY COLUMN type varchar(20) NULL;
+
+
+2.merchant pic更换uuid主键，以及其他业务字段
+考虑到一个pic有可能同时管理多个merchant（多对多）的关系，pic的username可以重复，
+
+ALTER TABLE `si_merchant_pic` add `id` varchar(32) Not Null first;
+ALTER TABLE `si_merchant_pic` DROP PRIMARY KEY, ADD PRIMARY KEY ( `id` );
+ALTER TABLE `si_merchant_pic` MODIFY COLUMN merchantId varchar(50) NULL;
+ALTER TABLE `si_merchant_pic` add `officePhone` varchar(50) after `phone`;

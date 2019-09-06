@@ -24,10 +24,10 @@ http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
     <javaClientGenerator targetPackage="com.exl_si.generated.dao" targetProject="Exsolve_SwitchIn/generated_classes" type="XMLMAPPER" />
 <!--     <table schema="exsolve_switchin" tableName="si_member" domainObjectName="SIMember" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
-    <table schema="exsolve_switchin" tableName="si_member_file" domainObjectName="SIMemberFile" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    </table>
-<!--     <table schema="exsolve_switchin" tableName="si_merchant_pic" domainObjectName="SIMerchantPIC" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
+<!--     <table schema="exsolve_switchin" tableName="si_member_file" domainObjectName="SIMemberFile" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
+    <table schema="exsolve_switchin" tableName="si_merchant_pic" domainObjectName="SIMerchantPIC" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
+    </table>
 <!--     <table schema="exsolve_switchin" tableName="si_merchant_doc" domainObjectName="SIMerchantDOC" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
 <!--     <table schema="exsolve_switchin" tableName="si_merchant" domainObjectName="SIMerchant" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->

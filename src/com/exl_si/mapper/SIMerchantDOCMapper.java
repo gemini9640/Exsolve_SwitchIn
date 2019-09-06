@@ -19,7 +19,7 @@ public interface SIMerchantDOCMapper {
 
     int updateByPrimaryKey(SIMerchantDOC record);
     
-    int batchInsert(List<SIMerchantDOC> items);
+    int batchInsert(@Param("items")List<SIMerchantDOC> items);
     
-    List<SIMerchantDOC> selectBymerchantIdAndType(@Param("merchantId")String merchantId, @Param("type")String type);
+    List<SIMerchantDOC> selectByMerchantIdAndType(@Param("merchantId")String merchantId, @Param("type")String type);
 }

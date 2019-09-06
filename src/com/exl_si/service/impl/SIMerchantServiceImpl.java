@@ -43,9 +43,9 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 	private SequenceNoMapper sequenceNoMapper;
 	
 	private ServerResponse uploadProfile(MultipartHttpServletRequest request, String merchantId, String type) {
-		String baseFolder = AppProperties.UPLOAD_PATH+"/exl_agent/"+merchantId+"/"+type+"/";
+		String baseFolder = AppProperties.UPLOAD_PATH+"/si_merchant/"+merchantId+"/"+type+"/";
 		try {
-			List<SIMerchantDOC> list = docMapper.selectBymerchantIdAndType(merchantId, type);
+			List<SIMerchantDOC> list = docMapper.selectByMerchantIdAndType(merchantId, type);
 			SIMerchantDOC profilePic = null;
 			if(list != null && list.size()> 0)
 				profilePic = list.get(0);
@@ -84,12 +84,19 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		return ServerResponse.createBySuccess(merchant);
 	} 
 	
+	public ServerResponse<SIMerchantPIC> queryPIC(String id) {
+		SIMerchantPIC pic = picMapper.selectByPrimaryKey(id);
+		if(pic == null)
+			return ServerResponse.createByServerError("pic not found, id not exist");
+		return ServerResponse.createBySuccess(pic);
+	}
+	
 	public ServerResponse<SIMerchantWithAssociated> queryWithAssociated(String id) {
 		SIMerchant merchant = merchantMapper.selectByPrimaryKey(id);
 		if(merchant == null)
 			return ServerResponse.createByServerError("merchant not found, id not exist");
 		List<SIMerchantPIC> pics = picMapper.selectByMerchantId(id);
-		List<SIMerchantDOC> docs = docMapper.selectBymerchantIdAndType(id, null);
+		List<SIMerchantDOC> docs = docMapper.selectByMerchantIdAndType(id, null);
 		return ServerResponse.createBySuccess(new SIMerchantWithAssociated(merchant, pics, docs));
 	} 
 	
@@ -112,11 +119,24 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	}
 	
-	public ServerResponse update(SIMerchant merchant) {
-		if(merchantMapper.updateByPrimaryKeySelective(merchant)>0)
-			return ServerResponse.createBySuccess();
-		else 
+	public ServerResponse<SIMerchant> update(SIMerchant merchant, MultipartHttpServletRequest request) {
+		if(merchantMapper.updateByPrimaryKeySelective(merchant)>0) {
+			ServerResponse uploadResp = uploadProfile(request, merchant.getId(), FileType.PROFILE.getDesc());
+			if(uploadResp.isSuccess()) {
+				SIMerchantDOC profilePic = (SIMerchantDOC) uploadResp.getData();
+				merchant.setCompanylogo(profilePic.getPath());
+				merchantMapper.updateByPrimaryKeySelective(merchant);
+				return ServerResponse.createBySuccess(merchant);
+			} else 
+				return ServerResponse.createBySuccess(uploadResp.getMsg(), merchant);
+		} else 
 			return ServerResponse.createByServerError("update fail");
+	}
+	
+	public ServerResponse<SIMerchantPIC> updatePIC(SIMerchantPIC pic) {
+		if(picMapper.updateByPrimaryKeySelective(pic)<1)
+			return ServerResponse.createByErrorMsg("update PIC error");
+		return ServerResponse.createBySuccess(pic);
 	}
 	
 	public ServerResponse<SIMerchantWithPIC> updateWithPIC(SIMerchant merchant, SIMerchantPIC pic, MultipartHttpServletRequest request) {
@@ -166,13 +186,24 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		}
 	}
 			
-	public ServerResponse save(SIMerchant merchant) {
+	public ServerResponse<SIMerchant> save(SIMerchant merchant, MultipartHttpServletRequest request) {
 		if(merchantMapper.selectByUsername(merchant.getUsername()) != null)
 			return ServerResponse.createByServerError("merchant is already exist.");
 		SequenceNoHelper.setMerchantSequenceId(merchant, sequenceNoMapper);
+		SIMerchantPIC pic = SIMerchantHelper.initMerchantPIC(merchant);
+		merchant.setLastloginpicid(pic.getId());
+		merchant.setPassword(ServiceHelper.encriptPassword(merchant.getPassword()));
 		if(merchantMapper.insertSelective(merchant)>0) {
+			picMapper.insert(pic);
 			SequenceNoHelper.updateMerchantSequenceNo(sequenceNoMapper);
-			return ServerResponse.createBySuccess();
+			ServerResponse uploadResp = uploadProfile(request, merchant.getId(), FileType.PROFILE.getDesc());
+			if(uploadResp.isSuccess()) {
+				SIMerchantDOC profilePic = (SIMerchantDOC) uploadResp.getData();
+				merchant.setCompanylogo(profilePic.getPath());
+				merchantMapper.updateByPrimaryKeySelective(merchant);
+				return ServerResponse.createBySuccess(merchant);
+			} else 
+				return ServerResponse.createBySuccess(uploadResp.getMsg(), merchant);
 		} else 
 			return ServerResponse.createByErrorMsg("register merchant fail");
 	}
@@ -201,7 +232,6 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 				merchantWithPIC.setMerchantPIC(pic);
 		}  
 
-		SequenceNoHelper.updateMerchantSequenceNo(sequenceNoMapper);
 		ServerResponse uploadResp = uploadProfile(request, merchant.getId(), FileType.PROFILE.getDesc());
 		if(uploadResp.isSuccess()) {
 			SIMerchantDOC profilePic = (SIMerchantDOC) uploadResp.getData();

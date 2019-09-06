@@ -3,6 +3,8 @@ package com.exl_si.db;
 import java.util.Date;
 
 public class SIMerchantPIC {
+    private String id;
+
     private String username;
 
     private String password;
@@ -17,6 +19,8 @@ public class SIMerchantPIC {
 
     private String phone;
 
+    private String officephone;
+
     private String discription;
 
     private Date createtime;
@@ -29,7 +33,8 @@ public class SIMerchantPIC {
 
     private Integer status;
 
-    public SIMerchantPIC(String username, String password, String merchantid, String title, String realname, String email, String phone, String discription, Date createtime, Date lastlogintime, Date lastupdatetime, Integer logintimes, Integer status) {
+    public SIMerchantPIC(String id, String username, String password, String merchantid, String title, String realname, String email, String phone, String officephone, String discription, Date createtime, Date lastlogintime, Date lastupdatetime, Integer logintimes, Integer status) {
+        this.id = id;
         this.username = username;
         this.password = password;
         this.merchantid = merchantid;
@@ -37,6 +42,7 @@ public class SIMerchantPIC {
         this.realname = realname;
         this.email = email;
         this.phone = phone;
+        this.officephone = officephone;
         this.discription = discription;
         this.createtime = createtime;
         this.lastlogintime = lastlogintime;
@@ -47,6 +53,14 @@ public class SIMerchantPIC {
 
     public SIMerchantPIC() {
         super();
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getUsername() {
@@ -105,6 +119,14 @@ public class SIMerchantPIC {
         this.phone = phone == null ? null : phone.trim();
     }
 
+    public String getOfficephone() {
+        return officephone;
+    }
+
+    public void setOfficephone(String officephone) {
+        this.officephone = officephone == null ? null : officephone.trim();
+    }
+
     public String getDiscription() {
         return discription;
     }
@@ -159,6 +181,7 @@ public class SIMerchantPIC {
         sb.append(getClass().getSimpleName());
         sb.append(" [");
         sb.append("Hash = ").append(hashCode());
+        sb.append(", id=").append(id);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);
         sb.append(", merchantid=").append(merchantid);
@@ -166,6 +189,7 @@ public class SIMerchantPIC {
         sb.append(", realname=").append(realname);
         sb.append(", email=").append(email);
         sb.append(", phone=").append(phone);
+        sb.append(", officephone=").append(officephone);
         sb.append(", discription=").append(discription);
         sb.append(", createtime=").append(createtime);
         sb.append(", lastlogintime=").append(lastlogintime);

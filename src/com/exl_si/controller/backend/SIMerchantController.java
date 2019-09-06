@@ -21,6 +21,7 @@ import org.springframework.web.servlet.ModelAndView;
 import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
+import com.exl_si.controller.vo.SIMemberReturnMsg;
 import com.exl_si.controller.vo.SIMerchantReturnMsg;
 import com.exl_si.controller.vo.SIMerchantWithPICParam;
 import com.exl_si.db.SIMerchant;
@@ -42,11 +43,9 @@ public class SIMerchantController extends BaseController {
     private SIMerchantService merchantService;
 	
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
-    public ModelAndView add(SIMerchantWithPICParam sIMerchantWithAssociatedParam, MultipartHttpServletRequest request) {
+    public ModelAndView add(SIMerchant merchant, MultipartHttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
-		SIMerchant merchant = sIMerchantWithAssociatedParam.getMerchant();
-		SIMerchantPIC pic = sIMerchantWithAssociatedParam.getMerchantPIC();
 		if(StringUtils.isEmpty(merchant.getUsername()))
 			returnMsg.setUsername("username cannot be empty");
 //		else if(StringUtils.isEmpty(merchant.getFullName()))
@@ -75,17 +74,14 @@ public class SIMerchantController extends BaseController {
 			merchant.setCreatetime(createTime);
 			merchant.setLastupdatetime(createTime);
 			merchant.setStatus(MerchantEnums.STATUS.INIT.getCode());
-			
-			if(pic != null) {
-				pic.setCreatetime(createTime);
-				pic.setLastupdatetime(createTime);
-				pic.setStatus(MerchantEnums.STATUS.INIT.getCode());
-			}
-			ServerResponse<SIMerchantWithPIC> response = merchantService.saveWithPIC(merchant, pic, request);
+			ServerResponse<SIMerchant> response = merchantService.save(merchant, request);
 			if(response.isSuccess()) {
 				returnMsg.setErrormsg("merchant creation succeed");
 				mv.addObject("returnMsg", returnMsg);
-				mv.addObject("result",response.getData());
+				mv.addObject("merchant",response.getData());
+				SIMerchantPIC pic = new SIMerchantPIC();
+				pic.setId(response.getData().getLastloginpicid());
+				mv.addObject("pic",pic);
 				mv.setViewName("user/merchant/detail");
 			} else {
 				returnMsg.setErrormsg(response.getMsg());
@@ -98,16 +94,89 @@ public class SIMerchantController extends BaseController {
 	
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
 	@ResponseBody
-    public ServerResponse edit(SIMerchantWithPICParam param, MultipartHttpServletRequest request) {
+    public ModelAndView edit(SIMerchant merchant, MultipartHttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/merchant/detail");
 		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
-		if(!returnMsg.validatedForEdit())
-			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);
+		if(returnMsg.validatedForEdit())
+			mv.addObject("returnMsg", returnMsg);
 		else {
 			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
-			param.getMerchant().setLastupdatetime(lastupdatetime);
-			param.getMerchantPIC().setLastupdatetime(lastupdatetime);
-			return merchantService.updateWithPIC(param.getMerchant(), param.getMerchantPIC(), request);
+			merchant.setLastupdatetime(lastupdatetime);
+			ServerResponse<SIMerchant> response = merchantService.update(merchant,request);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("merchant info updated");
+				mv.addObject("merchant",response.getData());
+				SIMerchantPIC pic = new SIMerchantPIC();
+				pic.setId(response.getData().getLastloginpicid());
+				mv.addObject("pic",pic);
+			} else
+				returnMsg.setErrormsg(response.getMsg());
+			mv.addObject("returnMsg", returnMsg);
 		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "detail.do")
+    public ModelAndView detail(String id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/merchant/detail");
+		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
+		if(returnMsg.validatedForEdit())  //test
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			ServerResponse<SIMerchant> response = merchantService.query(id);
+			if(response.isSuccess()) {
+				mv.addObject("merchant",response.getData());
+				SIMerchantPIC pic = new SIMerchantPIC();
+				pic.setId(response.getData().getLastloginpicid());
+				mv.addObject("pic",pic);
+			}
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "pic.do")
+    public ModelAndView pic(String id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/merchant/pic");
+		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
+		if(returnMsg.validatedForEdit())  //test
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			ServerResponse<SIMerchantPIC> response = merchantService.queryPIC(id);
+			if(response.isSuccess()) {
+				mv.addObject("pic",response.getData());
+				SIMerchant merchant = new SIMerchant();
+				merchant.setId(response.getData().getMerchantid());
+				mv.addObject("merchant",merchant);
+			}
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "edit_pic.do")
+    public ModelAndView editPic(SIMerchantPIC pic) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/merchant/pic");
+		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
+		if(returnMsg.validatedForEdit())  //test
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			ServerResponse<SIMerchantPIC> response = merchantService.updatePIC(pic);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("pic info updated");
+				mv.addObject("pic",response.getData());
+				SIMerchant merchant = new SIMerchant();
+				merchant.setId(response.getData().getMerchantid());
+				mv.addObject("merchant",merchant);
+			} else 
+				returnMsg.setErrormsg(response.getMsg());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
 	}
 	
 	@RequestMapping(value = "editPassword.do", method = RequestMethod.POST)
@@ -159,4 +228,11 @@ public class SIMerchantController extends BaseController {
 		Integer pageSize = Integer.valueOf(pageSizeStr);
         return merchantService.selectPageByProperties(properties, pageNum, pageSize);
     }
+	
+//	@RequestMapping(value = "addPic.do", method = RequestMethod.POST)
+//    public ModelAndView addPic() {
+//		pic.setCreatetime(createTime);
+//		pic.setLastupdatetime(createTime);
+//		pic.setStatus(MerchantEnums.STATUS.INIT.getCode());
+//	}
 }

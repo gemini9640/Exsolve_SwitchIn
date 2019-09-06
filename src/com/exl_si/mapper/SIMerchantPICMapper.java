@@ -7,13 +7,13 @@ import org.apache.ibatis.annotations.Param;
 import com.exl_si.db.SIMerchantPIC;
 
 public interface SIMerchantPICMapper {
-	int deleteByPrimaryKey(String username);
+	int deleteByPrimaryKey(String id);
 
     int insert(SIMerchantPIC record);
 
     int insertSelective(SIMerchantPIC record);
 
-    SIMerchantPIC selectByPrimaryKey(String username);
+    SIMerchantPIC selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(SIMerchantPIC record);
 

@@ -130,19 +130,19 @@
       		name_new
       	)
 	    values
-	    <foreach collection="items" index="indx" item="item" separator=",">
+	    <foreach collection="items" index="index" item="item" separator=",">
 	      (
-	      	  #{item.id}
+	      	  #{item.id},
 		      #{item.merchantId},
 		      #{item.type},
 		      #{item.indx},
 		      #{item.path},
-		      #{item.name_old},
-		      #{item.name_new}
+		      #{item.nameOld},
+		      #{item.nameNew}
 	      )
 	    </foreach>
 	</insert>
-	<select id="selectBymerchantIdAndType" parameterType="map" resultType="list">
+	<select id="selectByMerchantIdAndType" parameterType="map" resultMap="BaseResultMap">
 	    select 
 	    <include refid="Base_Column_List" />
 	    from si_merchant_doc
