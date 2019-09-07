@@ -50,6 +50,15 @@ public final class MerchantEnums {
 		BANNER(2, "BANNER"),
 		QR(3, "QR");
 		
+		
+		public static FileType getEnumByCode(int code) {
+			for(FileType enumm : values()) {
+				if(enumm.getCode() == code)
+					return enumm;
+			}
+			return null;
+		}
+		
 		private int code;
 	    private String desc;
 	    

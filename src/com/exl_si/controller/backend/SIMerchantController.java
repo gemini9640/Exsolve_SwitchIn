@@ -29,7 +29,9 @@ import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
 import com.exl_si.db.vo.SIMerchantWithAssociated;
 import com.exl_si.db.vo.SIMerchantWithPIC;
+import com.exl_si.db.vo.SubFile;
 import com.exl_si.enums.MerchantEnums;
+import com.exl_si.enums.MerchantEnums.FileType;
 import com.exl_si.enums.ResponseCode;
 import com.exl_si.service.SIMerchantService;
 import com.exl_si.utils.DateUtils;
@@ -229,10 +231,27 @@ public class SIMerchantController extends BaseController {
         return merchantService.selectPageByProperties(properties, pageNum, pageSize);
     }
 	
-//	@RequestMapping(value = "addPic.do", method = RequestMethod.POST)
-//    public ModelAndView addPic() {
-//		pic.setCreatetime(createTime);
-//		pic.setLastupdatetime(createTime);
-//		pic.setStatus(MerchantEnums.STATUS.INIT.getCode());
-//	}
+	@RequestMapping(value = "uploadDoc.do", method = RequestMethod.POST)
+    public ModelAndView uploadDoc(String merchantId, Integer type, MultipartHttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/merchant/banner");
+		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
+		if(returnMsg.validatedForEdit())
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			ServerResponse<List<SubFile>> response = merchantService.uploadDoc(request, merchantId, FileType.getEnumByCode(type));
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("merchant info updated");
+				if(type != null && type.intValue() == FileType.BANNER.getCode())
+					mv.addObject("banner",response.getData());
+				else if(type != null && type.intValue() == FileType.DCUMENT.getCode())
+					mv.addObject("document",response.getData());
+				else if(type != null && type.intValue() == FileType.QR.getCode())
+					mv.addObject("qr",response.getData());
+			} else
+				returnMsg.setErrormsg(response.getMsg());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
 }

@@ -247,4 +247,31 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 			return ServerResponse.createBySuccess(resultMsg, merchantWithPIC);
 		}
 	}
+	
+	
+	public ServerResponse<List<SubFile>> uploadDoc(MultipartHttpServletRequest request, String merchantId, FileType type) {
+		String baseFolder = AppProperties.UPLOAD_PATH+"/si_merchant/"+merchantId+"/"+type.getDesc()+"/";
+		try {
+			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, baseFolder, FileObjectEnums.SIMERCHANT_DOC);
+			if(uploadedFiles != null && !uploadedFiles.isEmpty()) {
+				if(docMapper.batchInsert(SIMerchantHelper.assembleInitMerchantDOC(merchantId, type.getDesc(), uploadedFiles)) > 0)
+					return ServerResponse.createBySuccess(uploadedFiles);
+			} 
+			return ServerResponse.createByErrorMsg("no file to upload.");
+		} catch (UploadException ue) {
+			if(ue.getIoe() != null) {
+				ue.getIoe().printStackTrace();
+				if(ue.getPath() != null)
+					DeleteFileUtil.delete(ue.getPath());
+			} else 
+				ue.printStackTrace();
+			return ServerResponse.createByErrorMsg(ue.getMessage());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return ServerResponse.createByErrorMsg(e.getMessage());
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return ServerResponse.createByErrorMsg(e.getMessage());
+		} 
+	}
 }
