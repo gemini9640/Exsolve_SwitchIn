@@ -2,10 +2,13 @@ package com.exl_si.service;
 
 import java.util.List;
 
+import org.springframework.web.multipart.MultipartHttpServletRequest;
+
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.Event;
-import com.exl_si.db.EventPicture;
+import com.exl_si.db.vo.SubFile;
 import com.exl_si.enums.EventEnums;
+import com.exl_si.enums.EventEnums.PictureType;
 import com.github.pagehelper.PageInfo;
 
 public interface EventService {
@@ -19,5 +22,5 @@ public interface EventService {
 	
 	public ServerResponse update(Event event);
 	
-	public ServerResponse saveEventPicture(List<EventPicture> eventPictures);
+	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, Integer eventId, PictureType type);
 }

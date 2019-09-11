@@ -50,6 +50,9 @@ request.setAttribute("title", "Dashboard");
 						</div>
 					</div>
 			</div>
+			<script>
+				switchLeftActive("dashboad", null, null);
+			</script>
 			<jsp:include page="common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
 

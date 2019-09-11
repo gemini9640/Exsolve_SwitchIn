@@ -15,7 +15,6 @@ request.setAttribute("title", "Tables - SI-Merchant");
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
 			<jsp:include page="../../common/leftNav.jsp"/>
-			
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -181,6 +180,9 @@ request.setAttribute("title", "Tables - SI-Merchant");
 				</div>
 			</div><!-- /.main-content -->
 			
+			<script type="text/javascript">
+				switchLeftActive("user", "user_create", "createAgent");
+			</script>
 			<jsp:include page="../../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>

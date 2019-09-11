@@ -106,6 +106,9 @@ request.setAttribute("title", "Tables - ExL-Client");
 					</div>
 				</div>
 			</div>
+			<script type="text/javascript">
+				switchLeftActive("user", null, "clientList");
+			</script>
 			<jsp:include page="../../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>

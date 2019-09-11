@@ -39,6 +39,7 @@
 	<link rel="stylesheet" href="${ace}css/jquery-ui.custom.min.css" />
 	<link rel="stylesheet" href="${ace}css/daterangepicker.min.css" />
 	<link rel="stylesheet" href="${ace}css/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" href="${base}static/css/index.css" />
 	
 		<script src="${ace}js/jquery-2.1.4.min.js"></script>
 		<script src="${base}static/js/jquery.form.js"></script>

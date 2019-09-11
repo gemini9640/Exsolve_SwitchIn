@@ -9,7 +9,7 @@ public class EventPicture extends SubFile{
 
     private String type;
 
-    private Integer index;
+    private Integer indx;
 
     private String nameOld;
 
@@ -17,11 +17,11 @@ public class EventPicture extends SubFile{
 
     private String path;
 
-    public EventPicture(String id, Integer eventId, String type, Integer index, String nameOld, String nameNew, String path) {
+    public EventPicture(String id, Integer eventId, String type, Integer indx, String nameOld, String nameNew, String path) {
         this.id = id;
         this.eventId = eventId;
         this.type = type;
-        this.index = index;
+        this.indx = indx;
         this.nameOld = nameOld;
         this.nameNew = nameNew;
         this.path = path;
@@ -55,12 +55,12 @@ public class EventPicture extends SubFile{
         this.type = type == null ? null : type.trim();
     }
 
-    public Integer getIndex() {
-        return index;
+    public Integer getIndx() {
+        return indx;
     }
 
-    public void setIndex(Integer index) {
-        this.index = index;
+    public void setIndx(Integer indx) {
+        this.indx = indx;
     }
 
     public String getNameOld() {
@@ -96,7 +96,7 @@ public class EventPicture extends SubFile{
         sb.append(", id=").append(id);
         sb.append(", eventId=").append(eventId);
         sb.append(", type=").append(type);
-        sb.append(", index=").append(index);
+        sb.append(", indx=").append(indx);
         sb.append(", nameOld=").append(nameOld);
         sb.append(", nameNew=").append(nameNew);
         sb.append(", path=").append(path);

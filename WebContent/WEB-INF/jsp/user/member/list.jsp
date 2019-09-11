@@ -105,6 +105,9 @@ request.setAttribute("title", "Tables - SI-Member");
 					</div>
 				</div>
 			</div>
+			<script type="text/javascript">
+				switchLeftActive("user", null, "memberList");
+			</script>
 			<jsp:include page="../../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
 <jsp:include page="../../common/jsConfig.jsp"/>

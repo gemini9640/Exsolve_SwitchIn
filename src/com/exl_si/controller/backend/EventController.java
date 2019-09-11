@@ -23,6 +23,7 @@ import com.exl_si.db.Event;
 import com.exl_si.db.vo.SubFile;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.enums.EventEnums;
+import com.exl_si.enums.EventEnums.PictureType;
 import com.exl_si.enums.ResponseCode;
 import com.exl_si.exception.UploadException;
 import com.exl_si.helper.EventHelper;
@@ -38,57 +39,67 @@ public class EventController extends BaseController {
 	@Autowired
     private EventService eventService;
 	
-	@RequestMapping(value="/uploadImg")
-	@ResponseBody
-	public ServerResponse uploadImg(HttpSession session, MultipartHttpServletRequest request, Integer eventId){
-		try {
-			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, AppProperties.UPLOAD_PATH, FileObjectEnums.EVENT_PICTURE);
-			if(uploadedFiles != null && !uploadedFiles.isEmpty())
-				return eventService.saveEventPicture(EventHelper.assembleEventPicture(eventId, "", uploadedFiles));
-			return ServerResponse.createByErrorMsg("upload fail");
-		} catch (UploadException ue) {
-			if(ue.getIoe() != null) {
-				ue.getIoe().printStackTrace();
-				if(ue.getPath() != null)
-					DeleteFileUtil.delete(ue.getPath());
-			} else 
-				ue.printStackTrace();
-			return ServerResponse.createByErrorMsg(ue.getMessage());
-		} catch (InstantiationException e) {
-			e.printStackTrace();
-			return ServerResponse.createByErrorMsg(e.getMessage());
-		} catch (IllegalAccessException e) {
-			e.printStackTrace();
-			return ServerResponse.createByErrorMsg(e.getMessage());
-		} 
+	@RequestMapping(value="/uploadBanner")
+	public ServerResponse uploadBanner(HttpSession session, MultipartHttpServletRequest request, String merchantId, Integer eventId){
+		return eventService.uploadPicture(request, merchantId, eventId, PictureType.BANNER);
+	}
+	
+	@RequestMapping(value="/uploaDQR")
+	public ServerResponse uploaDQR(HttpSession session, MultipartHttpServletRequest request, String merchantId, Integer eventId){
+		return eventService.uploadPicture(request, merchantId, eventId, PictureType.QR);
 	}
 	
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
-	@ResponseBody
-    public ServerResponse add(Event event) {
+    public ModelAndView add(Event event) {
+		ModelAndView mv = new ModelAndView();
 		EventReturnMsg returnMsg = new EventReturnMsg();
 //		if(StringUtils.isEmpty(merchant.getUsername()))
 //			errormsg = "username cannot be empty";
 		
-		if(!returnMsg.validatedForEdit())
-			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);	
-		else {
+//		if(!returnMsg.validatedForEdit())
+		if(returnMsg.validatedForEdit()) {
+			mv.addObject("returnMsg", returnMsg);
+			mv.setViewName("event/create");
+		} else {
 			Timestamp createTime = DateUtils.convertToTimestamp(new Date());
 			event.setCreatetime(createTime);
 			event.setStatus(EventEnums.STATUS.INIT.getCode());
-			return eventService.save(event);
+			ServerResponse response =  eventService.save(event);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("event creation succeed");
+				mv.addObject("returnMsg", returnMsg);
+				mv.addObject("event",response.getData());
+				mv.setViewName("event/detail");
+			} else {
+				returnMsg.setErrormsg(response.getMsg());
+				mv.addObject("returnMsg", returnMsg);
+				mv.setViewName("event/create");
+			}
 		}
+		return mv;
     }
 	
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
-	@ResponseBody
-    public ServerResponse edit(Event event) {
+    public ModelAndView edit(Event event) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("event/detail");
 		EventReturnMsg returnMsg = new EventReturnMsg();
-		if(event.getId() == null)
-			returnMsg.setId("no event id provided");
-		if(!returnMsg.validatedForEdit())
-			return ServerResponse.createByErrorCodeMsg(ResponseCode.ERROR_PARAM, returnMsg);
-		return eventService.update(event);
+		if(event.getId() == null) 
+			returnMsg.setId("no event id not found");
+		else if(!returnMsg.validatedForEdit())
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+			event.setUpdatetime(lastupdatetime);
+			ServerResponse response = eventService.update(event);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("event info updated");
+				mv.addObject("event",response.getData());
+			} else
+				returnMsg.setErrormsg(response.getMsg());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
 	}
 	
 	@RequestMapping(value = "listByMerchant.do", method = RequestMethod.POST)

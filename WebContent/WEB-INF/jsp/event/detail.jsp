@@ -1,20 +1,21 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="../../common/common.inc"%>
+<%@include file="../common/common.inc"%>
 <%
 request.setAttribute("title", "Tables - SI-Merchant");
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="../../common/html_head.jsp"/>
+<jsp:include page="../common/html_head.jsp"/>
 </head>
 <body class="no-skin">
-		<jsp:include page="../../common/header.jsp"/>
+		<jsp:include page="../common/header.jsp"/>
 		<div class="main-container ace-save-state" id="main-container">
 			<script type="text/javascript">
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
-			<jsp:include page="../../common/leftNav.jsp"/>
+			<jsp:include page="../common/leftNav.jsp"/>
+			
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -32,7 +33,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								Create User
+								SI-Merchant Info
 							</h1>
 						</div>
 
@@ -43,9 +44,10 @@ request.setAttribute("title", "Tables - SI-Merchant");
 									<div id="user-profile-3" class="user-profile row">
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
-											<form action="${base}manage/merchant/add.do" method="post" class="form-horizontal" enctype="multipart/form-data">
+											<form action="${base}manage/merchant/edit.do" method="post" class="form-horizontal" enctype="multipart/form-data">
+												<input type="hidden" name="lastloginpicid" value="${merchant.lastloginpicid}">
 												<div class="tabbable">
-													<jsp:include page="../create_tab.jsp"/>
+													<jsp:include page="tab.jsp"/>
 													<script>
 														activeCreationTab("si_merchant");
 													</script>
@@ -55,34 +57,41 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span onclick="uploadProfilePic();" class="profile-picture">
-																		<img id="profile_pic" class="editable img-responsive" src="${base}static/images/merchant01.jpg" />
+																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${merchant.companylogo}" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
 																<div class="col-xs-12 col-sm-10">
 																	<div class="form-group "> <!--error class has-error -->
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-id">SI-Merchant ID</label>
+																		<div class="col-sm-10">
+																			<input name="id" class="col-xs-12 col-sm-10" type="hidden" placeholder="" value="${merchant.id}" />
+																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-id" placeholder="" value="${merchant.id}" disabled/>
+																		</div>
+																	</div>
+																	<div class="form-group "> <!--error class has-error -->
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-companyname">Company Name</label>
 																		<div class="col-sm-10">
-																			<input name="companyname" class="col-xs-12 col-sm-10" type="text" id="form-field-companyname" placeholder="" value="" />
+																			<input name="companyname" class="col-xs-12 col-sm-10" type="text" id="form-field-companyname" placeholder="" value="${merchant.companyname}" />
 <!-- 																			<div class="help-block col-xs-12 col-sm-reset inline">* Please Enter Company Name.</div> -->
 																		</div>
 																	</div>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-companyregno">Company Reg. No</label>
 																		<div class="col-sm-10">
-																			<input name="companyregno" class="col-xs-12 col-sm-10" type="text" id="form-field-companyregno" placeholder="" value="" />
+																			<input name="companyregno" class="col-xs-12 col-sm-10" type="text" id="form-field-companyregno" placeholder="" value="${merchant.companyregno}" />
 																		</div>
 																	</div>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-totalstaff">No. of Staff</label>
 																		<div class="col-sm-10">
-																			<input name="totalstaff" class="col-xs-12 col-sm-10" type="text" id="form-field-totalstaff" placeholder="" value="" />
+																			<input name="totalstaff" class="col-xs-12 col-sm-10" type="text" id="form-field-totalstaff" placeholder="" value="${merchant.totalstaff}" />
 																		</div>
 																	</div>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-companytype">Company Type</label>
 																		<div class="col-sm-2">
-																			<input name="companytype" id="hidden_type" type="hidden" value="SB">
+																			<input id="hidden_type" type="hidden" value="${merchant.companytype}">
 																			<select onchange="changeCompanyType();" class="form-control" id="form-field-select-companytype">
 																				<option value="SB">Sdn. Bhd.</option>
 																				<option value="BHD">Bhd</option>
@@ -95,11 +104,31 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	<div id="type_oths" class="form-group hide">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-companyType-oths">Others</label>
 																		<div class="col-sm-10">
-																			<!-- companytype -->
+																			<!-- merchant.companytype -->
 																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-companyType-oths" placeholder="" value="" />
 																		</div>
 																	</div>
 																	<script>
+																		var isOthsType = true;
+																		$("#form-field-select-companytype option").each(function() {
+																			if($(this).val()=='${merchant.companytype}') {
+																				$(this).attr("selected",true);
+																				isOthsType = false;
+																			}
+																		}); 
+																		if(isOthsType) {
+																			$("#form-field-select-companytype").find("option[value='oths']").attr("selected",true);
+																			$("#type_oths").removeClass("hide");
+																			$("#hidden_type").attr("name","");
+																			$("#form-field-companyType-oths").attr("name","companytype");
+																			$("#form-field-companyType-oths").val('${merchant.companytype}');
+																		} else {
+																			$("#type_oths").addClass("hide");
+																			$("#form-field-companyType-oths").attr("name","");
+																			$("#hidden_type").attr("name","companytype");
+																			$("#hidden_type").val("${merchant.companytype}");
+																		}
+																		
 																		function changeCompanyType() {
 																			if($("#form-field-select-companytype").val()=="oths") {
 																				$("#type_oths").removeClass("hide");
@@ -116,7 +145,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-industrytype">Industry</label>
 																		<div class="col-sm-2">
-																			<input name="industrytype" id="hidden_industrytype" type="hidden" value="service" />
+																			<input id="hidden_industrytype" type="hidden" value="${merchant.industrytype}" />
 																			<select onchange="changeIndustrytypeType();" class="form-control" id="form-field-select-industrytype">
 																				<option value="service">Service</option>
 																				<option value="retail">Retail</option>
@@ -130,11 +159,31 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	<div id="industrytype_oths" class="form-group hide">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-industrytype">Others</label>
 																		<div class="col-sm-10">
-																			<!-- industrytype -->
+																			<!-- merchant.industrytype -->
 																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-industrytype-oths" placeholder="" value="" />
 																		</div>
 																	</div>
 																	<script>
+																		var isOthsIndustrytype = true;
+																		$("#form-field-select-industrytype option").each(function() {
+																			if($(this).val()=='${merchant.industrytype}') {
+																				$(this).attr("selected",true);
+																				isOthsIndustrytype = false;
+																			}
+																		}); 
+																		if(isOthsIndustrytype) {
+																			$("#form-field-select-industrytype").find("option[value='oths']").attr("selected",true);
+																			$("#industrytype_oths").removeClass("hide");
+																			$("#hidden_industrytype").attr("name","");
+																			$("#form-field-industrytype-oths").attr("name","industrytype");
+																			$("#form-field-industrytype-oths").val('${merchant.industrytype}');
+																		} else {
+																			$("#industrytype_oths").addClass("hide");
+																			$("#form-field-industrytype-oths").attr("name","");
+																			$("#hidden_industrytype").attr("name","industrytype");
+																			$("#hidden_industrytype").val("${merchant.industrytype}");
+																		}
+																		
 																		function changeIndustrytypeType() {
 																			if($("#form-field-select-industrytype").val()=="oths") {
 																				$("#industrytype_oths").removeClass("hide");
@@ -151,8 +200,8 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-companyaddress">Company Address</label>
 																		<div class="col-sm-10">
-																			<!-- companyaddress -->
-																			<input name="companyaddress" class="col-xs-12 col-sm-10" type="text" id="form-field-companyaddress" placeholder="" value="" />
+																			<!-- merchant.companyaddress -->
+																			<input name="companyaddress" class="col-xs-12 col-sm-10" type="text" id="form-field-companyaddress" placeholder="" value="${merchant.companyaddress}" />
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -160,7 +209,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																		<div class="col-sm-10">
 																			<div class="input-medium">
 																				<div class="input-group">
-																					<input name="expireddatessm" class="input-medium date-picker" id="form-field-date-expireddatessm" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
+																					<input name="expireddatessm" class="input-medium date-picker" id="form-field-date-expireddatessm" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" value="<fmt:formatDate value="${merchant.expireddatessm}" pattern="dd-MM-yyyy"/>"/>
 																					<span class="input-group-addon">
 																						<i class="ace-icon fa fa-calendar"></i>
 																					</span>
@@ -171,19 +220,13 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
 																		<div class="col-sm-10">
-																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
-																		</div>
-																	</div>
-																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-password">Password</label>
-																		<div class="col-sm-10">
-																			<input name="password" class="col-xs-12 col-sm-10" type="text" id="form-field-password" placeholder="" value="" />
+																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="${merchant.username}" />
 																		</div>
 																	</div>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-usertitle">Title</label>
 																		<div class="col-sm-2">
-																			<select name="usertitle" class="form-control" id="form-field-select-usertitle">
+																			<select name="usertitle" class="form-control" id="form-field-select-usertitle" >
 																				<option value="none"></option>
 																				<option value="Mr">Mr.</option>
 																				<option value="Mrs">Mrs.</option>
@@ -191,25 +234,21 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																				<option value="Ms">Ms.</option>
 																				<option value="Dr">Dr.</option>
 																			</select>
-																		</div>
-																	</div>
-																	<div class="form-group hide">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-usertitle-oths">Others</label>
-																		<div class="col-sm-10">
-																			<!-- usertitle -->
-																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-usertitle-oths" placeholder="" value="" />
+																			<script>
+																				$("#form-field-select-usertitle").find("option[value='${merchant.usertitle}']").attr("selected",true);
+																			</script>
 																		</div>
 																	</div>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-realname">Director Name</label>
 																		<div class="col-sm-10">
-																			<input name="realname" class="col-xs-12 col-sm-10" type="text" id="form-field-realname" placeholder="" value="" />
+																			<input name="realname" class="col-xs-12 col-sm-10" type="text" id="form-field-realname" placeholder="" value="${merchant.realname}" />
 																		</div>
 																	</div>
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-credentialno">Mykad/Passport No.</label>
 																		<div class="col-sm-10">
-																			<input name="credentialno" class="col-xs-12 col-sm-10" type="text" id="form-field-credentialno" placeholder="" value="" />
+																			<input name="credentialno" class="col-xs-12 col-sm-10" type="text" id="form-field-credentialno" placeholder="" value="${merchant.credentialno}" />
 																		</div>
 																	</div>
 <!-- 																	<div class="form-group"> -->
@@ -225,7 +264,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-officephone">Office Contact No.</label>
 																		<div class="col-sm-10">
 																			<span class="input-icon input-icon-right">
-																				<input name="officephone" class="" type="text" id="form-field-officephone" />
+																				<input name="officephone" class="" type="text" id="form-field-officephone" value="${merchant.officephone}"/>
 																				<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 																			</span>
 																		</div>
@@ -246,7 +285,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
-																		<input name="email" type="email" id="form-field-email" value="" />
+																		<input name="email" type="email" id="form-field-email" value="${merchant.email}" />
 																		<i class="ace-icon fa fa-envelope"></i>
 																	</span>
 																</div>
@@ -264,7 +303,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Phone Support</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
-																		<input name="phone" class="" type="text" id="form-field-phone" />
+																		<input name="phone" class="" type="text" id="form-field-phone" value="${merchant.phone}"/>
 																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 																	</span>
 																</div>
@@ -274,7 +313,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
 																<div class="col-sm-9">
 																	<span class="input-icon">
-																		<input name="facebook" type="text" value="" id="form-field-facebook" />
+																		<input name="facebook" type="text" value="${merchant.facebook}" id="form-field-facebook" />
 																		<i class="ace-icon fa fa-facebook blue"></i>
 																	</span>
 																</div>
@@ -298,7 +337,8 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <!-- 																</div> -->
 <!-- 															</div> -->
 
-															<!-- pic -->
+
+<!-- 															pic -->
 <!-- 															<h4 class="header blue bolder smaller"> -->
 <!-- 																Person In Charge -->
 <!-- 																<small>The representative who direct in charge on communicating and coordinating with Switch-inTM Team. </small> -->
@@ -325,31 +365,34 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <!-- 																			<option value="Ms">Ms.</option> -->
 <!-- 																			<option value="Dr">Dr.</option> -->
 <!-- 																		</select> -->
+																		<script>
+// 																			$("#form-field-select-1").find("option[value='${merchantPIC.title}']").attr("selected",true);
+																		</script>
 <!-- 																	</div> -->
 <!-- 																</div> -->
 <!-- 																<div class="form-group"> -->
 <!-- 																	<label class="col-sm-3 control-label no-padding-right" for="form-field-username">User Name</label> -->
 <!-- 																	<div class="col-sm-9"> -->
-<!-- 																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" name="merchantPIC.username" placeholder="" value="" /> -->
+<%-- 																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" name="merchantPIC.username" placeholder="" value="${merchantPIC.username}" /> --%>
 <!-- 																	</div> -->
 <!-- 																</div> -->
 <!-- 																<div class="form-group"> -->
 <!-- 																	<label class="col-sm-3 control-label no-padding-right" for="form-field-realname">Name</label> -->
 <!-- 																	<div class="col-sm-9"> -->
-<!-- 																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-realname" name="merchantPIC.realname" placeholder="" value="" /> -->
+<%-- 																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-realname" name="merchantPIC.realname" placeholder="" value="${merchantPIC.realname}" /> --%>
 <!-- 																	</div> -->
 <!-- 																</div> -->
 <!-- 																<div class="form-group"> -->
 <!-- 																	<label class="col-sm-3 control-label no-padding-right" for="form-field-designation">Designation</label> -->
 <!-- 																	<div class="col-sm-9"> -->
-<!-- 																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-designation" name="merchantPIC.discription" placeholder="" value="" /> -->
+<%-- 																		<input class="col-xs-12 col-sm-10" type="text" id="form-field-designation" name="merchantPIC.discription" placeholder="" value="${merchantPIC.discription}" /> --%>
 <!-- 																	</div> -->
 <!-- 																</div> -->
 <!-- 																<div class="form-group"> -->
 <!-- 																	<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label> -->
 <!-- 																	<div class="col-sm-9"> -->
 <!-- 																		<span class="input-icon input-icon-right"> -->
-<!-- 																			<input type="email" id="form-field-email" name="merchantPIC.email" value="" /> -->
+<%-- 																			<input type="email" id="form-field-email" name="merchantPIC.email" value="${merchantPIC.email}" /> --%>
 <!-- 																			<i class="ace-icon fa fa-envelope"></i> -->
 <!-- 																		</span> -->
 <!-- 																	</div> -->
@@ -367,7 +410,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <!-- 																	<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">mobile</label> -->
 <!-- 																	<div class="col-sm-9"> -->
 <!-- 																		<span class="input-icon input-icon-right"> -->
-<!-- 																			<input class="input-mask-phone" type="text" id="form-field-phone" name="merchantPIC.phone"/> -->
+<%-- 																			<input class="input-mask-phone" type="text" id="form-field-phone" name="merchantPIC.phone" value="${merchantPIC.phone}"/> --%>
 <!-- 																			<i class="ace-icon fa fa-phone fa-flip-horizontal"></i> -->
 <!-- 																		</span> -->
 <!-- 																	</div> -->
@@ -377,7 +420,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<div class="form-group">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-11">Description</label>
 																<div class="col-sm-9">
-																<textarea id="form-field-11" class="autosize-transition form-control"  name="companydiscription"></textarea>
+																<textarea id="form-field-11" class="autosize-transition form-control"  name="companydiscription">${merchant.companydiscription}</textarea>
 																</div>
 															</div>
 															<!-- 
@@ -433,14 +476,12 @@ request.setAttribute("title", "Tables - SI-Merchant");
 					</div><!-- /.page-content -->
 				</div>
 			</div><!-- /.main-content -->
-			<script type="text/javascript">
-				switchLeftActive("user", "user_create", "createMerchant");
-			</script>
-			<jsp:include page="../../common/html_foot.jsp"/>
+			
+			<jsp:include page="../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
-<jsp:include page="../../common/jsConfig.jsp"/>
-<jsp:include page="../../common/jsUtils.jsp"/>
-<jsp:include page="../../common/script.jsp"/>
+<jsp:include page="../common/jsConfig.jsp"/>
+<jsp:include page="../common/jsUtils.jsp"/>
+<jsp:include page="../common/script.jsp"/>
 
 
 

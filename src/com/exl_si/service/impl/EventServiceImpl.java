@@ -4,13 +4,23 @@ import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 
+import com.exl_si.common.AppProperties;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.Event;
 import com.exl_si.db.EventPicture;
+import com.exl_si.db.vo.SubFile;
+import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.enums.EventEnums;
+import com.exl_si.enums.EventEnums.PictureType;
+import com.exl_si.exception.UploadException;
+import com.exl_si.helper.EventHelper;
 import com.exl_si.mapper.EventMapper;
+import com.exl_si.mapper.EventPictureMapper;
 import com.exl_si.service.EventService;
+import com.exl_si.utils.DeleteFileUtil;
+import com.exl_si.utils.UploadUtil;
 import com.github.pagehelper.PageHelper;
 import com.github.pagehelper.PageInfo;
 
@@ -18,6 +28,8 @@ import com.github.pagehelper.PageInfo;
 public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventMapper eventMapper;
+	@Autowired
+	private EventPictureMapper eventPictureMapper;
 	
 	public ServerResponse<Event> save(Event event) {
 		if(eventMapper.insertSelective(event)>0)
@@ -48,12 +60,34 @@ public class EventServiceImpl implements EventService{
 	
 	public ServerResponse update(Event event) {
 		if(eventMapper.updateByPrimaryKeySelective(event)>0)
-			return ServerResponse.createBySuccess();
+			return ServerResponse.createBySuccess(event);
 		else 
 			return ServerResponse.createByServerError("update fail");
 	}
 	
-	public ServerResponse saveEventPicture(List<EventPicture> eventPictures) {
-		return ServerResponse.createByServerError("update fail");
+	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, Integer eventId, PictureType type) {
+		String baseFolder = AppProperties.UPLOAD_PATH+"/si_merchant/"+merchantId+"/event/"+type.getDesc()+"/";
+		try {
+			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, baseFolder, FileObjectEnums.EVENT_PICTURE);
+			if(uploadedFiles != null && !uploadedFiles.isEmpty()) {
+				if(eventPictureMapper.batchInsert(EventHelper.assembleInitEventPicture(eventId, type.getDesc(), uploadedFiles)) > 0)
+					return ServerResponse.createBySuccess(uploadedFiles);
+			} 
+			return ServerResponse.createByErrorMsg("no picture to upload.");
+		} catch (UploadException ue) {
+			if(ue.getIoe() != null) {
+				ue.getIoe().printStackTrace();
+				if(ue.getPath() != null)
+					DeleteFileUtil.delete(ue.getPath());
+			} else 
+				ue.printStackTrace();
+			return ServerResponse.createByErrorMsg(ue.getMessage());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return ServerResponse.createByErrorMsg(e.getMessage());
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return ServerResponse.createByErrorMsg(e.getMessage());
+		} 
 	}
 }
