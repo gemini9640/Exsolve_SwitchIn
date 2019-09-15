@@ -3,6 +3,7 @@ package com.exl_si.helper;
 import com.exl_si.common.Constants;
 import com.exl_si.db.EXLAgent;
 import com.exl_si.db.EXLClient;
+import com.exl_si.db.Event;
 import com.exl_si.db.SIMember;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.mapper.SequenceNoMapper;
@@ -12,6 +13,25 @@ public class SequenceNoHelper {
 	private static volatile Integer SI_MEMBER_SEQUENCE;
 	private static volatile Integer EXL_CLIENT_SEQUENCE;
 	private static volatile Integer EXL_AGENT_SEQUENCE;
+	private static volatile Integer EVENT_SEQUENCE;
+	
+	public static Integer getTotalEvent(SequenceNoMapper sequenceNoMapper) {
+		String total = sequenceNoMapper.selectByField("eventTotal");
+		return Integer.valueOf(total);
+	}
+
+	public static synchronized void setEventSequenceId(Event event, SequenceNoMapper sequenceNoMapper) {
+		EVENT_SEQUENCE = getTotalEvent(sequenceNoMapper) + 1;
+		event.setId(Constants.IdPrefix.EVENT+EVENT_SEQUENCE);
+	}
+	
+	public static void updateEventSequenceNo(SequenceNoMapper sequenceNoMapper) {
+		if(EVENT_SEQUENCE != null)
+			sequenceNoMapper.updateByField("eventTotal", EVENT_SEQUENCE);
+		else 
+			sequenceNoMapper.updateByField("eventTotal", getTotalEvent(sequenceNoMapper) + 1);
+		EVENT_SEQUENCE = null;
+	}
 	
 	public static Integer getTotalMerchant(SequenceNoMapper sequenceNoMapper) {
 		String total = sequenceNoMapper.selectByField("siMerchantTotal");

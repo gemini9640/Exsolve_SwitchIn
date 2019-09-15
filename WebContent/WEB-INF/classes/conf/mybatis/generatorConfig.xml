@@ -26,25 +26,25 @@ http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <!--     </table> -->
 <!--     <table schema="exsolve_switchin" tableName="si_member_file" domainObjectName="SIMemberFile" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
-    <table schema="exsolve_switchin" tableName="si_merchant_pic" domainObjectName="SIMerchantPIC" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    </table>
+<!--     <table schema="exsolve_switchin" tableName="si_merchant_pic" domainObjectName="SIMerchantPIC" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
+<!--     </table> -->
 <!--     <table schema="exsolve_switchin" tableName="si_merchant_doc" domainObjectName="SIMerchantDOC" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
 <!--     <table schema="exsolve_switchin" tableName="si_merchant" domainObjectName="SIMerchant" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
-<!--     <table schema="exsolve_switchin" tableName="event" domainObjectName="Event" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
-<!--     </table> -->
+    <table schema="exsolve_switchin" tableName="event" domainObjectName="Event" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
+    </table>
 <!--     <table schema="exsolve_switchin" tableName="event_picture" domainObjectName="EventPicture" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
 <!-- 	<table schema="exsolve_switchin" tableName="sequenceNo" domainObjectName="SequenceNo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
 <!-- 	<table schema="exsolve_switchin" tableName="exl_client" domainObjectName="EXLClient" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
-	<table schema="exsolve_switchin" tableName="exl_client_file" domainObjectName="EXLClientFile" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    </table>
+<!-- 	<table schema="exsolve_switchin" tableName="exl_client_file" domainObjectName="EXLClientFile" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
+<!--     </table> -->
 <!--     <table schema="exsolve_switchin" tableName="exl_agent" domainObjectName="EXLAgent" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
-	<table schema="exsolve_switchin" tableName="exl_agent_file" domainObjectName="EXLAgentFile" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    </table>
+<!-- 	<table schema="exsolve_switchin" tableName="exl_agent_file" domainObjectName="EXLAgentFile" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
+<!--     </table> -->
   </context>
 </generatorConfiguration>

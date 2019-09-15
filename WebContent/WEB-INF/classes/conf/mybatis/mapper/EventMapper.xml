@@ -2,8 +2,8 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.exl_si.mapper.EventMapper">
   <resultMap id="BaseResultMap" type="com.exl_si.db.Event">
-  <constructor>
-      <idArg column="id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="eventName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="merchantId" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -15,6 +15,8 @@
       <arg column="csPhone" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="location" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="twitter" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="facebook" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="map" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="maxpax" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="maxpaxPerRegister" javaType="java.lang.Integer" jdbcType="INTEGER" />
@@ -27,34 +29,36 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, eventName, merchantId, createtime, startDate, endDate, Tagline, price, updateTime, 
-    csPhone, location, address, map, maxpax, maxpaxPerRegister, status, comment, description, 
-    reminder, remark
+    csPhone, location, address, twitter, facebook, map, maxpax, maxpaxPerRegister, status, 
+    comment, description, reminder, remark
   </sql>
-  <select id="selectByPrimaryKey" parameterType="java.lang.Integer" resultMap="BaseResultMap">
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
     <include refid="Base_Column_List" />
     from event
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </select>
-  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
     delete from event
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </delete>
   <insert id="insert" parameterType="com.exl_si.db.Event">
     insert into event (id, eventName, merchantId, 
       createtime, startDate, endDate, 
       Tagline, price, updateTime, 
       csPhone, location, address, 
-      map, maxpax, maxpaxPerRegister, 
-      status, comment, description, 
-      reminder, remark)
-    values (#{id,jdbcType=INTEGER}, #{eventname,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
+      twitter, facebook, map, 
+      maxpax, maxpaxPerRegister, status, 
+      comment, description, reminder, 
+      remark)
+    values (#{id,jdbcType=VARCHAR}, #{eventname,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
       #{tagline,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP}, 
       #{csphone,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{map,jdbcType=VARCHAR}, #{maxpax,jdbcType=INTEGER}, #{maxpaxperregister,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
-      #{reminder,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR})
+      #{twitter,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, #{map,jdbcType=VARCHAR}, 
+      #{maxpax,jdbcType=INTEGER}, #{maxpaxperregister,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
+      #{comment,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{reminder,jdbcType=VARCHAR}, 
+      #{remark,jdbcType=VARCHAR})
   </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.Event">
     insert into event
@@ -95,6 +99,12 @@
       <if test="address != null">
         address,
       </if>
+      <if test="twitter != null">
+        twitter,
+      </if>
+      <if test="facebook != null">
+        facebook,
+      </if>
       <if test="map != null">
         map,
       </if>
@@ -122,7 +132,7 @@
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
-        #{id,jdbcType=INTEGER},
+        #{id,jdbcType=VARCHAR},
       </if>
       <if test="eventname != null">
         #{eventname,jdbcType=VARCHAR},
@@ -156,6 +166,12 @@
       </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="twitter != null">
+        #{twitter,jdbcType=VARCHAR},
+      </if>
+      <if test="facebook != null">
+        #{facebook,jdbcType=VARCHAR},
       </if>
       <if test="map != null">
         #{map,jdbcType=VARCHAR},
@@ -219,6 +235,12 @@
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
+      <if test="twitter != null">
+        twitter = #{twitter,jdbcType=VARCHAR},
+      </if>
+      <if test="facebook != null">
+        facebook = #{facebook,jdbcType=VARCHAR},
+      </if>
       <if test="map != null">
         map = #{map,jdbcType=VARCHAR},
       </if>
@@ -244,7 +266,7 @@
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exl_si.db.Event">
     update event
@@ -259,6 +281,8 @@
       csPhone = #{csphone,jdbcType=VARCHAR},
       location = #{location,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
+      twitter = #{twitter,jdbcType=VARCHAR},
+      facebook = #{facebook,jdbcType=VARCHAR},
       map = #{map,jdbcType=VARCHAR},
       maxpax = #{maxpax,jdbcType=INTEGER},
       maxpaxPerRegister = #{maxpaxperregister,jdbcType=INTEGER},
@@ -267,7 +291,7 @@
       description = #{description,jdbcType=VARCHAR},
       reminder = #{reminder,jdbcType=VARCHAR},
       remark = #{remark,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=INTEGER}
+    where id = #{id,jdbcType=VARCHAR}
   </update>
   
   
@@ -284,4 +308,10 @@
       status = #{status,jdbcType=INTEGER}
     where id = #{id,jdbcType=INTEGER}
   </update>
+  
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from event where eventName = #{eventName,jdbcType=VARCHAR}
+  </select>
 </mapper>

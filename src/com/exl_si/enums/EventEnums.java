@@ -1,7 +1,5 @@
 package com.exl_si.enums;
 
-import com.exl_si.enums.MerchantEnums.FileType;
-
 public final class EventEnums {
 	public enum STATUS {
 		INIT(0,"init"),

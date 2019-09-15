@@ -14,11 +14,11 @@ import com.github.pagehelper.PageInfo;
 public interface EventService {
 	public ServerResponse<Event> save(Event event);
 	
-	public ServerResponse<Event> queryById(Integer id);
+	public ServerResponse<Event> queryById(String id);
 	
 	public ServerResponse<PageInfo> queryByMerchant(String merchantName, Integer pageNum, Integer pageSize);
 	
-	public ServerResponse updateStatus(Integer id, EventEnums.STATUS status);
+	public ServerResponse updateStatus(String id, EventEnums.STATUS status);
 	
 	public ServerResponse update(Event event);
 	

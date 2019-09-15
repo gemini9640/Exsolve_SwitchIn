@@ -18,3 +18,12 @@ ALTER TABLE `si_merchant_pic` add `id` varchar(32) Not Null first;
 ALTER TABLE `si_merchant_pic` DROP PRIMARY KEY, ADD PRIMARY KEY ( `id` );
 ALTER TABLE `si_merchant_pic` MODIFY COLUMN merchantId varchar(50) NULL;
 ALTER TABLE `si_merchant_pic` add `officePhone` varchar(50) after `phone`;
+
+
+3.event 更换id（类似merchant）
+ALTER TABLE `event` drop column `id`;
+ALTER TABLE `event` add `id` varchar(50) Not Null first;
+TRUNCATE TABLE `event`;
+ALTER TABLE `event` ADD PRIMARY KEY ( `id` );
+ALTER TABLE `event` ADD facebook varchar(50) NULL after address, ADD twitter varchar(50) NULL after address;
+ALTER TABLE `sequenceNo` ADD `eventTotal` INT(5) DEFAULT 0;

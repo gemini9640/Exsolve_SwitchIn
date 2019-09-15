@@ -16,8 +16,10 @@ import com.exl_si.enums.EventEnums;
 import com.exl_si.enums.EventEnums.PictureType;
 import com.exl_si.exception.UploadException;
 import com.exl_si.helper.EventHelper;
+import com.exl_si.helper.SequenceNoHelper;
 import com.exl_si.mapper.EventMapper;
 import com.exl_si.mapper.EventPictureMapper;
+import com.exl_si.mapper.SequenceNoMapper;
 import com.exl_si.service.EventService;
 import com.exl_si.utils.DeleteFileUtil;
 import com.exl_si.utils.UploadUtil;
@@ -30,15 +32,21 @@ public class EventServiceImpl implements EventService{
 	private EventMapper eventMapper;
 	@Autowired
 	private EventPictureMapper eventPictureMapper;
+	@Autowired
+	private SequenceNoMapper sequenceNoMapper;
 	
 	public ServerResponse<Event> save(Event event) {
-		if(eventMapper.insertSelective(event)>0)
+		if(eventMapper.selectByName(event.getEventname()) != null)
+			return ServerResponse.createByServerError("event title is duplicated");
+		SequenceNoHelper.setEventSequenceId(event, sequenceNoMapper);
+		if(eventMapper.insertSelective(event)>0) {
+			SequenceNoHelper.updateEventSequenceNo(sequenceNoMapper);
 			return ServerResponse.createBySuccess(event);
-		else 
+		} else 
 			return ServerResponse.createByServerError("create fail");
 	}
 	
-	public ServerResponse<Event> queryById(Integer id) {
+	public ServerResponse<Event> queryById(String id) {
 		Event event = eventMapper.selectByPrimaryKey(id);
 		if(event == null)
 			return ServerResponse.createByServerError("event not found");
@@ -51,7 +59,7 @@ public class EventServiceImpl implements EventService{
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	} 
 	
-	public ServerResponse updateStatus(Integer id, EventEnums.STATUS status) {
+	public ServerResponse updateStatus(String id, EventEnums.STATUS status) {
 		if(eventMapper.updateStatus(id, status.getCode())>0)
 			return ServerResponse.createBySuccess();
 		else 

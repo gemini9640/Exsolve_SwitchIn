@@ -4,7 +4,7 @@ import java.math.BigDecimal;
 import java.util.Date;
 
 public class Event {
-    private Integer id;
+    private String id;
 
     private String eventname;
 
@@ -28,6 +28,10 @@ public class Event {
 
     private String address;
 
+    private String twitter;
+
+    private String facebook;
+
     private String map;
 
     private Integer maxpax;
@@ -44,7 +48,7 @@ public class Event {
 
     private String remark;
 
-    public Event(Integer id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark) {
+    public Event(String id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String twitter, String facebook, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark) {
         this.id = id;
         this.eventname = eventname;
         this.merchantId = merchantId;
@@ -57,6 +61,8 @@ public class Event {
         this.csphone = csphone;
         this.location = location;
         this.address = address;
+        this.twitter = twitter;
+        this.facebook = facebook;
         this.map = map;
         this.maxpax = maxpax;
         this.maxpaxperregister = maxpaxperregister;
@@ -71,12 +77,12 @@ public class Event {
         super();
     }
 
-    public Integer getId() {
+    public String getId() {
         return id;
     }
 
-    public void setId(Integer id) {
-        this.id = id;
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public String getEventname() {
@@ -167,6 +173,22 @@ public class Event {
         this.address = address == null ? null : address.trim();
     }
 
+    public String getTwitter() {
+        return twitter;
+    }
+
+    public void setTwitter(String twitter) {
+        this.twitter = twitter == null ? null : twitter.trim();
+    }
+
+    public String getFacebook() {
+        return facebook;
+    }
+
+    public void setFacebook(String facebook) {
+        this.facebook = facebook == null ? null : facebook.trim();
+    }
+
     public String getMap() {
         return map;
     }
@@ -249,6 +271,8 @@ public class Event {
         sb.append(", csphone=").append(csphone);
         sb.append(", location=").append(location);
         sb.append(", address=").append(address);
+        sb.append(", twitter=").append(twitter);
+        sb.append(", facebook=").append(facebook);
         sb.append(", map=").append(map);
         sb.append(", maxpax=").append(maxpax);
         sb.append(", maxpaxperregister=").append(maxpaxperregister);

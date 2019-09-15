@@ -86,7 +86,7 @@ public class EventController extends BaseController {
 		EventReturnMsg returnMsg = new EventReturnMsg();
 		if(event.getId() == null) 
 			returnMsg.setId("no event id not found");
-		else if(!returnMsg.validatedForEdit())
+		else if(returnMsg.validatedForEdit())
 			mv.addObject("returnMsg", returnMsg);
 		else {
 			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());

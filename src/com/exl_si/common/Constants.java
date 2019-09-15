@@ -20,5 +20,6 @@ public class Constants {
     	String SI_MERCHANT_PIC = "SI_MC_PIC";
     	String EXL_AGENT = "EXL_AG";
     	String EXL_CLIENT = "EXL_CL";
+    	String EVENT = "EV";
     }
 }

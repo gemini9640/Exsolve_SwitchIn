@@ -15,18 +15,6 @@ request.setAttribute("title", "Tables - Event");
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
 			<jsp:include page="../common/leftNav.jsp"/>
-			<div class="main-container ace-save-state" id="main-container">
-			<script type="text/javascript">
-				try{ace.settings.loadState('main-container')}catch(e){}
-			</script>
-			<div id="sidebar" class="sidebar responsive ace-save-state">
-				<script type="text/javascript">
-					try{ace.settings.loadState('sidebar')}catch(e){}
-				</script>
-				<div class="sidebar-toggle sidebar-collapse" id="sidebar-collapse">
-					<i id="sidebar-toggle-icon" class="ace-icon fa fa-angle-double-left ace-save-state" data-icon1="ace-icon fa fa-angle-double-left" data-icon2="ace-icon fa fa-angle-double-right"></i>
-				</div>
-			</div>
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -151,7 +139,7 @@ request.setAttribute("title", "Tables - Event");
 																<label class="col-sm-2 control-label no-padding-right" for="form-field-facebook">Facebook</label>
 																<div class="col-sm-10">
 																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-facebook" />
+																		<input name="facebook" type="text" value="" id="form-field-facebook" />
 																		<i class="ace-icon fa fa-facebook blue"></i>
 																	</span>
 																</div>
@@ -160,7 +148,7 @@ request.setAttribute("title", "Tables - Event");
 																<label class="col-sm-2 control-label no-padding-right" for="form-field-twitter">Twitter</label>
 																<div class="col-sm-10">
 																	<span class="input-icon">
-																		<input type="text" value="" id="form-field-twitter" />
+																		<input name="twitter" type="text" value="" id="form-field-twitter" />
 																		<i class="ace-icon fa fa-twitter light-blue"></i>
 																	</span>
 																</div>
@@ -194,7 +182,7 @@ request.setAttribute("title", "Tables - Event");
 																Save Draft
 															</button>
 															&nbsp; &nbsp;
-															<button class="btn btn-info" type="button">
+															<button class="btn btn-info" type="submit">
 																<i class="ace-icon fa fa-check bigger-110"></i>
 																Submit
 															</button>
@@ -215,7 +203,6 @@ request.setAttribute("title", "Tables - Event");
 						</div><!-- /.row -->
 					</div><!-- /.page-content -->
 				</div>
-			</div>
 			</div><!-- /.main-content -->
 			<script type="text/javascript">
 				switchLeftActive("event", null, "eventCreate");
