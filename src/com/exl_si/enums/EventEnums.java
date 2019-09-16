@@ -2,9 +2,19 @@ package com.exl_si.enums;
 
 public final class EventEnums {
 	public enum STATUS {
-		INIT(0,"init"),
-		ACTIVE(1,"active"),
-	    EXPIRE(2,"expire");
+		DRAFT(0,"draft"),
+		PENDING(1,"pending"),
+		ACTIVE(2,"active"),
+	    EXPIRE(3,"expire");
+		
+		
+		public static STATUS getStatusByCode(Integer code) {
+			for (STATUS status : values()) {
+				if(status.getCode() == code.intValue())
+					return status;
+			}
+			return null;
+		}
 		
 	    private int code;
 	    private String desc;

@@ -2,8 +2,11 @@ package com.exl_si.controller.backend;
 
 import java.sql.Timestamp;
 import java.util.Date;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -32,6 +35,7 @@ import com.exl_si.utils.DateUtils;
 import com.exl_si.utils.DeleteFileUtil;
 import com.exl_si.utils.StringUtils;
 import com.exl_si.utils.UploadUtil;
+import com.github.pagehelper.PageInfo;
 
 @Controller
 @RequestMapping("/manage/event")
@@ -63,7 +67,7 @@ public class EventController extends BaseController {
 		} else {
 			Timestamp createTime = DateUtils.convertToTimestamp(new Date());
 			event.setCreatetime(createTime);
-			event.setStatus(EventEnums.STATUS.INIT.getCode());
+			event.setStatus(EventEnums.STATUS.PENDING.getCode());
 			ServerResponse response =  eventService.save(event);
 			if(response.isSuccess()) {
 				returnMsg.setErrormsg("event creation succeed");
@@ -78,6 +82,43 @@ public class EventController extends BaseController {
 		}
 		return mv;
     }
+	
+	/**
+	 * draft
+	@RequestMapping(value = "draft.do", method = RequestMethod.POST)
+    public ModelAndView draft(Event event) {
+		ModelAndView mv = new ModelAndView();
+		EventReturnMsg returnMsg = new EventReturnMsg();
+		if(StringUtils.isEmpty(event.getMerchantId())) {
+			returnMsg.setErrormsg("merchant id cannot be not");
+			mv.addObject("returnMsg", returnMsg);
+			mv.setViewName("event/create");
+			return mv;
+		}
+		
+//		if(!returnMsg.validatedForEdit())
+		if(returnMsg.validatedForEdit()) {
+			mv.addObject("returnMsg", returnMsg);
+			mv.setViewName("event/create");
+		} else {
+			Timestamp createTime = DateUtils.convertToTimestamp(new Date());
+			event.setCreatetime(createTime);
+			event.setStatus(EventEnums.STATUS.DRAFT.getCode());
+			ServerResponse response =  eventService.save(event);
+			if(response.isSuccess()) {
+				returnMsg.setErrormsg("event creation succeed");
+				mv.addObject("returnMsg", returnMsg);
+				mv.addObject("event",response.getData());
+				mv.setViewName("event/detail");
+			} else {
+				returnMsg.setErrormsg(response.getMsg());
+				mv.addObject("returnMsg", returnMsg);
+				mv.setViewName("event/create");
+			}
+		}
+		return mv;
+    }
+	 */
 	
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
     public ModelAndView edit(Event event) {
@@ -116,5 +157,20 @@ public class EventController extends BaseController {
 			mv.addObject("page", response.getData());
 		}
 		return mv;
+	}
+	
+	@RequestMapping(value = "listByMerchantAndStatus.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse<PageInfo> listByMerchantAndStatus(HttpServletRequest request) {
+		Map<String, Object> properties = new HashMap<String, Object>();
+		String merchantId = request.getParameter("merchantId");
+		String statusStr = request.getParameter("status");
+		String pageNumStr = request.getParameter("pageNum");
+		String pageSizeStr = request.getParameter("pageSize");
+		
+		Integer status = Integer.valueOf(statusStr);
+		Integer pageNum = Integer.valueOf(pageNumStr);
+		Integer pageSize = Integer.valueOf(pageSizeStr);
+		return eventService.queryByMerchantAndStatus(merchantId, EventEnums.STATUS.getStatusByCode(status), pageNum, pageSize);
 	}
 }

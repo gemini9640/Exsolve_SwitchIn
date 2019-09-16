@@ -302,6 +302,16 @@
 	 from event where merchantId = #{merchantId,jdbcType=VARCHAR}
   </select>
   
+  <select id="selectByMerchantAndStatus" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from event where 
+	 <if test="merchantId != null">
+        merchantId = #{merchantId,jdbcType=VARCHAR} and
+     </if>
+	 status = #{status,jdbcType=INTEGER}
+  </select>
+  
   <update id="updateStatus" parameterType="map">
     update event
     set 

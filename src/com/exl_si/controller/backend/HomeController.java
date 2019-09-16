@@ -14,9 +14,24 @@ public class HomeController {
 		return new ModelAndView("event/create");
 	}
 
-	@RequestMapping(value="/user/event/list.htm")
-	public ModelAndView event_list(){
-		return new ModelAndView("user/event/list");
+	@RequestMapping(value="/user/event/pending.htm")
+	public ModelAndView list_pending(){
+		return new ModelAndView("user/event/list_pending");
+	}
+	
+	@RequestMapping(value="/user/event/active.htm")
+	public ModelAndView list_active(){
+		return new ModelAndView("user/event/list_active");
+	}
+	
+	@RequestMapping(value="/user/event/expired.htm")
+	public ModelAndView list_expired(){
+		return new ModelAndView("user/event/list_expired");
+	}
+	
+	@RequestMapping(value="/user/event/draft.htm")
+	public ModelAndView list_draft(){
+		return new ModelAndView("user/event/list_draft");
 	}
 	
 	

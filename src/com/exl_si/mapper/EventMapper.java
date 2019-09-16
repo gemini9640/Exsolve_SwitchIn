@@ -21,6 +21,8 @@ public interface EventMapper {
     
     List<Event> selectByMerchant(String merchantId);
     
+    List<Event> selectByMerchantAndStatus(@Param("merchantId")String merchantId, @Param("status")Integer status);
+    
     int updateStatus(@Param("id")String id, @Param("status")Integer status);
     
     Event selectByName(@Param("eventName")String eventName);

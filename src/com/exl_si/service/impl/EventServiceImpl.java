@@ -19,6 +19,7 @@ import com.exl_si.helper.EventHelper;
 import com.exl_si.helper.SequenceNoHelper;
 import com.exl_si.mapper.EventMapper;
 import com.exl_si.mapper.EventPictureMapper;
+import com.exl_si.mapper.SIMerchantMapper;
 import com.exl_si.mapper.SequenceNoMapper;
 import com.exl_si.service.EventService;
 import com.exl_si.utils.DeleteFileUtil;
@@ -33,9 +34,13 @@ public class EventServiceImpl implements EventService{
 	@Autowired
 	private EventPictureMapper eventPictureMapper;
 	@Autowired
+	private SIMerchantMapper merchantMapper;
+	@Autowired
 	private SequenceNoMapper sequenceNoMapper;
 	
 	public ServerResponse<Event> save(Event event) {
+		if(merchantMapper.selectByPrimaryKey(event.getMerchantId()) ==null)
+			return ServerResponse.createByServerError("merchantId not valid");
 		if(eventMapper.selectByName(event.getEventname()) != null)
 			return ServerResponse.createByServerError("event title is duplicated");
 		SequenceNoHelper.setEventSequenceId(event, sequenceNoMapper);
@@ -58,6 +63,12 @@ public class EventServiceImpl implements EventService{
 		List<Event> list = eventMapper.selectByMerchant(merchantId);
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	} 
+	
+	public ServerResponse<PageInfo> queryByMerchantAndStatus(String merchantId, EventEnums.STATUS status, Integer pageNum, Integer pageSize) {
+		PageHelper.startPage(pageNum, pageSize);
+		List<Event> list = eventMapper.selectByMerchantAndStatus(merchantId, status.getCode());
+		return ServerResponse.createBySuccess(new PageInfo(list));
+	}
 	
 	public ServerResponse updateStatus(String id, EventEnums.STATUS status) {
 		if(eventMapper.updateStatus(id, status.getCode())>0)

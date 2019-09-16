@@ -16,8 +16,10 @@ public interface EventService {
 	
 	public ServerResponse<Event> queryById(String id);
 	
-	public ServerResponse<PageInfo> queryByMerchant(String merchantName, Integer pageNum, Integer pageSize);
+	public ServerResponse<PageInfo> queryByMerchant(String merchantId, Integer pageNum, Integer pageSize);
 	
+	public ServerResponse<PageInfo> queryByMerchantAndStatus(String merchantId, EventEnums.STATUS status, Integer pageNum, Integer pageSize);
+
 	public ServerResponse updateStatus(String id, EventEnums.STATUS status);
 	
 	public ServerResponse update(Event event);

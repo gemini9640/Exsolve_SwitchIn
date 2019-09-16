@@ -8,13 +8,13 @@ import org.apache.ibatis.annotations.Param;
 import com.exl_si.db.SIMerchant;
 
 public interface SIMerchantMapper {
-    int deleteByPrimaryKey(String username);
+    int deleteByPrimaryKey(String id);
 
     int insert(SIMerchant record);
 
     int insertSelective(SIMerchant record);
 
-    SIMerchant selectByPrimaryKey(String username);
+    SIMerchant selectByPrimaryKey(String id);
 
     int updateByPrimaryKeySelective(SIMerchant record);
 
