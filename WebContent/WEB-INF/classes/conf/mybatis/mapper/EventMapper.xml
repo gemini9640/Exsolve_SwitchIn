@@ -302,14 +302,21 @@
 	 from event where merchantId = #{merchantId,jdbcType=VARCHAR}
   </select>
   
-  <select id="selectByMerchantAndStatus" parameterType="map" resultMap="BaseResultMap">
+  <select id="selectByPropertiesSelective" parameterType="map" resultMap="BaseResultMap">
   	 select 
 	 <include refid="Base_Column_List" />
 	 from event where 
-	 <if test="merchantId != null">
-        merchantId = #{merchantId,jdbcType=VARCHAR} and
-     </if>
 	 status = #{status,jdbcType=INTEGER}
+	 <if test="merchantId != null and merchantId != ''">
+       and merchantId = #{merchantId,jdbcType=VARCHAR} 
+     </if>
+	 <if test="start != null">
+	   and startDate <![CDATA[ >= ]]> #{start,jdbcType=TIMESTAMP} 
+     </if> 
+     <if test="end != null"> 
+       and endDate <![CDATA[ <= ]]> #{end,jdbcType=TIMESTAMP}
+     </if>
+	 order by createtime desc
   </select>
   
   <update id="updateStatus" parameterType="map">

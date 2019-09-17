@@ -26,7 +26,20 @@ $.JsUtil = {
 	    var year = date.getFullYear();
 	    var month = date.getMonth()+1;
 	    var day = date.getDate();
+        month = month<10?0+""+month:month;
+        day = day<10?0+""+day:day;
 	    return day+"-"+month+"-"+year;
+	},
+	convertDateTime : function(date) {
+		var date = new Date(date);
+	    var hour = date.getHours();
+        var min = date.getMinutes();
+        var sec = date.getSeconds();
+        
+        hour = hour<10?0+""+hour:hour;
+        min = min<10?0+""+min:min;
+        sec = sec<10?0+""+sec:sec;
+	    return $.JsUtil.convertDate(date)+" "+hour+":"+min+":"+sec;
 	},
 	undefinedRed : function (selector) {
 		$(selector).each(function() {

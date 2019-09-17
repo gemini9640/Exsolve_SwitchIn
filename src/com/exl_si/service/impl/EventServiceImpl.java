@@ -1,6 +1,7 @@
 package com.exl_si.service.impl;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -64,9 +65,9 @@ public class EventServiceImpl implements EventService{
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	} 
 	
-	public ServerResponse<PageInfo> queryByMerchantAndStatus(String merchantId, EventEnums.STATUS status, Integer pageNum, Integer pageSize) {
+	public ServerResponse<PageInfo> queryByProperties(Map<String, Object> properties, Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
-		List<Event> list = eventMapper.selectByMerchantAndStatus(merchantId, status.getCode());
+		List<Event> list = eventMapper.selectByPropertiesSelective(properties);
 		return ServerResponse.createBySuccess(new PageInfo(list));
 	}
 	

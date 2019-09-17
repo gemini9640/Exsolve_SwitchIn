@@ -159,18 +159,30 @@ public class EventController extends BaseController {
 		return mv;
 	}
 	
-	@RequestMapping(value = "listByMerchantAndStatus.do", method = RequestMethod.POST)
+	@RequestMapping(value = "listByProperties.do", method = RequestMethod.POST)
 	@ResponseBody
-	public ServerResponse<PageInfo> listByMerchantAndStatus(HttpServletRequest request) {
+	public ServerResponse<PageInfo> listByProperties(HttpServletRequest request) {
 		Map<String, Object> properties = new HashMap<String, Object>();
 		String merchantId = request.getParameter("merchantId");
 		String statusStr = request.getParameter("status");
 		String pageNumStr = request.getParameter("pageNum");
 		String pageSizeStr = request.getParameter("pageSize");
-		
+		String startStr = request.getParameter("start");
+		String endStr = request.getParameter("end");
+		Date startDate = null;
+    	Date endDate = null;
+		if(StringUtils.isNotEmpty(startStr) && StringUtils.isNotEmpty(endStr)) {
+			startDate = DateUtils.parseDateRemoteDetails(startStr);
+			endDate = DateUtils.parseDateRemoteDetails(endStr);
+			properties.put("start", startDate);
+			properties.put("end", endDate);
+		}
 		Integer status = Integer.valueOf(statusStr);
+		properties.put("merchantId", merchantId);
+		properties.put("status", status);
+		
 		Integer pageNum = Integer.valueOf(pageNumStr);
 		Integer pageSize = Integer.valueOf(pageSizeStr);
-		return eventService.queryByMerchantAndStatus(merchantId, EventEnums.STATUS.getStatusByCode(status), pageNum, pageSize);
+		return eventService.queryByProperties(properties, pageNum, pageSize);
 	}
 }

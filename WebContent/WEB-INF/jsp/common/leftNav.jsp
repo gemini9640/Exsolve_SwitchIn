@@ -122,21 +122,21 @@ function switchLeftActive(model, action, type) {
 					<b class="arrow"></b>
 				</li>
 				<li class="left_nav left_nav_eventPending">
-					<a href="tables-Pending-Event.html">
+					<a href="${base}event/pending.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
-						Pending  Event
+						Pending Event
 					</a>
 					<b class="arrow"></b>
 				</li>
 				<li class="left_nav left_nav_eventActive">
-					<a href="tables-Active-Event.html">
+					<a href="${base}event/active.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Active Event
 					</a>
 					<b class="arrow"></b>
 				</li>
 				<li class="left_nav left_nav_eventExpired">
-					<a href="tables-Expired-Event.html">
+					<a href="${base}event/expired.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Expired Event
 					</a>

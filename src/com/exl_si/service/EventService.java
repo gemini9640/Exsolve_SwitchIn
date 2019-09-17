@@ -1,6 +1,7 @@
 package com.exl_si.service;
 
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 
@@ -18,7 +19,7 @@ public interface EventService {
 	
 	public ServerResponse<PageInfo> queryByMerchant(String merchantId, Integer pageNum, Integer pageSize);
 	
-	public ServerResponse<PageInfo> queryByMerchantAndStatus(String merchantId, EventEnums.STATUS status, Integer pageNum, Integer pageSize);
+	public ServerResponse<PageInfo> queryByProperties(Map<String, Object> properties, Integer pageNum, Integer pageSize);
 
 	public ServerResponse updateStatus(String id, EventEnums.STATUS status);
 	

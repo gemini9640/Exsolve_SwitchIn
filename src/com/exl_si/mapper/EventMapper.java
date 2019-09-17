@@ -1,6 +1,7 @@
 package com.exl_si.mapper;
 
 import java.util.List;
+import java.util.Map;
 
 import org.apache.ibatis.annotations.Param;
 
@@ -21,7 +22,7 @@ public interface EventMapper {
     
     List<Event> selectByMerchant(String merchantId);
     
-    List<Event> selectByMerchantAndStatus(@Param("merchantId")String merchantId, @Param("status")Integer status);
+    List<Event> selectByPropertiesSelective(Map<String, Object> map);
     
     int updateStatus(@Param("id")String id, @Param("status")Integer status);
     

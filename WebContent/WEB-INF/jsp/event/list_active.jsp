@@ -1,7 +1,7 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
 <%@include file="../common/common.inc"%>
 <%
-request.setAttribute("title", "Tables - Pending Event");
+request.setAttribute("title", "Tables - Active Event");
 %>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,13 +26,13 @@ request.setAttribute("title", "Tables - Pending Event");
 							<li>
 								<a href="#">Event Management</a>
 							</li>
-							<li class="active">Pending Event</li>
+							<li class="active">Active Event</li>
 						</ul>
 					</div>
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								Pending Event
+								Active Event
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
 									Listing
@@ -43,7 +43,7 @@ request.setAttribute("title", "Tables - Pending Event");
 							<div class="col-xs-12">
 								<div class="row">
 									<div class="col-xs-12">
-										<h3 class="header smaller lighter blue">Pending Event dataTables</h3>
+										<h3 class="header smaller lighter blue">Active Event dataTables</h3>
 										<div class="pull-left">
 											<label>Date Range Picker</label>
 											<div class="row">
@@ -77,7 +77,7 @@ request.setAttribute("title", "Tables - Pending Event");
 											<div class="pull-right tableTools-container"></div>
 										</div>
 										<div class="table-header">
-											Results for "Event Pending"
+											Results for "Event Active"
 										</div>
 										<div class="dataTables_wrapper">
 											<div id="sample-table-2_length" class="row event_sizeSelector" style="padding-bottom: 0px;">
@@ -115,7 +115,7 @@ request.setAttribute("title", "Tables - Pending Event");
 				</div>
 			</div>
 			<script type="text/javascript">
-				switchLeftActive("event", null, "eventPending");
+				switchLeftActive("event", null, "eventActive");
 			</script>
 			<jsp:include page="../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
@@ -131,7 +131,7 @@ function event_list(pageNumber) {
 	$(".tabaleData_event").html("");
 	$.post("${base}manage/event/listByProperties.do", {
 		merchantId : $("#merchantId").val(),
-		status : 1,
+		status : 2,
 		start : dateRange.start,
 		end : dateRange.end,
 		pageNum : pageNumber,
