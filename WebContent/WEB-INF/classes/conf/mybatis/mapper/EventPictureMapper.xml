@@ -4,7 +4,7 @@
   <resultMap id="BaseResultMap" type="com.exl_si.db.EventPicture">
     <constructor>
       <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="event_id" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="event_id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="type" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="indx" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="name_old" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -29,7 +29,7 @@
     insert into event_picture (id, event_id, type, 
       indx, name_old, name_new, 
       path)
-    values (#{id,jdbcType=VARCHAR}, #{eventId,jdbcType=INTEGER}, #{type,jdbcType=VARCHAR}, 
+    values (#{id,jdbcType=VARCHAR}, #{eventId,jdbcType=VARCHAR}, #{type,jdbcType=VARCHAR}, 
       #{indx,jdbcType=INTEGER}, #{nameOld,jdbcType=VARCHAR}, #{nameNew,jdbcType=VARCHAR}, 
       #{path,jdbcType=VARCHAR})
   </insert>
@@ -63,7 +63,7 @@
         #{id,jdbcType=VARCHAR},
       </if>
       <if test="eventId != null">
-        #{eventId,jdbcType=INTEGER},
+        #{eventId,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         #{type,jdbcType=VARCHAR},
@@ -86,7 +86,7 @@
     update event_picture
     <set>
       <if test="eventId != null">
-        event_id = #{eventId,jdbcType=INTEGER},
+        event_id = #{eventId,jdbcType=VARCHAR},
       </if>
       <if test="type != null">
         type = #{type,jdbcType=VARCHAR},
@@ -108,7 +108,7 @@
   </update>
   <update id="updateByPrimaryKey" parameterType="com.exl_si.db.EventPicture">
     update event_picture
-    set event_id = #{eventId,jdbcType=INTEGER},
+    set event_id = #{eventId,jdbcType=VARCHAR},
       type = #{type,jdbcType=VARCHAR},
       indx = #{indx,jdbcType=INTEGER},
       name_old = #{nameOld,jdbcType=VARCHAR},

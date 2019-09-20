@@ -3,7 +3,6 @@ package com.exl_si.controller.backend;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -17,24 +16,15 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.exl_si.common.AppProperties;
-import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.controller.vo.EventReturnMsg;
 import com.exl_si.db.Event;
-import com.exl_si.db.vo.SubFile;
-import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.enums.EventEnums;
 import com.exl_si.enums.EventEnums.PictureType;
-import com.exl_si.enums.ResponseCode;
-import com.exl_si.exception.UploadException;
-import com.exl_si.helper.EventHelper;
 import com.exl_si.service.EventService;
 import com.exl_si.utils.DateUtils;
-import com.exl_si.utils.DeleteFileUtil;
 import com.exl_si.utils.StringUtils;
-import com.exl_si.utils.UploadUtil;
 import com.github.pagehelper.PageInfo;
 
 @Controller
@@ -44,12 +34,12 @@ public class EventController extends BaseController {
     private EventService eventService;
 	
 	@RequestMapping(value="/uploadBanner")
-	public ServerResponse uploadBanner(HttpSession session, MultipartHttpServletRequest request, String merchantId, Integer eventId){
+	public ServerResponse uploadBanner(HttpSession session, MultipartHttpServletRequest request, String merchantId, String eventId){
 		return eventService.uploadPicture(request, merchantId, eventId, PictureType.BANNER);
 	}
 	
 	@RequestMapping(value="/uploaDQR")
-	public ServerResponse uploaDQR(HttpSession session, MultipartHttpServletRequest request, String merchantId, Integer eventId){
+	public ServerResponse uploaDQR(HttpSession session, MultipartHttpServletRequest request, String merchantId, String eventId){
 		return eventService.uploadPicture(request, merchantId, eventId, PictureType.QR);
 	}
 	
@@ -83,43 +73,6 @@ public class EventController extends BaseController {
 		return mv;
     }
 	
-	/**
-	 * draft
-	@RequestMapping(value = "draft.do", method = RequestMethod.POST)
-    public ModelAndView draft(Event event) {
-		ModelAndView mv = new ModelAndView();
-		EventReturnMsg returnMsg = new EventReturnMsg();
-		if(StringUtils.isEmpty(event.getMerchantId())) {
-			returnMsg.setErrormsg("merchant id cannot be not");
-			mv.addObject("returnMsg", returnMsg);
-			mv.setViewName("event/create");
-			return mv;
-		}
-		
-//		if(!returnMsg.validatedForEdit())
-		if(returnMsg.validatedForEdit()) {
-			mv.addObject("returnMsg", returnMsg);
-			mv.setViewName("event/create");
-		} else {
-			Timestamp createTime = DateUtils.convertToTimestamp(new Date());
-			event.setCreatetime(createTime);
-			event.setStatus(EventEnums.STATUS.DRAFT.getCode());
-			ServerResponse response =  eventService.save(event);
-			if(response.isSuccess()) {
-				returnMsg.setErrormsg("event creation succeed");
-				mv.addObject("returnMsg", returnMsg);
-				mv.addObject("event",response.getData());
-				mv.setViewName("event/detail");
-			} else {
-				returnMsg.setErrormsg(response.getMsg());
-				mv.addObject("returnMsg", returnMsg);
-				mv.setViewName("event/create");
-			}
-		}
-		return mv;
-    }
-	 */
-	
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
     public ModelAndView edit(Event event) {
 		ModelAndView mv = new ModelAndView();
@@ -138,6 +91,22 @@ public class EventController extends BaseController {
 				mv.addObject("event",response.getData());
 			} else
 				returnMsg.setErrormsg(response.getMsg());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "detail.do")
+    public ModelAndView detail(String id) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("event/detail");
+		EventReturnMsg returnMsg = new EventReturnMsg();
+		if(returnMsg.validatedForEdit())  //test
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			ServerResponse response = eventService.query(id);
+			if(response.isSuccess()) 
+				mv.addObject("event",response.getData());
 			mv.addObject("returnMsg", returnMsg);
 		}
 		return mv;

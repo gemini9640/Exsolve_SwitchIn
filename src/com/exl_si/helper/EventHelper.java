@@ -8,7 +8,7 @@ import com.exl_si.db.vo.SubFile;
 import com.exl_si.utils.UuidUtil;
 
 public class EventHelper {
-	public static List<EventPicture> assembleInitEventPicture(Integer eventId, String type, List<SubFile> files) {
+	public static List<EventPicture> assembleInitEventPicture(String eventId, String type, List<SubFile> files) {
 		List<EventPicture> eventPictures = new ArrayList<EventPicture>();
 		for(int i = 0; i< files.size(); i++) {
 			EventPicture picture = (EventPicture)files.get(i);

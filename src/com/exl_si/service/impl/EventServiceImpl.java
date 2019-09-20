@@ -10,7 +10,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.exl_si.common.AppProperties;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.Event;
-import com.exl_si.db.EventPicture;
 import com.exl_si.db.vo.SubFile;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.enums.EventEnums;
@@ -85,7 +84,14 @@ public class EventServiceImpl implements EventService{
 			return ServerResponse.createByServerError("update fail");
 	}
 	
-	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, Integer eventId, PictureType type) {
+	public ServerResponse<Event> query(String id) {
+		Event event = eventMapper.selectByPrimaryKey(id);
+		if(event == null)
+			return ServerResponse.createByServerError("event not found");
+		return ServerResponse.createBySuccess(event);
+	}
+	
+	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, String eventId, PictureType type) {
 		String baseFolder = AppProperties.UPLOAD_PATH+"/si_merchant/"+merchantId+"/event/"+type.getDesc()+"/";
 		try {
 			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, baseFolder, FileObjectEnums.EVENT_PICTURE);

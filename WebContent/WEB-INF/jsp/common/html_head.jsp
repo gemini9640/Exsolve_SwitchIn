@@ -39,6 +39,7 @@
 	<link rel="stylesheet" href="${ace}css/jquery-ui.custom.min.css" />
 	<link rel="stylesheet" href="${ace}css/daterangepicker.min.css" />
 	<link rel="stylesheet" href="${ace}css/bootstrap-datetimepicker.min.css" />
+	<link rel="stylesheet" href="${ace}css/bootstrap-timepicker.min.css" />
 	<link rel="stylesheet" href="${base}static/css/index.css" />
 	
 		<script src="${ace}js/jquery-2.1.4.min.js"></script>
@@ -52,6 +53,7 @@
 		<script src="${ace}js/moment.min.js"></script>
 		<script src="${ace}js/daterangepicker.min.js"></script>
 		<script src="${ace}js/bootstrap-datetimepicker.min.js"></script>
+		<script src="${ace}js/bootstrap-timepicker.min.js"></script>
 		<!-- ace scripts -->
 		<script src="${ace}js/ace-elements.min.js"></script>
 		<script src="${ace}js/ace.min.js"></script>

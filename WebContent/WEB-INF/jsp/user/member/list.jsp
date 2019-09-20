@@ -55,6 +55,10 @@ request.setAttribute("title", "Tables - SI-Member");
 														<input class="form-control" type="text" name="date-range-picker" id="member-date-range-picker" />
 													</div>
 												</div>
+												<button onclick="$('#member-date-range-picker').val('');" class="btn_search btn btn-primary">
+													<i class="align-top"></i>
+													clear date picker
+												</button>
 												<button onclick="si_member_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
 													Search

@@ -66,7 +66,7 @@ request.setAttribute("title", "Tables - Event");
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-date-startdate">Started Date & Time</label>
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-date-startdate">Started Date</label>
 																		<div class="col-sm-10">
 																			<div class="input-medium">
 																				<div class="input-group">
@@ -79,13 +79,39 @@ request.setAttribute("title", "Tables - Event");
 																		</div>
 																	</div>
 																	<div class="form-group">
-																		<label class="col-sm-2 control-label no-padding-right" for="form-field-date-enddate">Ended Date & Time</label>
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-date-enddate">Ended Date</label>
 																		<div class="col-sm-10">
 																			<div class="input-medium">
 																				<div class="input-group">
 																					<input name="enddate" value="<fmt:formatDate value="${event.enddate}" pattern="dd-MM-yyyy"/>" class="input-medium date-picker" id="form-field-date-enddate" type="text" data-date-format="dd-mm-yyyy" placeholder="dd-mm-yyyy" />
 																					<span class="input-group-addon">
 																						<i class="ace-icon fa fa-calendar"></i>
+																					</span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label class="col-sm-2 control-label no-padding-right" for="startTime">Start Time</label>
+																		<div class="col-sm-10">
+																			<div class="input-medium">
+																				<div class="input-group bootstrap-timepicker">
+																					<input value="${event.starttime}" name="starttime" id="startTime" type="text" class="form-control" />
+																					<span class="input-group-addon">
+																						<i class="fa fa-clock-o bigger-110"></i>
+																					</span>
+																				</div>
+																			</div>
+																		</div>
+																	</div>
+																	<div class="form-group">
+																		<label class="col-sm-2 control-label no-padding-right" for="endTime">End Time</label>
+																		<div class="col-sm-10">
+																			<div class="input-medium">
+																				<div class="input-group bootstrap-timepicker">
+																					<input value="${event.endtime}" name="endtime" id="endTime" type="text" class="form-control" />
+																					<span class="input-group-addon">
+																						<i class="fa fa-clock-o bigger-110"></i>
 																					</span>
 																				</div>
 																			</div>
@@ -180,11 +206,6 @@ request.setAttribute("title", "Tables - Event");
 													</div>
 													<div class="clearfix form-actions">
 														<div class="col-md-offset-3 col-md-9">
-															<button class="btn btn-success" type="button">
-																<i class="ace-icon fa fa-floppy-o bigger-110"></i>
-																Save Draft
-															</button>
-															&nbsp; &nbsp;
 															<button class="btn btn-info" type="submit">
 																<i class="ace-icon fa fa-check bigger-110"></i>
 																Submit
@@ -225,6 +246,15 @@ request.setAttribute("title", "Tables - Event");
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });
+
+$('#startTime,#endTime').timepicker({
+	minuteStep: 1,
+	showSeconds: true,
+	showMeridian: false
+}).next().on(ace.click_event, function(){
+	$(this).prev().focus();
+});
+
 function uploadProfilePic() {
 	$("#uploadFile").click();
 }

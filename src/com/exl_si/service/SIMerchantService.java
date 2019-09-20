@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.SIMerchant;
+import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
 import com.exl_si.db.vo.SIMerchantWithAssociated;
 import com.exl_si.db.vo.SIMerchantWithPIC;
@@ -42,4 +43,6 @@ public interface SIMerchantService {
 	public ServerResponse<SIMerchantWithPIC> saveWithPIC(SIMerchant merchant, SIMerchantPIC pic, MultipartHttpServletRequest request);
 	
 	public ServerResponse<List<SubFile>> uploadDoc(MultipartHttpServletRequest request, String merchantId, FileType type);
+	
+	public List<SIMerchantDOC> selectByMerchantIdAndType(String merchantId, String type);
 }

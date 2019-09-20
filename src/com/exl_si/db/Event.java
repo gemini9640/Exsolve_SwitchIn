@@ -16,6 +16,10 @@ public class Event {
 
     private Date enddate;
 
+    private String endtime;
+
+    private String starttime;
+
     private String tagline;
 
     private BigDecimal price;
@@ -48,13 +52,15 @@ public class Event {
 
     private String remark;
 
-    public Event(String id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String twitter, String facebook, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark) {
+    public Event(String id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String endtime, String starttime, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String twitter, String facebook, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark) {
         this.id = id;
         this.eventname = eventname;
         this.merchantId = merchantId;
         this.createtime = createtime;
         this.startdate = startdate;
         this.enddate = enddate;
+        this.endtime = endtime;
+        this.starttime = starttime;
         this.tagline = tagline;
         this.price = price;
         this.updatetime = updatetime;
@@ -123,6 +129,22 @@ public class Event {
 
     public void setEnddate(Date enddate) {
         this.enddate = enddate;
+    }
+
+    public String getEndtime() {
+        return endtime;
+    }
+
+    public void setEndtime(String endtime) {
+        this.endtime = endtime == null ? null : endtime.trim();
+    }
+
+    public String getStarttime() {
+        return starttime;
+    }
+
+    public void setStarttime(String starttime) {
+        this.starttime = starttime == null ? null : starttime.trim();
     }
 
     public String getTagline() {
@@ -265,6 +287,8 @@ public class Event {
         sb.append(", createtime=").append(createtime);
         sb.append(", startdate=").append(startdate);
         sb.append(", enddate=").append(enddate);
+        sb.append(", endtime=").append(endtime);
+        sb.append(", starttime=").append(starttime);
         sb.append(", tagline=").append(tagline);
         sb.append(", price=").append(price);
         sb.append(", updatetime=").append(updatetime);

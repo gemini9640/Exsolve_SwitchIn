@@ -274,4 +274,8 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 			return ServerResponse.createByErrorMsg(e.getMessage());
 		} 
 	}
+	
+	public List<SIMerchantDOC> selectByMerchantIdAndType(String merchantId, String type) {
+		return docMapper.selectByMerchantIdAndType(merchantId, type);
+	}
 }

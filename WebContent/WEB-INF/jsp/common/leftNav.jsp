@@ -142,13 +142,13 @@ function switchLeftActive(model, action, type) {
 					</a>
 					<b class="arrow"></b>
 				</li>
-				<li class="left_nav left_nav_eventDraft">
-					<a href="tables-Draft-Event.html">
-						<i class="menu-icon fa fa-caret-right"></i>
-						Draft Event
-					</a>
-					<b class="arrow"></b>
-				</li>
+<!-- 				<li class="left_nav left_nav_eventDraft"> -->
+<!-- 					<a href="tables-Draft-Event.html"> -->
+<!-- 						<i class="menu-icon fa fa-caret-right"></i> -->
+<!-- 						Draft Event -->
+<!-- 					</a> -->
+<!-- 					<b class="arrow"></b> -->
+<!-- 				</li> -->
 			</ul>
 		</li>
 		<li class="">

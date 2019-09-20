@@ -25,5 +25,7 @@ public interface EventService {
 	
 	public ServerResponse update(Event event);
 	
-	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, Integer eventId, PictureType type);
+	public ServerResponse<Event> query(String id);
+	
+	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, String eventId, PictureType type);
 }

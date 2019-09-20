@@ -9,6 +9,8 @@
       <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="startDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="endDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="endTime" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="startTime" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="Tagline" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
       <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
@@ -28,9 +30,9 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, eventName, merchantId, createtime, startDate, endDate, Tagline, price, updateTime, 
-    csPhone, location, address, twitter, facebook, map, maxpax, maxpaxPerRegister, status, 
-    comment, description, reminder, remark
+    id, eventName, merchantId, createtime, startDate, endDate, endTime, startTime, Tagline, 
+    price, updateTime, csPhone, location, address, twitter, facebook, map, maxpax, maxpaxPerRegister, 
+    status, comment, description, reminder, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -45,20 +47,22 @@
   <insert id="insert" parameterType="com.exl_si.db.Event">
     insert into event (id, eventName, merchantId, 
       createtime, startDate, endDate, 
-      Tagline, price, updateTime, 
-      csPhone, location, address, 
-      twitter, facebook, map, 
-      maxpax, maxpaxPerRegister, status, 
-      comment, description, reminder, 
-      remark)
+      endTime, startTime, Tagline, 
+      price, updateTime, csPhone, 
+      location, address, twitter, 
+      facebook, map, maxpax, 
+      maxpaxPerRegister, status, comment, 
+      description, reminder, remark
+      )
     values (#{id,jdbcType=VARCHAR}, #{eventname,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
-      #{tagline,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP}, 
-      #{csphone,jdbcType=VARCHAR}, #{location,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
-      #{twitter,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, #{map,jdbcType=VARCHAR}, 
-      #{maxpax,jdbcType=INTEGER}, #{maxpaxperregister,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, 
-      #{comment,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, #{reminder,jdbcType=VARCHAR}, 
-      #{remark,jdbcType=VARCHAR})
+      #{endtime,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{tagline,jdbcType=VARCHAR}, 
+      #{price,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP}, #{csphone,jdbcType=VARCHAR}, 
+      #{location,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{twitter,jdbcType=VARCHAR}, 
+      #{facebook,jdbcType=VARCHAR}, #{map,jdbcType=VARCHAR}, #{maxpax,jdbcType=INTEGER}, 
+      #{maxpaxperregister,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
+      #{description,jdbcType=VARCHAR}, #{reminder,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      )
   </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.Event">
     insert into event
@@ -80,6 +84,12 @@
       </if>
       <if test="enddate != null">
         endDate,
+      </if>
+      <if test="endtime != null">
+        endTime,
+      </if>
+      <if test="starttime != null">
+        startTime,
       </if>
       <if test="tagline != null">
         Tagline,
@@ -149,6 +159,12 @@
       <if test="enddate != null">
         #{enddate,jdbcType=TIMESTAMP},
       </if>
+      <if test="endtime != null">
+        #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        #{starttime,jdbcType=VARCHAR},
+      </if>
       <if test="tagline != null">
         #{tagline,jdbcType=VARCHAR},
       </if>
@@ -217,6 +233,12 @@
       <if test="enddate != null">
         endDate = #{enddate,jdbcType=TIMESTAMP},
       </if>
+      <if test="endtime != null">
+        endTime = #{endtime,jdbcType=VARCHAR},
+      </if>
+      <if test="starttime != null">
+        startTime = #{starttime,jdbcType=VARCHAR},
+      </if>
       <if test="tagline != null">
         Tagline = #{tagline,jdbcType=VARCHAR},
       </if>
@@ -275,6 +297,8 @@
       createtime = #{createtime,jdbcType=TIMESTAMP},
       startDate = #{startdate,jdbcType=TIMESTAMP},
       endDate = #{enddate,jdbcType=TIMESTAMP},
+      endTime = #{endtime,jdbcType=VARCHAR},
+      startTime = #{starttime,jdbcType=VARCHAR},
       Tagline = #{tagline,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       updateTime = #{updatetime,jdbcType=TIMESTAMP},

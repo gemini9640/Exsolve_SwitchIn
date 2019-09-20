@@ -27,3 +27,6 @@ TRUNCATE TABLE `event`;
 ALTER TABLE `event` ADD PRIMARY KEY ( `id` );
 ALTER TABLE `event` ADD facebook varchar(50) NULL after address, ADD twitter varchar(50) NULL after address;
 ALTER TABLE `sequenceNo` ADD `eventTotal` INT(5) DEFAULT 0;
+
+4.event 添加字段，活动当天起始时间
+ALTER TABLE `event` ADD startTime varchar(20) NULL after endDate, ADD endTime varchar(20) NULL after endDate;

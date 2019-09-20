@@ -55,6 +55,10 @@ request.setAttribute("title", "Tables - ExL-Agent");
 														<input class="form-control" type="text" name="date-range-picker" id="exlagent-date-range-picker" />
 													</div>
 												</div>
+												<button onclick="$('#exlagent-date-range-picker').val('');" class="btn_search btn btn-primary">
+													<i class="align-top"></i>
+													clear date picker
+												</button>
 												<button onclick="exl_agent_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
 													Search

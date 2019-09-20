@@ -161,8 +161,8 @@ function event_html(result) {
 					"<td class='dataValue'>"+event.eventname+"</td>"+
 					"<td class='dataValue'>"+event.merchantId+"</td>"+
 					"<td class='dataValue'>"+event.maxpax+"</td>"+
-					"<td class='dataValue'>"+$.JsUtil.convertDateTime(event.startdate)+"</td>"+	
-					"<td class='dataValue'>"+$.JsUtil.convertDateTime(event.enddate)+"</td>"+	
+					"<td class='dataValue'>"+$.JsUtil.convertDate(event.startdate)+"</td>"+	
+					"<td class='dataValue'>"+$.JsUtil.convertDate(event.enddate)+"</td>"+	
 					"<td class='hidden-480'>"+
 						"<button class='btn btn-minier btn-success'>Approve</button>"+
 						"<button class='btn btn-minier btn-danger'>Reject</button>"+

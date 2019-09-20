@@ -153,7 +153,6 @@ request.setAttribute("title", "Tables - SI-Merchant");
 													</div>
 												</div>
 												</div>
-												<input id="uploadFile" type="file" name="file" style="display:none;"/>
 											</form>
 										</div><!-- /.span -->
 									</div><!-- /.user-profile -->

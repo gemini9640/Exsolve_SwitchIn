@@ -5,7 +5,7 @@ import com.exl_si.db.vo.SubFile;
 public class EventPicture extends SubFile{
     private String id;
 
-    private Integer eventId;
+    private String eventId;
 
     private String type;
 
@@ -17,7 +17,7 @@ public class EventPicture extends SubFile{
 
     private String path;
 
-    public EventPicture(String id, Integer eventId, String type, Integer indx, String nameOld, String nameNew, String path) {
+    public EventPicture(String id, String eventId, String type, Integer indx, String nameOld, String nameNew, String path) {
         this.id = id;
         this.eventId = eventId;
         this.type = type;
@@ -39,12 +39,12 @@ public class EventPicture extends SubFile{
         this.id = id == null ? null : id.trim();
     }
 
-    public Integer getEventId() {
+    public String getEventId() {
         return eventId;
     }
 
-    public void setEventId(Integer eventId) {
-        this.eventId = eventId;
+    public void setEventId(String eventId) {
+        this.eventId = eventId == null ? null : eventId.trim();
     }
 
     public String getType() {
