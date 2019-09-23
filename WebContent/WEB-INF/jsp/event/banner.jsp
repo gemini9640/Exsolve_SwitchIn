@@ -1,20 +1,20 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="../../common/common.inc"%>
+<%@include file="../common/common.inc"%>
 <%
-request.setAttribute("title", "Tables - SI-Merchant");
+request.setAttribute("title", "Tables - Event");
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="../../common/html_head.jsp"/>
+<jsp:include page="../common/html_head.jsp"/>
 </head>
 <body class="no-skin">
-		<jsp:include page="../../common/header.jsp"/>
+		<jsp:include page="../common/header.jsp"/>
 		<div class="main-container ace-save-state" id="main-container">
 			<script type="text/javascript">
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
-			<jsp:include page="../../common/leftNav.jsp"/>
+			<jsp:include page="../common/leftNav.jsp"/>
 			
 			<div class="main-content">
 				<div class="main-content-inner">
@@ -33,7 +33,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								SI-Merchant-Banner 
+								Event-Banner
 							</h1>
 						</div>
 
@@ -45,14 +45,14 @@ request.setAttribute("title", "Tables - SI-Merchant");
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
 											
-											<form action="${base}manage/merchant/uploadSingleDoc.do" method="post" class="form-horizontal"  enctype="multipart/form-data">
-												<input type="hidden" name="picId" value="${pic.id}">
-												<input type="hidden" name="merchantId" value="${merchant.id}">
-												<input type="hidden" name="type" value="2">
+											<form action="${base}manage/event/uploadSingleDoc.do" method="post" class="form-horizontal"  enctype="multipart/form-data">
+												<input type="hidden" name="eventId" value="${event.id}">
+												<input type="hidden" name="type" value="1">
+												<input type="hidden" name="status" value="${event.status}">
 												<div class="tabbable">
 													<jsp:include page="tab.jsp"/>
 													<script>
-														activeCreationTab("si_merchant_banner");
+														activeCreationTab("event_banner");
 													</script>
 													<div id="banner-picture" class="tab-pane">
 														<h4 class="header blue bolder smaller">Banner Picture
@@ -63,11 +63,11 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<span onclick="uploadBanner();" class="profile-picture">
 																	<c:choose>
 																	   <c:when test="${list == null || list.size() < 1 }">
-																	   		<img id="merchant_banner" class="editable img-responsive" src="${base}static/images/addFile.jpg"/>
+																	   		<img id="event_banner" class="editable img-responsive" src="${base}static/images/addFile.jpg"/>
 																	   </c:when>
 																	   <c:otherwise> 
 																			<c:forEach items="${list}" var="banner" varStatus="vs">
-																				<img id="merchant_banner" class="editable img-responsive" src="${base}manage/img/showByPath.do?path=${banner.path}"/>
+																				<img id="event_banner" class="editable img-responsive" src="${base}manage/img/showByPath.do?path=${banner.path}"/>
 																			</c:forEach>	
 																	   </c:otherwise>
 																	</c:choose>
@@ -102,19 +102,27 @@ request.setAttribute("title", "Tables - SI-Merchant");
 				</div>
 			</div><!-- /.main-content -->
 			
-			<jsp:include page="../../common/html_foot.jsp"/>
+			<jsp:include page="../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
-<jsp:include page="../../common/jsConfig.jsp"/>
-<jsp:include page="../../common/jsUtils.jsp"/>
-<jsp:include page="../../common/script.jsp"/>
+<jsp:include page="../common/jsConfig.jsp"/>
+<jsp:include page="../common/jsUtils.jsp"/>
+<jsp:include page="../common/script.jsp"/>
 
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
-switchLeftActive("user", null, "merchantList");
+var eventStatus = "";
+if("${event.status}" == "1") {
+	eventStatus = "eventPending";
+} else if("${event.status}" == "2") {
+	eventStatus = "eventActive";
+} else if("${event.status}" == "3") {
+	eventStatus = "eventExpired";
+} 
+switchLeftActive("event", null, eventStatus);
 function uploadBanner() {
 	$("#uploadFile").click();
 }
-$.UploadConfig.onchange("#uploadFile", "#merchant_banner");
+$.UploadConfig.onchange("#uploadFile", "#event_banner");
 </script>
 
 </body>

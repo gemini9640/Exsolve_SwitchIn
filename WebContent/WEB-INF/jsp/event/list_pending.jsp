@@ -156,7 +156,7 @@ function event_html(result) {
 						"</label>"+
 					"</td>"+
 					"<td class='dataValue'>"+
-						"<a href='${base}manage/event/detail.do?id="+event.id+"'>"+event.id+"</a>"+
+						"<a href='${base}manage/event/detail.do?eventId="+event.id+"&status="+event.status+"'>"+event.id+"</a>"+
 					"</td>"+
 					"<td class='dataValue'>"+event.eventname+"</td>"+
 					"<td class='dataValue'>"+event.merchantId+"</td>"+

@@ -10,6 +10,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.exl_si.common.AppProperties;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.Event;
+import com.exl_si.db.EventPicture;
 import com.exl_si.db.vo.SubFile;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.enums.EventEnums;
@@ -96,10 +97,51 @@ public class EventServiceImpl implements EventService{
 		try {
 			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, baseFolder, FileObjectEnums.EVENT_PICTURE);
 			if(uploadedFiles != null && !uploadedFiles.isEmpty()) {
-				if(eventPictureMapper.batchInsert(EventHelper.assembleInitEventPicture(eventId, type.getDesc(), uploadedFiles)) > 0)
+				if(eventPictureMapper.batchInsert(EventHelper.assembleInitPicture(eventId, type.getDesc(), uploadedFiles)) > 0)
 					return ServerResponse.createBySuccess(uploadedFiles);
 			} 
 			return ServerResponse.createByErrorMsg("no picture to upload.");
+		} catch (UploadException ue) {
+			if(ue.getIoe() != null) {
+				ue.getIoe().printStackTrace();
+				if(ue.getPath() != null)
+					DeleteFileUtil.delete(ue.getPath());
+			} else 
+				ue.printStackTrace();
+			return ServerResponse.createByErrorMsg(ue.getMessage());
+		} catch (InstantiationException e) {
+			e.printStackTrace();
+			return ServerResponse.createByErrorMsg(e.getMessage());
+		} catch (IllegalAccessException e) {
+			e.printStackTrace();
+			return ServerResponse.createByErrorMsg(e.getMessage());
+		} 
+	}
+	
+	public List<EventPicture> selectPictureByEventIdAndType(String eventId, String type) {
+		return eventPictureMapper.selectByEventIdAndType(eventId, type);
+	}
+	
+	public ServerResponse uploadSingleDoc(MultipartHttpServletRequest request, String eventId, String type) {
+		String baseFolder = AppProperties.UPLOAD_PATH+"/event/"+eventId+"/"+type+"/";
+		try {
+			List<EventPicture> list = eventPictureMapper.selectByEventIdAndType(eventId, type);
+			//一个类型只允许上传一个文件
+			EventPicture picture = null;
+			if(list != null && list.size()> 0)
+				picture = list.get(0);
+			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, baseFolder, FileObjectEnums.EVENT_PICTURE);
+			if(uploadedFiles != null && !uploadedFiles.isEmpty()) {
+				if(picture != null) {
+					//重复上传会删掉原本的文件
+					DeleteFileUtil.delete(AppProperties.UPLOAD_PATH+picture.getPath());
+					eventPictureMapper.updateByPrimaryKeySelective(EventHelper.assembleEdittedPicture(picture, uploadedFiles));
+					return ServerResponse.createBySuccess(uploadedFiles.get(0));
+				}else if(eventPictureMapper.batchInsert(EventHelper.assembleInitPicture(eventId, type, uploadedFiles)) > 0)
+					return ServerResponse.createBySuccess(uploadedFiles.get(0));
+			} else if(picture != null)
+				return ServerResponse.createBySuccess("no file to upload", picture);
+			return ServerResponse.createByErrorMsg("nothing to do for uploading profile picture!");
 		} catch (UploadException ue) {
 			if(ue.getIoe() != null) {
 				ue.getIoe().printStackTrace();

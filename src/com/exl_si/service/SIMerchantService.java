@@ -42,7 +42,9 @@ public interface SIMerchantService {
 	
 	public ServerResponse<SIMerchantWithPIC> saveWithPIC(SIMerchant merchant, SIMerchantPIC pic, MultipartHttpServletRequest request);
 	
-	public ServerResponse<List<SubFile>> uploadDoc(MultipartHttpServletRequest request, String merchantId, FileType type);
+	public ServerResponse<SubFile> uploadSingleDoc(MultipartHttpServletRequest request, String merchantId, FileType type);
 	
-	public List<SIMerchantDOC> selectByMerchantIdAndType(String merchantId, String type);
+	public ServerResponse<List<SubFile>> uploadMultipleDoc(MultipartHttpServletRequest request, String merchantId, FileType type);
+	
+	public List<SIMerchantDOC> selectDocByMerchantIdAndType(String merchantId, String type);
 }

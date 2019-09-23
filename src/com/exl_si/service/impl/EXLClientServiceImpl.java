@@ -76,7 +76,7 @@ public class EXLClientServiceImpl implements EXLClientService{
 	} 
 	
 	public ServerResponse<EXLClient> login(String username, String password) {
-		EXLClient client = exlClientMapper.login(username, ServiceHelper.encriptPassword(password));
+		EXLClient client = exlClientMapper.login(username, ServiceHelper.encriptPassword(username, password));
 		if(client == null)
 			return ServerResponse.createByServerError("login fail, username or password incorrect");
 		return ServerResponse.createBySuccess(client);
@@ -86,7 +86,7 @@ public class EXLClientServiceImpl implements EXLClientService{
 		if(exlClientMapper.selectByUsername(client.getUsername()) != null)
 			return ServerResponse.createByServerError(client.getUsername()+" is already exist.");
 		SequenceNoHelper.setEXLClientSequenceId(client, sequenceNoMapper);
-		client.setPassword(ServiceHelper.encriptPassword(client.getPassword()));
+		client.setPassword(ServiceHelper.encriptPassword(client.getUsername(), client.getPassword()));
 		if(exlClientMapper.insertSelective(client)>0) {
 			SequenceNoHelper.updateEXLClientSequenceNo(sequenceNoMapper);
 			ServerResponse uploadResp = uploadProfile(request, client.getId(), FileType.PROFILE.getDesc());
@@ -131,7 +131,7 @@ public class EXLClientServiceImpl implements EXLClientService{
 		if(exlClientMapper.selectByUsername(username) == null)
 			return ServerResponse.createByServerError("member not found");
 		else {
-			password = ServiceHelper.encriptPassword(password);
+			password = ServiceHelper.encriptPassword(username, password);
 			exlClientMapper.updateByPrimaryKeySelective(EXLClientHelper.assembleSIMember4ChangePassword(username, password));
 			return ServerResponse.createBySuccess();
 		}

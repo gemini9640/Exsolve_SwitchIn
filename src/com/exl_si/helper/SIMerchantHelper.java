@@ -3,24 +3,22 @@ package com.exl_si.helper;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.exl_si.common.Constants;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
 import com.exl_si.db.vo.SubFile;
-import com.exl_si.utils.MD5Util;
 import com.exl_si.utils.UuidUtil;
 
 public class SIMerchantHelper {
 	public static SIMerchant assembleSIMerchant4ChangePassword(String username, String password) {
 		SIMerchant merchant = new SIMerchant();
-		merchant.setPassword(getPassword(username, password));
+		merchant.setPassword(ServiceHelper.encriptPassword(username, password));
 		return merchant;
 	}
 	
-	public static String getPassword(String username, String password) {
-		return MD5Util.MD5EncodeUtf8(username+password+Constants.MD5_SALT).toLowerCase();
-	}
+//	public static String getPassword(String username, String password) {
+//		return MD5Util.MD5EncodeUtf8(username+password+Constants.MD5_SALT).toLowerCase();
+//	}
 	
 	public static List<SIMerchantDOC> assembleInitMerchantDOC(String merchantId, String type, List<SubFile> files) {
 		List<SIMerchantDOC> merchantDocs = new ArrayList<SIMerchantDOC>();

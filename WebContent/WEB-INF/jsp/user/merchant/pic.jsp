@@ -176,6 +176,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
+switchLeftActive("user", null, "merchantList");
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });

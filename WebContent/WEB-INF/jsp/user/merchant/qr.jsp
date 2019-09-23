@@ -33,7 +33,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								SI-Merchant-Banner 
+								SI-Merchant-QR Code 
 							</h1>
 						</div>
 
@@ -48,26 +48,25 @@ request.setAttribute("title", "Tables - SI-Merchant");
 											<form action="${base}manage/merchant/uploadSingleDoc.do" method="post" class="form-horizontal"  enctype="multipart/form-data">
 												<input type="hidden" name="picId" value="${pic.id}">
 												<input type="hidden" name="merchantId" value="${merchant.id}">
-												<input type="hidden" name="type" value="2">
+												<input type="hidden" name="type" value="3">
 												<div class="tabbable">
 													<jsp:include page="tab.jsp"/>
 													<script>
-														activeCreationTab("si_merchant_banner");
+														activeCreationTab("si_merchant_qr");
 													</script>
-													<div id="banner-picture" class="tab-pane">
-														<h4 class="header blue bolder smaller">Banner Picture
-															<small>Size 1440px X 550px , Maximum no exceed 500kb</small>															
+													<div id="qr-picture" class="tab-pane">
+														<h4 class="header blue bolder smaller">QR Code
 														</h4>
 														<div class="row">
 															<div class="col-xs-12 col-sm-2">
-																<span onclick="uploadBanner();" class="profile-picture">
+																<span onclick="uploadQr();" class="profile-picture">
 																	<c:choose>
 																	   <c:when test="${list == null || list.size() < 1 }">
-																	   		<img id="merchant_banner" class="editable img-responsive" src="${base}static/images/addFile.jpg"/>
+																	   		<img id="merchant_qr" class="editable img-responsive" src="${base}static/images/addFile.jpg"/>
 																	   </c:when>
 																	   <c:otherwise> 
-																			<c:forEach items="${list}" var="banner" varStatus="vs">
-																				<img id="merchant_banner" class="editable img-responsive" src="${base}manage/img/showByPath.do?path=${banner.path}"/>
+																			<c:forEach items="${list}" var="qr" varStatus="vs">
+																				<img id="merchant_qr" class="editable img-responsive" src="${base}manage/img/showByPath.do?path=${qr.path}"/>
 																			</c:forEach>	
 																	   </c:otherwise>
 																	</c:choose>
@@ -111,10 +110,10 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
 switchLeftActive("user", null, "merchantList");
-function uploadBanner() {
+function uploadQr() {
 	$("#uploadFile").click();
 }
-$.UploadConfig.onchange("#uploadFile", "#merchant_banner");
+$.UploadConfig.onchange("#uploadFile", "#merchant_qr");
 </script>
 
 </body>

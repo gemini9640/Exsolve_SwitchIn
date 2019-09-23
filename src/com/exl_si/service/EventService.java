@@ -7,6 +7,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.Event;
+import com.exl_si.db.EventPicture;
 import com.exl_si.db.vo.SubFile;
 import com.exl_si.enums.EventEnums;
 import com.exl_si.enums.EventEnums.PictureType;
@@ -27,5 +28,9 @@ public interface EventService {
 	
 	public ServerResponse<Event> query(String id);
 	
+	public ServerResponse uploadSingleDoc(MultipartHttpServletRequest request, String eventId, String type);
+	
 	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, String eventId, PictureType type);
+	
+	public List<EventPicture> selectPictureByEventIdAndType(String eventId, String type);
 }

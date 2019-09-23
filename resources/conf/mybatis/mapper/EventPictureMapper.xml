@@ -131,4 +131,13 @@
 	      )
 	    </foreach>
 	</insert>
+	<select id="selectByEventIdAndType" parameterType="map" resultMap="BaseResultMap">
+	    select 
+	    <include refid="Base_Column_List" />
+	    from event_picture
+	    where event_id = #{eventId,jdbcType=VARCHAR} 
+	    <if test="type != null">
+        	and type = #{type,jdbcType=VARCHAR}
+      	</if>
+	</select>
 </mapper>

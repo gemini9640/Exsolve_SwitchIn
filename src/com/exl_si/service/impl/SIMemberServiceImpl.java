@@ -78,7 +78,7 @@ public class SIMemberServiceImpl implements SIMemberService{
 	} 
 	
 	public ServerResponse<SIMemberWithAssociated> login(String username, String password) {
-		SIMember member = memberMapper.login(username, ServiceHelper.encriptPassword(password));
+		SIMember member = memberMapper.login(username, ServiceHelper.encriptPassword(username, password));
 		if(member == null)
 			return ServerResponse.createByServerError("login fail, username or password incorrect");
 		SIMemberFile profilePic = memberFileMapper.selectByMemberId(member.getId());
@@ -89,6 +89,7 @@ public class SIMemberServiceImpl implements SIMemberService{
 		if(memberMapper.selectByUsername(member.getUsername()) != null)
 			return ServerResponse.createByServerError("member is already exist.");
 		SequenceNoHelper.setMemberSequenceId(member, sequenceNoMapper);
+		member.setPassword(ServiceHelper.encriptPassword(member.getUsername(), member.getPassword()));
 		if(memberMapper.insertSelective(member)>0) {
 			SequenceNoHelper.updateMemberSequenceNo(sequenceNoMapper);
 			ServerResponse uploadResp = uploadProfile(request, member.getId(), FileType.PROFILE.getDesc());
@@ -124,7 +125,7 @@ public class SIMemberServiceImpl implements SIMemberService{
 	}
 	
 	public ServerResponse changePassword(String username, String oldPass, String newPass) {
-		if(memberMapper.selectByKeyAndPass(username, ServiceHelper.encriptPassword(oldPass)) != null) {
+		if(memberMapper.selectByKeyAndPass(username, ServiceHelper.encriptPassword(username, oldPass)) != null) {
 			memberMapper.updateByPrimaryKeySelective(SIMemberHelper.assembleSIMember4ChangePassword(username, newPass));
 			return ServerResponse.createBySuccess();
 		} else 
@@ -135,7 +136,7 @@ public class SIMemberServiceImpl implements SIMemberService{
 		if(memberMapper.selectByUsername(username) == null)
 			return ServerResponse.createByServerError("member not found");
 		else {
-			password = ServiceHelper.encriptPassword(password);
+			password = ServiceHelper.encriptPassword(username, password);
 			memberMapper.updateByPrimaryKeySelective(SIMemberHelper.assembleSIMember4ChangePassword(username, password));
 			return ServerResponse.createBySuccess();
 		}

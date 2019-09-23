@@ -3,6 +3,7 @@ package com.exl_si.controller.backend;
 import java.sql.Timestamp;
 import java.util.Date;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -20,6 +21,7 @@ import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.controller.vo.EventReturnMsg;
 import com.exl_si.db.Event;
+import com.exl_si.db.EventPicture;
 import com.exl_si.enums.EventEnums;
 import com.exl_si.enums.EventEnums.PictureType;
 import com.exl_si.service.EventService;
@@ -97,14 +99,14 @@ public class EventController extends BaseController {
 	}
 	
 	@RequestMapping(value = "detail.do")
-    public ModelAndView detail(String id) {
+    public ModelAndView detail(String eventId) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("event/detail");
 		EventReturnMsg returnMsg = new EventReturnMsg();
 		if(returnMsg.validatedForEdit())  //test
 			mv.addObject("returnMsg", returnMsg);
 		else {
-			ServerResponse response = eventService.query(id);
+			ServerResponse response = eventService.query(eventId);
 			if(response.isSuccess()) 
 				mv.addObject("event",response.getData());
 			mv.addObject("returnMsg", returnMsg);
@@ -153,5 +155,61 @@ public class EventController extends BaseController {
 		Integer pageNum = Integer.valueOf(pageNumStr);
 		Integer pageSize = Integer.valueOf(pageSizeStr);
 		return eventService.queryByProperties(properties, pageNum, pageSize);
+	}
+	
+	@RequestMapping(value = "list_doc.do")
+    public ModelAndView list_doc(String eventId, Integer type, Integer status) {
+		ModelAndView mv = new ModelAndView();
+		EventEnums.PictureType fileType = EventEnums.PictureType.getEnumByCode(type);
+		List<EventPicture> list = eventService.selectPictureByEventIdAndType(eventId, fileType.getDesc());
+		mv.addObject("list",list);
+		assembleReturnObjForMv(mv, eventId, status);
+		if(fileType == EventEnums.PictureType.QR)
+			mv.setViewName("event/qr");
+		else if(fileType == EventEnums.PictureType.BANNER)
+			mv.setViewName("event/banner");
+		return mv;
+	}
+	
+	@RequestMapping(value = "uploadSingleDoc.do", method = RequestMethod.POST)
+    public ModelAndView uploadSingleDoc(String eventId, Integer type, Integer status, MultipartHttpServletRequest request) {
+		ModelAndView mv = new ModelAndView();
+		EventReturnMsg returnMsg = new EventReturnMsg();
+		if(StringUtils.isEmpty(eventId)) {
+			returnMsg.setErrormsg("event id cannot be empty");
+			return new ModelAndView("event/list");
+		}
+			
+		
+		if(returnMsg.validatedForEdit())
+			mv.addObject("returnMsg", returnMsg);
+		else {
+			ServerResponse response = eventService.uploadSingleDoc(request, eventId, PictureType.getEnumByCode(type).getDesc());
+			if(response.isSuccess()) {
+				PictureType fileType = PictureType.getEnumByCode(type);
+				List<EventPicture> list = eventService.selectPictureByEventIdAndType(eventId, fileType.getDesc());
+				mv.addObject("list",list);
+				assembleReturnObjForMv(mv, eventId, status);
+				if(type != null && type.intValue() == PictureType.BANNER.getCode()) {
+					returnMsg.setErrormsg("banner updated");
+					mv.setViewName("event/banner");
+					mv.addObject("banner",response.getData());
+				} else if(type != null && type.intValue() == PictureType.QR.getCode()) {
+					returnMsg.setErrormsg("qr code updated");
+					mv.setViewName("event/qr");
+					mv.addObject("qr",response.getData());
+				} 
+			} else
+				returnMsg.setErrormsg(response.getMsg());
+			mv.addObject("returnMsg", returnMsg);
+		}
+		return mv;
+	}
+	
+	private void assembleReturnObjForMv(ModelAndView mv, String eventId, Integer status) {
+		Event event = new Event();
+		event.setId(eventId);
+		event.setStatus(status);
+		mv.addObject("event", event);
 	}
 }

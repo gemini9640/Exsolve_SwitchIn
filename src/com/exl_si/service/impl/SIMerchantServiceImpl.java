@@ -46,12 +46,14 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		String baseFolder = AppProperties.UPLOAD_PATH+"/si_merchant/"+merchantId+"/"+type+"/";
 		try {
 			List<SIMerchantDOC> list = docMapper.selectByMerchantIdAndType(merchantId, type);
+			//一个类型只允许上传一个文件
 			SIMerchantDOC profilePic = null;
 			if(list != null && list.size()> 0)
 				profilePic = list.get(0);
 			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, baseFolder, FileObjectEnums.SIMERCHANT_DOC);
 			if(uploadedFiles != null && !uploadedFiles.isEmpty()) {
 				if(profilePic != null) {
+					//重复上传会删掉原本的文件
 					DeleteFileUtil.delete(AppProperties.UPLOAD_PATH+profilePic.getPath());
 					docMapper.updateByPrimaryKeySelective(SIMerchantHelper.assembleEdittedMerchantDOC(profilePic, uploadedFiles));
 					return ServerResponse.createBySuccess(uploadedFiles.get(0));
@@ -101,7 +103,7 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 	} 
 	
 	public ServerResponse<SIMerchant> login(String username, String password) {
-		SIMerchant merchant = merchantMapper.login(username, SIMerchantHelper.getPassword(username, password));
+		SIMerchant merchant = merchantMapper.login(username, ServiceHelper.encriptPassword(username, password));
 		if(merchant == null)
 			return ServerResponse.createByServerError("login fail, username or password incorrect");
 		return ServerResponse.createBySuccess(merchant);
@@ -170,7 +172,7 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 	}
 	
 	public ServerResponse changePassword(String username, String oldPass, String newPass) {
-		if(merchantMapper.selectByUsernameAndPass(username, ServiceHelper.encriptPassword(oldPass)) != null) {
+		if(merchantMapper.selectByUsernameAndPass(username, ServiceHelper.encriptPassword(username, oldPass)) != null) {
 			merchantMapper.updateByPrimaryKeySelective(SIMerchantHelper.assembleSIMerchant4ChangePassword(username, newPass));
 			return ServerResponse.createBySuccess();
 		} else return ServerResponse.createByServerError("username not exist or passord fail");
@@ -180,7 +182,7 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		if(merchantMapper.selectByUsername(username) == null)
 			return ServerResponse.createByServerError("merchant not found");
 		else {
-			password = ServiceHelper.encriptPassword(password);
+			password = ServiceHelper.encriptPassword(username, password);
 			merchantMapper.updateByPrimaryKeySelective(SIMerchantHelper.assembleSIMerchant4ChangePassword(username, password));
 			return ServerResponse.createBySuccess();
 		}
@@ -192,7 +194,7 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		SequenceNoHelper.setMerchantSequenceId(merchant, sequenceNoMapper);
 		SIMerchantPIC pic = SIMerchantHelper.initMerchantPIC(merchant);
 		merchant.setLastloginpicid(pic.getId());
-		merchant.setPassword(ServiceHelper.encriptPassword(merchant.getPassword()));
+		merchant.setPassword(ServiceHelper.encriptPassword(merchant.getUsername(), merchant.getPassword()));
 		if(merchantMapper.insertSelective(merchant)>0) {
 			picMapper.insert(pic);
 			SequenceNoHelper.updateMerchantSequenceNo(sequenceNoMapper);
@@ -216,7 +218,7 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 
 		SIMerchantWithPIC merchantWithPIC = new SIMerchantWithPIC();
 		SequenceNoHelper.setMerchantSequenceId(merchant, sequenceNoMapper);
-		merchant.setPassword(ServiceHelper.encriptPassword(merchant.getPassword()));
+		merchant.setPassword(ServiceHelper.encriptPassword(merchant.getUsername(), merchant.getPassword()));
 		if(merchantMapper.insertSelective(merchant)<1)
 			return ServerResponse.createByErrorMsg("save merchant error;");
 		else {
@@ -248,8 +250,11 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		}
 	}
 	
+	public ServerResponse<SubFile> uploadSingleDoc(MultipartHttpServletRequest request, String merchantId, FileType type) {
+		return uploadProfile(request, merchantId, type.getDesc()); 
+	}
 	
-	public ServerResponse<List<SubFile>> uploadDoc(MultipartHttpServletRequest request, String merchantId, FileType type) {
+	public ServerResponse<List<SubFile>> uploadMultipleDoc(MultipartHttpServletRequest request, String merchantId, FileType type) {
 		String baseFolder = AppProperties.UPLOAD_PATH+"/si_merchant/"+merchantId+"/"+type.getDesc()+"/";
 		try {
 			List<SubFile> uploadedFiles = UploadUtil.uploadFileByIOStream(request, baseFolder, FileObjectEnums.SIMERCHANT_DOC);
@@ -275,7 +280,7 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 		} 
 	}
 	
-	public List<SIMerchantDOC> selectByMerchantIdAndType(String merchantId, String type) {
+	public List<SIMerchantDOC> selectDocByMerchantIdAndType(String merchantId, String type) {
 		return docMapper.selectByMerchantIdAndType(merchantId, type);
 	}
 }

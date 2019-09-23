@@ -120,14 +120,14 @@ public class SIMerchantController extends BaseController {
 	}
 	
 	@RequestMapping(value = "detail.do")
-    public ModelAndView detail(String id) {
+    public ModelAndView detail(String merchantId) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/merchant/detail");
 		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
 		if(returnMsg.validatedForEdit())  //test
 			mv.addObject("returnMsg", returnMsg);
 		else {
-			ServerResponse<SIMerchant> response = merchantService.query(id);
+			ServerResponse<SIMerchant> response = merchantService.query(merchantId);
 			if(response.isSuccess()) {
 				mv.addObject("merchant",response.getData());
 				SIMerchantPIC pic = new SIMerchantPIC();
@@ -231,8 +231,8 @@ public class SIMerchantController extends BaseController {
         return merchantService.selectPageByProperties(properties, pageNum, pageSize);
     }
 	
-	@RequestMapping(value = "uploadDoc.do", method = RequestMethod.POST)
-    public ModelAndView uploadDoc(String merchantId, String picId, Integer type, MultipartHttpServletRequest request) {
+	@RequestMapping(value = "uploadSingleDoc.do", method = RequestMethod.POST)
+    public ModelAndView uploadSingleDoc(String merchantId, String picId, Integer type, MultipartHttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
 		if(StringUtils.isEmpty(merchantId)) {
@@ -244,16 +244,20 @@ public class SIMerchantController extends BaseController {
 		if(returnMsg.validatedForEdit())
 			mv.addObject("returnMsg", returnMsg);
 		else {
-			ServerResponse<List<SubFile>> response = merchantService.uploadDoc(request, merchantId, FileType.getEnumByCode(type));
+			ServerResponse<SubFile> response = merchantService.uploadSingleDoc(request, merchantId, FileType.getEnumByCode(type));
 			if(response.isSuccess()) {
 				MerchantEnums.FileType fileType = MerchantEnums.FileType.getEnumByCode(type);
-				List<SIMerchantDOC> list = merchantService.selectByMerchantIdAndType(merchantId, fileType.getDesc());
+				List<SIMerchantDOC> list = merchantService.selectDocByMerchantIdAndType(merchantId, fileType.getDesc());
 				mv.addObject("list",list);
 				assembleReturnObjForMv(mv, merchantId, picId);
 				if(type != null && type.intValue() == FileType.BANNER.getCode()) {
 					returnMsg.setErrormsg("banner updated");
 					mv.setViewName("user/merchant/banner");
 					mv.addObject("banner",response.getData());
+				} else if(type != null && type.intValue() == FileType.QR.getCode()) {
+					returnMsg.setErrormsg("qr code updated");
+					mv.setViewName("user/merchant/qr");
+					mv.addObject("qr",response.getData());
 				} else if(type != null && type.intValue() == FileType.DCUMENT.getCode()) {
 					returnMsg.setErrormsg("document updated");
 					mv.setViewName("user/merchant/doc");
@@ -270,13 +274,15 @@ public class SIMerchantController extends BaseController {
     public ModelAndView list_doc(String merchantId, String picId, Integer type) {
 		ModelAndView mv = new ModelAndView();
 		MerchantEnums.FileType fileType = MerchantEnums.FileType.getEnumByCode(type);
-		List<SIMerchantDOC> list = merchantService.selectByMerchantIdAndType(merchantId, fileType.getDesc());
+		List<SIMerchantDOC> list = merchantService.selectDocByMerchantIdAndType(merchantId, fileType.getDesc());
 		mv.addObject("list",list);
 		assembleReturnObjForMv(mv, merchantId, picId);
 		if(fileType == MerchantEnums.FileType.DCUMENT)
 			mv.setViewName("user/merchant/doc");
 		else if(fileType == MerchantEnums.FileType.BANNER)
 			mv.setViewName("user/merchant/banner");
+		else if(fileType == MerchantEnums.FileType.QR)
+			mv.setViewName("user/merchant/qr");
 		return mv;
 	}
 	

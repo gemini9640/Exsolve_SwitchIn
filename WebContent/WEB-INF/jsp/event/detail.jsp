@@ -32,7 +32,7 @@ request.setAttribute("title", "Tables - Event");
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								Create Event
+								Event Detail
 							</h1>
 						</div>
 
@@ -46,13 +46,10 @@ request.setAttribute("title", "Tables - Event");
 											<form class="form-horizontal" action="${base}manage/event/edit.do" method="post">
 												<input name="id" type="hidden" value="${event.id}"/>
 												<div class="tabbable">
-													<ul class="nav nav-tabs padding-16">
-														<li class="active">
-															<a data-toggle="tab" href="#create-event">
-																Basic Info
-															</a>
-														</li>
-													</ul>
+													<jsp:include page="tab.jsp"/>
+													<script>
+														activeCreationTab("event");
+													</script>
 													<div class="tab-content profile-edit-tab-content">
 														<div id="create-event" class="tab-pane in active">
 															<h4 class="header blue bolder smaller">General Info</h4>
@@ -243,6 +240,15 @@ request.setAttribute("title", "Tables - Event");
 
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
+var eventStatus = "";
+if("${event.status}" == "1") {
+	eventStatus = "eventPending";
+} else if("${event.status}" == "2") {
+	eventStatus = "eventActive";
+} else if("${event.status}" == "3") {
+	eventStatus = "eventExpired";
+} 
+switchLeftActive("event", null, eventStatus);
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });

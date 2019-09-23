@@ -155,7 +155,7 @@ function si_merchant_html(result) {
 						"</label>"+
 					"</td>"+
 					"<td class='dataValue'>"+
-						"<a href='${base}manage/merchant/detail.do?id="+merchant.id+"'>"+merchant.id+"</a>"+
+						"<a href='${base}manage/merchant/detail.do?merchantId="+merchant.id+"'>"+merchant.id+"</a>"+
 					"</td>"+
 					"<td class='dataValue'>"+merchant.username+"</td>"+
 					"<td class='dataValue hidden-480'>"+merchant.companyname+"</td>"+

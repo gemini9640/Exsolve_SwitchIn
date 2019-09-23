@@ -1,5 +1,7 @@
 package com.exl_si.enums;
 
+import com.exl_si.enums.MerchantEnums.FileType;
+
 public final class EventEnums {
 	public enum STATUS {
 		DRAFT(0,"draft"),
@@ -37,7 +39,6 @@ public final class EventEnums {
 	public enum PictureType {
 		BANNER(1, "BANNER"),
 		QR(2, "QR");
-		
 		
 		public static PictureType getEnumByCode(int code) {
 			for(PictureType enumm : values()) {

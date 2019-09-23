@@ -76,7 +76,7 @@ public class EXLAgentServiceImpl implements EXLAgentService{
 	} 
 	
 	public ServerResponse<EXLAgent> login(String username, String password) {
-		EXLAgent agent = exlAgentMapper.login(username, ServiceHelper.encriptPassword(password));
+		EXLAgent agent = exlAgentMapper.login(username, ServiceHelper.encriptPassword(username, password));
 		if(agent == null)
 			return ServerResponse.createByServerError("login fail, username or password incorrect");
 		return ServerResponse.createBySuccess(agent);
@@ -86,7 +86,7 @@ public class EXLAgentServiceImpl implements EXLAgentService{
 		if(exlAgentMapper.selectByUsername(agent.getUsername()) != null)
 			return ServerResponse.createByServerError(agent.getUsername()+" is already exist.");
 		SequenceNoHelper.setEXLAgentSequenceId(agent, sequenceNoMapper);
-		agent.setPassword(ServiceHelper.encriptPassword(agent.getPassword()));
+		agent.setPassword(ServiceHelper.encriptPassword(agent.getUsername(), agent.getPassword()));
 		if(exlAgentMapper.insertSelective(agent)>0) {
 			SequenceNoHelper.updateEXLAgentSequenceNo(sequenceNoMapper);
 			ServerResponse uploadResp = uploadProfile(request, agent.getId(), FileType.PROFILE.getDesc());
@@ -131,7 +131,7 @@ public class EXLAgentServiceImpl implements EXLAgentService{
 		if(exlAgentMapper.selectByUsername(username) == null)
 			return ServerResponse.createByServerError("agent not found");
 		else {
-			password = ServiceHelper.encriptPassword(password);
+			password = ServiceHelper.encriptPassword(username, password);
 			exlAgentMapper.updateByPrimaryKeySelective(EXLAgentHelper.assembleEXLAgent4ChangePassword(username, password));
 			return ServerResponse.createBySuccess();
 		}
