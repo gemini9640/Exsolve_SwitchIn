@@ -95,8 +95,10 @@ request.setAttribute("title", "Tables - Pending Event");
 														<th>Event Title</th>
 														<th>Merchant ID</th>
 														<th>Max Pax</th>
-														<th>Start Date & Time</th>
-														<th>End Date & Time</th>
+														<th>Start Date</th>
+														<th>End Date</th>
+														<th>Start Time</th>
+														<th>End Time</th>
 														<th class="hidden-480">Action</th>
 														<th></th>
 													</tr>
@@ -162,7 +164,9 @@ function event_html(result) {
 					"<td class='dataValue'>"+event.merchantId+"</td>"+
 					"<td class='dataValue'>"+event.maxpax+"</td>"+
 					"<td class='dataValue'>"+$.JsUtil.convertDate(event.startdate)+"</td>"+	
-					"<td class='dataValue'>"+$.JsUtil.convertDate(event.enddate)+"</td>"+	
+					"<td class='dataValue'>"+$.JsUtil.convertDate(event.enddate)+"</td>"+
+					"<td class='dataValue'>"+event.starttime+"</td>"+	
+					"<td class='dataValue'>"+event.endtime+"</td>"+
 					"<td class='hidden-480'>"+
 						"<button onclick='ajaxEdit(\""+event.id+"\", 2, "+pageResp.pageNum+");' class='btn btn-minier btn-success'>Approve</button>"+
 						"<button onclick='ajaxEdit(\""+event.id+"\", 4, "+pageResp.pageNum+");' class='btn btn-minier btn-danger'>Reject</button>"+

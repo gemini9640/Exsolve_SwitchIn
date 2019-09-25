@@ -95,8 +95,10 @@ request.setAttribute("title", "Tables - Expired Event");
 														<th>Event Title</th>
 														<th>Merchant ID</th>
 														<th>Max Pax</th>
-														<th>Start Date & Time</th>
-														<th>End Date & Time</th>
+														<th>Start Date</th>
+														<th>End Date</th>
+														<th>Start Time</th>
+														<th>End Time</th>
 														<th></th>
 													</tr>
 												</thead>
@@ -162,6 +164,8 @@ function event_html(result) {
 					"<td class='dataValue'>"+event.maxpax+"</td>"+
 					"<td class='dataValue'>"+$.JsUtil.convertDate(event.startdate)+"</td>"+	
 					"<td class='dataValue'>"+$.JsUtil.convertDate(event.enddate)+"</td>"+	
+					"<td class='dataValue'>"+event.starttime+"</td>"+	
+					"<td class='dataValue'>"+event.endtime+"</td>"+
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
 							"<a class='blue' href='#'>"+
