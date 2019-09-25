@@ -97,7 +97,6 @@ request.setAttribute("title", "Tables - Active Event");
 														<th>Max Pax</th>
 														<th>Start Date & Time</th>
 														<th>End Date & Time</th>
-														<th class="hidden-480">Action</th>
 														<th></th>
 													</tr>
 												</thead>
@@ -163,10 +162,6 @@ function event_html(result) {
 					"<td class='dataValue'>"+event.maxpax+"</td>"+
 					"<td class='dataValue'>"+$.JsUtil.convertDate(event.startdate)+"</td>"+	
 					"<td class='dataValue'>"+$.JsUtil.convertDate(event.enddate)+"</td>"+	
-					"<td class='hidden-480'>"+
-						"<button class='btn btn-minier btn-success'>Approve</button>"+
-						"<button class='btn btn-minier btn-danger'>Reject</button>"+
-					"</td>"+
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
 							"<a class='blue' href='#'>"+

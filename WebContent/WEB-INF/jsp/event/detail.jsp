@@ -54,7 +54,12 @@ request.setAttribute("title", "Tables - Event");
 														<div id="create-event" class="tab-pane in active">
 															<h4 class="header blue bolder smaller">General Info</h4>
 															<div class="row">
-																<div class="col-xs-12 col-sm-10">
+																<div class="col-xs-12 col-sm-10"><div class="form-group"><!--  has-error -->
+																	<label class="col-sm-2 control-label no-padding-right" for="form-field-id">Event Id</label>
+																		<div class="col-sm-10">
+																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-id" placeholder="" value="${event.id}" disabled/>
+																		</div>
+																	</div>
 																	<div class="form-group"><!--  has-error -->
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-eventname">Event Title</label>
 																		<div class="col-sm-10">

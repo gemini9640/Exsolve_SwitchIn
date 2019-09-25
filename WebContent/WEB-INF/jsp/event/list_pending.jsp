@@ -164,8 +164,8 @@ function event_html(result) {
 					"<td class='dataValue'>"+$.JsUtil.convertDate(event.startdate)+"</td>"+	
 					"<td class='dataValue'>"+$.JsUtil.convertDate(event.enddate)+"</td>"+	
 					"<td class='hidden-480'>"+
-						"<button class='btn btn-minier btn-success'>Approve</button>"+
-						"<button class='btn btn-minier btn-danger'>Reject</button>"+
+						"<button onclick='ajaxEdit(\""+event.id+"\", 2, "+pageResp.pageNum+");' class='btn btn-minier btn-success'>Approve</button>"+
+						"<button onclick='ajaxEdit(\""+event.id+"\", 4, "+pageResp.pageNum+");' class='btn btn-minier btn-danger'>Reject</button>"+
 					"</td>"+
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
@@ -188,6 +188,20 @@ function event_html(result) {
 	}
 }
 event_list(1);
+
+function ajaxEdit(id, status, pageNum) {
+	$.post("${base}manage/event/ajaxEdit.do", {
+		id : id,
+		status : status
+	},function(result) {
+		if(result.status == 0) {
+			alert("event status updated.");
+			event_list(pageNum);
+		} else {
+			alert(result.msg);
+		}
+	});
+}
 </script>
 
 

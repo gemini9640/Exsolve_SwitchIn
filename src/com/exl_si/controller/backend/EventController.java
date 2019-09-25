@@ -35,15 +35,15 @@ public class EventController extends BaseController {
 	@Autowired
     private EventService eventService;
 	
-	@RequestMapping(value="/uploadBanner")
-	public ServerResponse uploadBanner(HttpSession session, MultipartHttpServletRequest request, String merchantId, String eventId){
-		return eventService.uploadPicture(request, merchantId, eventId, PictureType.BANNER);
-	}
-	
-	@RequestMapping(value="/uploaDQR")
-	public ServerResponse uploaDQR(HttpSession session, MultipartHttpServletRequest request, String merchantId, String eventId){
-		return eventService.uploadPicture(request, merchantId, eventId, PictureType.QR);
-	}
+//	@RequestMapping(value="/uploadBanner")
+//	public ServerResponse uploadBanner(HttpSession session, MultipartHttpServletRequest request, String merchantId, String eventId){
+//		return eventService.uploadPicture(request, merchantId, eventId, PictureType.BANNER);
+//	}
+//	
+//	@RequestMapping(value="/uploaDQR")
+//	public ServerResponse uploaDQR(HttpSession session, MultipartHttpServletRequest request, String merchantId, String eventId){
+//		return eventService.uploadPicture(request, merchantId, eventId, PictureType.QR);
+//	}
 	
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
     public ModelAndView add(Event event) {
@@ -81,7 +81,7 @@ public class EventController extends BaseController {
 		mv.setViewName("event/detail");
 		EventReturnMsg returnMsg = new EventReturnMsg();
 		if(event.getId() == null) 
-			returnMsg.setId("no event id not found");
+			returnMsg.setId("event id not found");
 		else if(returnMsg.validatedForEdit())
 			mv.addObject("returnMsg", returnMsg);
 		else {
@@ -96,6 +96,17 @@ public class EventController extends BaseController {
 			mv.addObject("returnMsg", returnMsg);
 		}
 		return mv;
+	}
+	
+
+	@RequestMapping(value = "ajaxEdit.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse ajaxEdit(Event event) {
+		if(event.getId() == null) 
+			return ServerResponse.createByErrorMsg("event id not found"); 
+		Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+		event.setUpdatetime(lastupdatetime);
+		return eventService.update(event);
 	}
 	
 	@RequestMapping(value = "detail.do")
@@ -212,4 +223,5 @@ public class EventController extends BaseController {
 		event.setStatus(status);
 		mv.addObject("event", event);
 	}
+	
 }
