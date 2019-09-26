@@ -164,7 +164,7 @@ function exl_client_html(result) {
 							"<a class='blue' href='#'>"+
 								"<i class='ace-icon fa fa-search-plus bigger-130'></i>"+
 							"</a>"+
-							"<a class='green' href='#'>"+
+							"<a class='green' target='_blank' href='${base}manage/exlclient/detail.do?id="+exlclient.id+"'>"+
 								"<i class='ace-icon fa fa-pencil bigger-130'></i>"+
 							"</a>"+
 							"<a class='red' href='#'>"+

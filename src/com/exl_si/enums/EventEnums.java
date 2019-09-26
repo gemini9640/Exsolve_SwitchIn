@@ -6,7 +6,8 @@ public final class EventEnums {
 		PENDING(1,"pending"),
 		ACTIVE(2,"active"),
 	    EXPIRE(3,"expire"),
-	    REJECT(4,"reject");
+	    REJECT(4,"reject"),
+	    DELETE(5,"delete");
 		
 		
 		public static STATUS getStatusByCode(Integer code) {

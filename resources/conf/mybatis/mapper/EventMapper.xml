@@ -27,12 +27,13 @@
       <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="reminder" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="reject_reason" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
     id, eventName, merchantId, createtime, startDate, endDate, endTime, startTime, Tagline, 
     price, updateTime, csPhone, location, address, twitter, facebook, map, maxpax, maxpaxPerRegister, 
-    status, comment, description, reminder, remark
+    status, comment, description, reminder, remark, reject_reason
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -52,7 +53,7 @@
       location, address, twitter, 
       facebook, map, maxpax, 
       maxpaxPerRegister, status, comment, 
-      description, reminder, remark
+      description, reminder, remark, reject_reason
       )
     values (#{id,jdbcType=VARCHAR}, #{eventname,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
@@ -61,7 +62,8 @@
       #{location,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{twitter,jdbcType=VARCHAR}, 
       #{facebook,jdbcType=VARCHAR}, #{map,jdbcType=VARCHAR}, #{maxpax,jdbcType=INTEGER}, 
       #{maxpaxperregister,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
-      #{description,jdbcType=VARCHAR}, #{reminder,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}
+      #{description,jdbcType=VARCHAR}, #{reminder,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, 
+      #{rejectReason,jdbcType=VARCHAR}
       )
   </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.Event">
@@ -139,6 +141,9 @@
       <if test="remark != null">
         remark,
       </if>
+      <if test="rejectReason != null">
+        reject_reason,
+      </if>
     </trim>
     <trim prefix="values (" suffix=")" suffixOverrides=",">
       <if test="id != null">
@@ -212,6 +217,9 @@
       </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null">
+        #{rejectReason,jdbcType=VARCHAR},
       </if>
     </trim>
   </insert>
@@ -287,6 +295,9 @@
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
+      <if test="rejectReason != null">
+        reject_reason = #{rejectReason,jdbcType=VARCHAR},
+      </if>
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
@@ -314,7 +325,8 @@
       comment = #{comment,jdbcType=VARCHAR},
       description = #{description,jdbcType=VARCHAR},
       reminder = #{reminder,jdbcType=VARCHAR},
-      remark = #{remark,jdbcType=VARCHAR}
+      remark = #{remark,jdbcType=VARCHAR},
+      reject_reason = #{rejectReason,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   

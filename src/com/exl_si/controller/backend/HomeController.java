@@ -29,9 +29,9 @@ public class HomeController {
 		return new ModelAndView("event/list_expired");
 	}
 	
-	@RequestMapping(value="/event/draft.htm")
+	@RequestMapping(value="/event/rejected.htm")
 	public ModelAndView list_draft(){
-		return new ModelAndView("event/list_draft");
+		return new ModelAndView("event/list_rejected");
 	}
 	
 	

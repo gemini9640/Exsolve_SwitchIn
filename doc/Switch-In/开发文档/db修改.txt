@@ -30,3 +30,7 @@ ALTER TABLE `sequenceNo` ADD `eventTotal` INT(5) DEFAULT 0;
 
 4.event 添加字段，活动当天起始时间
 ALTER TABLE `event` ADD startTime varchar(20) NULL after endDate, ADD endTime varchar(20) NULL after endDate;
+
+5.merchant， event 添加字段，被拒绝理由
+ALTER TABLE `event` ADD reject_reason varchar(500) NULL after remark;
+ALTER TABLE `si_merchant` ADD reject_reason varchar(500) NULL after status;

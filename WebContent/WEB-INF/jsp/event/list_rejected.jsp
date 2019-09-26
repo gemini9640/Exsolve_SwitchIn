@@ -1,20 +1,20 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="../../common/common.inc"%>
+<%@include file="../common/common.inc"%>
 <%
-request.setAttribute("title", "Tables - ExL-Agent");
+request.setAttribute("title", "Tables - Rejected Event");
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="../../common/html_head.jsp"/>
+<jsp:include page="../common/html_head.jsp"/>
 </head>
 <body class="no-skin">
-		<jsp:include page="../../common/header.jsp"/>
+		<jsp:include page="../common/header.jsp"/>
 		<div class="main-container ace-save-state" id="main-container">
 			<script type="text/javascript">
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
-			<jsp:include page="../../common/leftNav.jsp"/>
+			<jsp:include page="../common/leftNav.jsp"/>
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -24,15 +24,15 @@ request.setAttribute("title", "Tables - ExL-Agent");
 								<a href="#">Home</a>
 							</li>
 							<li>
-								<a href="#">User Management</a>
+								<a href="#">Event Management</a>
 							</li>
-							<li class="active">ExL-Agent</li>
+							<li class="active">Rejected Event</li>
 						</ul>
 					</div>
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								ExL-Agent
+								Rejected Event
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
 									Listing
@@ -43,7 +43,7 @@ request.setAttribute("title", "Tables - ExL-Agent");
 							<div class="col-xs-12">
 								<div class="row">
 									<div class="col-xs-12">
-										<h3 class="header smaller lighter blue">ExL-Agent dataTables</h3>
+										<h3 class="header smaller lighter blue">Rejected Event dataTables</h3>
 										<div class="pull-left">
 											<label>Date Range Picker</label>
 											<div class="row">
@@ -52,28 +52,35 @@ request.setAttribute("title", "Tables - ExL-Agent");
 														<span class="input-group-addon">
 															<i class="ace-icon fa fa-calendar"></i>
 														</span>
-														<input class="form-control" type="text" name="date-range-picker" id="exlagent-date-range-picker" />
+														<input class="form-control" type="text" name="date-range-picker" id="event-date-range-picker" />
 													</div>
 												</div>
-												<button onclick="$('#exlagent-date-range-picker').val('');" class="btn_search btn btn-primary">
+												<button onclick="$('#event-date-range-picker').val('');" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
 													clear date picker
 												</button>
-												<button onclick="exl_agent_list(1);" class="btn_search btn btn-primary">
+												<button onclick="event_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
 													Search
 												</button>
 											</div>
-											
+											<label>Merchant ID</label>
+											<div class="row">
+												<div class="col-xs-3" style="float:left;">
+													<div class="input-group">
+														<input class="form-control" type="text" id="merchantId" />
+													</div>
+												</div>
+											</div>
                                         </div>
 										<div class="clearfix">
 											<div class="pull-right tableTools-container"></div>
 										</div>
 										<div class="table-header">
-											Results for "ExL-Agent Listing"
+											Results for "Event Rejected"
 										</div>
 										<div class="dataTables_wrapper">
-											<div id="sample-table-2_length" class="row exl_agent_sizeSelector" style="padding-bottom: 0px;">
+											<div id="sample-table-2_length" class="row event_sizeSelector" style="padding-bottom: 0px;">
 											</div>
 											<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 												<thead>
@@ -85,22 +92,17 @@ request.setAttribute("title", "Tables - ExL-Agent");
 															</label>
 														</th>
 														<th>ID</th>
-														<th>Agent ID No.</th>
-														<th>Username</th>
-														<th>Email</th>
-														<th>Phone No.</th>
-														<th>
-															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
-															Reg. Date
-														</th>
+														<th>Event Title</th>
+														<th>Merchant ID</th>
+														<th>Reason</th>
 														<th class="hidden-480">Action</th>
 														<th></th>
 													</tr>
 												</thead>
-												<tbody class="tabaleData_exl_agent">
+												<tbody class="tabaleData_event">
 												</tbody>
 											</table>
-											<div class="row exl_agent_pageInfo">
+											<div class="row event_pageInfo">
 											</div>
 										</div>
 									</div>
@@ -111,37 +113,39 @@ request.setAttribute("title", "Tables - ExL-Agent");
 				</div>
 			</div>
 			<script type="text/javascript">
-				switchLeftActive("user", null, "agentList");
+				switchLeftActive("event", null, "eventRejected");
 			</script>
-			<jsp:include page="../../common/html_foot.jsp"/>
+			<jsp:include page="../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
-<jsp:include page="../../common/jsConfig.jsp"/>
-<jsp:include page="../../common/jsUtils.jsp"/>
-<jsp:include page="../../common/script.jsp"/>
+<jsp:include page="../common/jsConfig.jsp"/>
+<jsp:include page="../common/jsUtils.jsp"/>
+<jsp:include page="../common/script.jsp"/>
 <script>
-$.DateTimeConfig.init("#exlagent-date-range-picker");
-$.TableDataConfig.generateSizeSelector("exl_agent", 25);
+$.DateTimeConfig.init("#event-date-range-picker");
+$.TableDataConfig.generateSizeSelector("event", 25);
 
-function exl_agent_list(pageNumber) {
-	var dateRange = new $.DateTimeConfig.DateRange($('#exlagent-date-range-picker').val());
-	$(".tabaleData_exl_agent").html("");
-	$.post("${base}manage/exlagent/listPageByProperties.do", {
+function event_list(pageNumber) {
+	var dateRange = new $.DateTimeConfig.DateRange($('#event-date-range-picker').val());
+	$(".tabaleData_event").html("");
+	$.post("${base}manage/event/listByProperties.do", {
+		merchantId : $("#merchantId").val(),
+		status : 4,
 		start : dateRange.start,
 		end : dateRange.end,
 		pageNum : pageNumber,
-		pageSize : $("#exl_agent_size_selected").val()
+		pageSize : $("#event_size_selected").val()
 	},function(result) {
-		exl_agent_html(result);
+		event_html(result);
 	});
 }
 
-function exl_agent_html(result) {
+function event_html(result) {
 	if(result.status == 0) {
 		var pageResp = result.data;
 		var data = pageResp.list;
 		var tr = "";
 		for(var key in data) {
-			var exlagent = data[key];
+			var event = data[key];
 			tr += "<tr>"+
 					"<td class='center'>"+
 						"<label class='pos-rel'>"+
@@ -150,23 +154,21 @@ function exl_agent_html(result) {
 						"</label>"+
 					"</td>"+
 					"<td class='dataValue'>"+
-						"<a href='${base}manage/exlagent/detail.do?id="+exlagent.id+"'>"+exlagent.id+"</a>"+
+						"<a href='${base}manage/event/detail.do?eventId="+event.id+"&status="+event.status+"'>"+event.id+"</a>"+
 					"</td>"+
-					"<td class='dataValue'>"+exlagent.agentidno+"</td>"+
-					"<td class='dataValue'>"+exlagent.username+"</td>"+
-					"<td class='dataValue'>"+exlagent.email+"</td>"+
-					"<td class='dataValue'>"+exlagent.phone+"</td>"+
-					"<td class='dataValue'>"+$.JsUtil.convertDate(exlagent.createtime)+"</td>"+		
+					"<td class='dataValue'>"+event.eventname+"</td>"+
+					"<td class='dataValue'>"+event.merchantId+"</td>"+
+					"<td class='dataValue'><textarea>"+event.rejectReason+"</textarea></td>"+
 					"<td class='hidden-480'>"+
-						"<button class='btn btn-minier btn-success'>Approve</button>"+
-						"<button class='btn btn-minier btn-danger'>Reject</button>"+
+						"<button onclick='ajaxEdit(\""+event.id+"\", 2, "+pageResp.pageNum+");' class='btn btn-minier btn-success'>Approve</button>"+
+						"<button onclick='ajaxEdit(\""+event.id+"\", 4, "+pageResp.pageNum+");' class='btn btn-minier btn-danger'>Reject</button>"+
 					"</td>"+
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
 							"<a class='blue' href='#'>"+
 								"<i class='ace-icon fa fa-search-plus bigger-130'></i>"+
 							"</a>"+
-							"<a class='green' target='_blank' href='${base}manage/exlagent/detail.do?id="+exlagent.id+"'>"+
+							"<a class='green' target='_blank' href='${base}manage/event/detail.do?eventId="+event.id+"&status="+event.status+"'>"+
 								"<i class='ace-icon fa fa-pencil bigger-130'></i>"+
 							"</a>"+
 							"<a class='red' href='#'>"+
@@ -176,12 +178,26 @@ function exl_agent_html(result) {
 					"</td>"+
 				"</tr>";
 		}
-		$(".tabaleData_exl_agent").html(tr);
+		$(".tabaleData_event").html(tr);
 		$.JsUtil.undefinedRed(".dataValue");	
-		$.TableDataConfig.pagination("exl_agent", pageResp.pageSize, pageResp.navigatepageNums, pageResp.pageNum, pageResp.startRow, pageResp.endRow, pageResp.total);
+		$.TableDataConfig.pagination("event", pageResp.pageSize, pageResp.navigatepageNums, pageResp.pageNum, pageResp.startRow, pageResp.endRow, pageResp.total);
 	}
 }
-exl_agent_list(1);
+event_list(1);
+
+function ajaxEdit(id, status, pageNum) {
+	$.post("${base}manage/event/ajaxEdit.do", {
+		id : id,
+		status : status
+	},function(result) {
+		if(result.status == 0) {
+			alert("event status updated.");
+			event_list(pageNum);
+		} else {
+			alert(result.msg);
+		}
+	});
+}
 </script>
 
 
@@ -202,10 +218,6 @@ exl_agent_list(1);
 		.DataTable( {
 			bAutoWidth: false,
 			"aoColumns": [
-			  { "bSortable": false },
-			  { "bSortable": false },
-			  { "bSortable": false },
-			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },

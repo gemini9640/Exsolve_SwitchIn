@@ -15,11 +15,6 @@
 			Banner
 		</a>
 	</li>
-	<li class="detail_tab  tab_si_merchant_qr">
-		<a href="${base}manage/merchant/list_doc.do?merchantId=${merchant.id}&picId=${pic.id}&type=3">
-			QR Code
-		</a>
-	</li>
 </ul>
 <script>
 function activeCreationTab(type) {

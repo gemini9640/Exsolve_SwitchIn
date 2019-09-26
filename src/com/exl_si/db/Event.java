@@ -51,8 +51,10 @@ public class Event {
     private String reminder;
 
     private String remark;
+    
+    private String rejectReason;
 
-    public Event(String id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String endtime, String starttime, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String twitter, String facebook, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark) {
+    public Event(String id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String endtime, String starttime, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String twitter, String facebook, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark, String rejectReason) {
         this.id = id;
         this.eventname = eventname;
         this.merchantId = merchantId;
@@ -77,6 +79,7 @@ public class Event {
         this.description = description;
         this.reminder = reminder;
         this.remark = remark;
+        this.rejectReason = rejectReason;
     }
 
     public Event() {
@@ -275,6 +278,14 @@ public class Event {
         this.remark = remark == null ? null : remark.trim();
     }
 
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason == null ? null : rejectReason.trim();
+    }
+    
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -305,6 +316,7 @@ public class Event {
         sb.append(", description=").append(description);
         sb.append(", reminder=").append(reminder);
         sb.append(", remark=").append(remark);
+        sb.append(", rejectReason=").append(rejectReason);
         sb.append("]");
         return sb.toString();
     }

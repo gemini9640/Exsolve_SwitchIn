@@ -254,10 +254,6 @@ public class SIMerchantController extends BaseController {
 					returnMsg.setErrormsg("banner updated");
 					mv.setViewName("user/merchant/banner");
 					mv.addObject("banner",response.getData());
-				} else if(type != null && type.intValue() == FileType.QR.getCode()) {
-					returnMsg.setErrormsg("qr code updated");
-					mv.setViewName("user/merchant/qr");
-					mv.addObject("qr",response.getData());
 				} else if(type != null && type.intValue() == FileType.DCUMENT.getCode()) {
 					returnMsg.setErrormsg("document updated");
 					mv.setViewName("user/merchant/doc");
@@ -281,8 +277,6 @@ public class SIMerchantController extends BaseController {
 			mv.setViewName("user/merchant/doc");
 		else if(fileType == MerchantEnums.FileType.BANNER)
 			mv.setViewName("user/merchant/banner");
-		else if(fileType == MerchantEnums.FileType.QR)
-			mv.setViewName("user/merchant/qr");
 		return mv;
 	}
 	

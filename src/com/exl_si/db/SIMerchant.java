@@ -60,8 +60,10 @@ public class SIMerchant {
     private Integer logintimes;
 
     private Integer status;
+    
+    private String rejectReason;
 
-    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, Date expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String credentialno, String credentialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Date createtime, Date lastlogintime, Date lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status) {
+    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, Date expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String credentialno, String credentialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Date createtime, Date lastlogintime, Date lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status, String rejectReason) {
         this.id = id;
         this.companyname = companyname;
         this.companyregno = companyregno;
@@ -91,6 +93,7 @@ public class SIMerchant {
         this.lastloginpicid = lastloginpicid;
         this.logintimes = logintimes;
         this.status = status;
+        this.rejectReason = rejectReason;
     }
 
     public SIMerchant() {
@@ -328,6 +331,14 @@ public class SIMerchant {
     public void setStatus(Integer status) {
         this.status = status;
     }
+    
+    public String getRejectReason() {
+        return rejectReason;
+    }
+
+    public void setRejectReason(String rejectReason) {
+        this.rejectReason = rejectReason == null ? null : rejectReason.trim();
+    }
 
     @Override
     public String toString() {
@@ -364,6 +375,7 @@ public class SIMerchant {
         sb.append(", lastloginpicid=").append(lastloginpicid);
         sb.append(", logintimes=").append(logintimes);
         sb.append(", status=").append(status);
+        sb.append(", rejectReason=").append(rejectReason);
         sb.append("]");
         return sb.toString();
     }

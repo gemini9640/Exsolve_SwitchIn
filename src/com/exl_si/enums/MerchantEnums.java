@@ -47,8 +47,7 @@ public final class MerchantEnums {
 	public enum FileType {
 		PROFILE(0, "PROFILE"),
 		DCUMENT(1, "DCUMENT"),
-		BANNER(2, "BANNER"),
-		QR(3, "QR");
+		BANNER(2, "BANNER");
 		
 		
 		public static FileType getEnumByCode(int code) {
