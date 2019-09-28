@@ -9,6 +9,7 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.exl_si.common.AppProperties;
 import com.exl_si.common.ServerResponse;
+import com.exl_si.db.Event;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
@@ -282,5 +283,12 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 	
 	public List<SIMerchantDOC> selectDocByMerchantIdAndType(String merchantId, String type) {
 		return docMapper.selectByMerchantIdAndType(merchantId, type);
+	}
+	
+	public ServerResponse update(SIMerchant merchant) {
+		if(merchantMapper.updateByPrimaryKeySelective(merchant)>0)
+			return ServerResponse.createBySuccess(merchant);
+		else 
+			return ServerResponse.createByServerError("update fail");
 	}
 }

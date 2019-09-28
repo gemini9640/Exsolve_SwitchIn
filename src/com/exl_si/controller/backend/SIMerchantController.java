@@ -24,6 +24,7 @@ import com.exl_si.controller.base.BaseController;
 import com.exl_si.controller.vo.SIMemberReturnMsg;
 import com.exl_si.controller.vo.SIMerchantReturnMsg;
 import com.exl_si.controller.vo.SIMerchantWithPICParam;
+import com.exl_si.db.Event;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
@@ -75,7 +76,7 @@ public class SIMerchantController extends BaseController {
 			Timestamp createTime = DateUtils.convertToTimestamp(new Date());
 			merchant.setCreatetime(createTime);
 			merchant.setLastupdatetime(createTime);
-			merchant.setStatus(MerchantEnums.STATUS.INIT.getCode());
+			merchant.setStatus(MerchantEnums.STATUS.PENDING.getCode());
 			ServerResponse<SIMerchant> response = merchantService.save(merchant, request);
 			if(response.isSuccess()) {
 				returnMsg.setErrormsg("merchant creation succeed");
@@ -119,6 +120,16 @@ public class SIMerchantController extends BaseController {
 		return mv;
 	}
 	
+	@RequestMapping(value = "ajaxEdit.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse ajaxEdit(SIMerchant merchant) {
+		if(merchant.getId() == null) 
+			return ServerResponse.createByErrorMsg("merchant id not found"); 
+		Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+		merchant.setLastupdatetime(lastupdatetime);
+		return merchantService.update(merchant);
+	}
+	
 	@RequestMapping(value = "detail.do")
     public ModelAndView detail(String merchantId) {
 		ModelAndView mv = new ModelAndView();
@@ -140,7 +151,7 @@ public class SIMerchantController extends BaseController {
 	}
 	
 	@RequestMapping(value = "pic.do")
-    public ModelAndView pic(String id) {
+    public ModelAndView pic(String id, Integer status) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/merchant/pic");
 		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
@@ -150,9 +161,7 @@ public class SIMerchantController extends BaseController {
 			ServerResponse<SIMerchantPIC> response = merchantService.queryPIC(id);
 			if(response.isSuccess()) {
 				mv.addObject("pic",response.getData());
-				SIMerchant merchant = new SIMerchant();
-				merchant.setId(response.getData().getMerchantid());
-				mv.addObject("merchant",merchant);
+				assembleReturnObjForMv(mv, response.getData().getMerchantid(), null, status);
 			}
 			mv.addObject("returnMsg", returnMsg);
 		}
@@ -160,7 +169,7 @@ public class SIMerchantController extends BaseController {
 	}
 	
 	@RequestMapping(value = "edit_pic.do")
-    public ModelAndView editPic(SIMerchantPIC pic) {
+    public ModelAndView editPic(SIMerchantPIC pic, Integer status) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/merchant/pic");
 		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
@@ -173,6 +182,7 @@ public class SIMerchantController extends BaseController {
 				mv.addObject("pic",response.getData());
 				SIMerchant merchant = new SIMerchant();
 				merchant.setId(response.getData().getMerchantid());
+				merchant.setStatus(status);
 				mv.addObject("merchant",merchant);
 			} else 
 				returnMsg.setErrormsg(response.getMsg());
@@ -218,6 +228,7 @@ public class SIMerchantController extends BaseController {
 		String pageSizeStr = request.getParameter("pageSize");
 		String startStr = request.getParameter("start");
 		String endStr = request.getParameter("end");
+		String statusStr = request.getParameter("status");
 		Date startDate = null;
     	Date endDate = null;
 		if(StringUtils.isNotEmpty(startStr) && StringUtils.isNotEmpty(endStr)) {
@@ -226,13 +237,14 @@ public class SIMerchantController extends BaseController {
 			properties.put("start", startDate);
 			properties.put("end", endDate);
 		}
+		properties.put("status", statusStr);
 		Integer pageNum = Integer.valueOf(pageNumStr);
 		Integer pageSize = Integer.valueOf(pageSizeStr);
         return merchantService.selectPageByProperties(properties, pageNum, pageSize);
     }
 	
 	@RequestMapping(value = "uploadSingleDoc.do", method = RequestMethod.POST)
-    public ModelAndView uploadSingleDoc(String merchantId, String picId, Integer type, MultipartHttpServletRequest request) {
+    public ModelAndView uploadSingleDoc(String merchantId, String picId, Integer type, Integer status, MultipartHttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
 		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
 		if(StringUtils.isEmpty(merchantId)) {
@@ -249,7 +261,7 @@ public class SIMerchantController extends BaseController {
 				MerchantEnums.FileType fileType = MerchantEnums.FileType.getEnumByCode(type);
 				List<SIMerchantDOC> list = merchantService.selectDocByMerchantIdAndType(merchantId, fileType.getDesc());
 				mv.addObject("list",list);
-				assembleReturnObjForMv(mv, merchantId, picId);
+				assembleReturnObjForMv(mv, merchantId, picId, status);
 				if(type != null && type.intValue() == FileType.BANNER.getCode()) {
 					returnMsg.setErrormsg("banner updated");
 					mv.setViewName("user/merchant/banner");
@@ -267,12 +279,12 @@ public class SIMerchantController extends BaseController {
 	}
 	
 	@RequestMapping(value = "list_doc.do")
-    public ModelAndView list_doc(String merchantId, String picId, Integer type) {
+    public ModelAndView list_doc(String merchantId, String picId, Integer type, Integer status) {
 		ModelAndView mv = new ModelAndView();
 		MerchantEnums.FileType fileType = MerchantEnums.FileType.getEnumByCode(type);
 		List<SIMerchantDOC> list = merchantService.selectDocByMerchantIdAndType(merchantId, fileType.getDesc());
 		mv.addObject("list",list);
-		assembleReturnObjForMv(mv, merchantId, picId);
+		assembleReturnObjForMv(mv, merchantId, picId, status);
 		if(fileType == MerchantEnums.FileType.DCUMENT)
 			mv.setViewName("user/merchant/doc");
 		else if(fileType == MerchantEnums.FileType.BANNER)
@@ -280,12 +292,15 @@ public class SIMerchantController extends BaseController {
 		return mv;
 	}
 	
-	private void assembleReturnObjForMv(ModelAndView mv, String merchantId, String picId) {
+	private void assembleReturnObjForMv(ModelAndView mv, String merchantId, String picId, Integer status) {
 		SIMerchant merchant = new SIMerchant();
 		merchant.setId(merchantId);
+		merchant.setStatus(status);
 		mv.addObject("merchant", merchant);
-		SIMerchantPIC pic = new SIMerchantPIC();
-		pic.setId(picId);
-		mv.addObject("pic", pic);
+		if(StringUtils.isNotEmpty(picId)) {
+			SIMerchantPIC pic = new SIMerchantPIC();
+			pic.setId(picId);
+			mv.addObject("pic", pic);
+		}
 	}
 }

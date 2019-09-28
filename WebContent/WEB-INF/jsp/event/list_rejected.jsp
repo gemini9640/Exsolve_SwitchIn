@@ -158,7 +158,7 @@ function event_html(result) {
 					"</td>"+
 					"<td class='dataValue'>"+event.eventname+"</td>"+
 					"<td class='dataValue'>"+event.merchantId+"</td>"+
-					"<td class='dataValue'><textarea>"+event.rejectReason+"</textarea></td>"+
+					"<td><textarea class='dataValue'>"+event.rejectReason+"</textarea></td>"+
 					"<td class='hidden-480'>"+
 						"<button onclick='ajaxEdit(\""+event.id+"\", 2, "+pageResp.pageNum+");' class='btn btn-minier btn-success'>Approve</button>"+
 						"<button onclick='ajaxEdit(\""+event.id+"\", 4, "+pageResp.pageNum+");' class='btn btn-minier btn-danger'>Reject</button>"+

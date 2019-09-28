@@ -36,9 +36,19 @@ public class HomeController {
 	
 	
 	
-	@RequestMapping(value="/user/merchant/list.htm")
-	public ModelAndView merchant_list(){
-		return new ModelAndView("user/merchant/list");
+	@RequestMapping(value="/user/merchant/pending.htm")
+	public ModelAndView merchant_pending(){
+		return new ModelAndView("user/merchant/list_pending");
+	}
+	
+	@RequestMapping(value="/user/merchant/active.htm")
+	public ModelAndView merchant_active(){
+		return new ModelAndView("user/merchant/list_active");
+	}
+	
+	@RequestMapping(value="/user/merchant/rejected.htm")
+	public ModelAndView merchant_rejected(){
+		return new ModelAndView("user/merchant/list_rejected");
 	}
 	
 	@RequestMapping(value="/user/merchant/add.htm")

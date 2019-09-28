@@ -97,7 +97,6 @@ public class EventController extends BaseController {
 		}
 		return mv;
 	}
-	
 
 	@RequestMapping(value = "ajaxEdit.do", method = RequestMethod.POST)
 	@ResponseBody

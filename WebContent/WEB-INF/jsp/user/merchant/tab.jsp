@@ -6,12 +6,12 @@
 		</a>
 	</li>
 	<li class="detail_tab  tab_si_merchant_pic">
-		<a href="${base}manage/merchant/pic.do?id=${pic.id}">
+		<a href="${base}manage/merchant/pic.do?id=${pic.id}&status=${merchant.status}">
 			Person In Charge
 		</a>
 	</li>
 	<li class="detail_tab  tab_si_merchant_banner">
-		<a href="${base}manage/merchant/list_doc.do?merchantId=${merchant.id}&picId=${pic.id}&type=2">
+		<a href="${base}manage/merchant/list_doc.do?merchantId=${merchant.id}&picId=${pic.id}&type=2&status=${merchant.status}">
 			Banner
 		</a>
 	</li>

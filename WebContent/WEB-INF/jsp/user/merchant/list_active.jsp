@@ -1,20 +1,20 @@
 <%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
-<%@include file="../common/common.inc"%>
+<%@include file="../../common/common.inc"%>
 <%
-request.setAttribute("title", "Tables - Pending Event");
+request.setAttribute("title", "Tables - SI-Merchant");
 %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<jsp:include page="../common/html_head.jsp"/>
+<jsp:include page="../../common/html_head.jsp"/>
 </head>
 <body class="no-skin">
-		<jsp:include page="../common/header.jsp"/>
+		<jsp:include page="../../common/header.jsp"/>
 		<div class="main-container ace-save-state" id="main-container">
 			<script type="text/javascript">
 				try{ace.settings.loadState('main-container')}catch(e){}
 			</script>
-			<jsp:include page="../common/leftNav.jsp"/>
+			<jsp:include page="../../common/leftNav.jsp"/>
 			<div class="main-content">
 				<div class="main-content-inner">
 					<div class="breadcrumbs ace-save-state" id="breadcrumbs">
@@ -24,54 +24,26 @@ request.setAttribute("title", "Tables - Pending Event");
 								<a href="#">Home</a>
 							</li>
 							<li>
-								<a href="#">Event Management</a>
+								<a href="#">User Management</a>
 							</li>
-							<li class="active">Pending Event</li>
+							<li class="active">SI-Merchant Active</li>
 						</ul>
 					</div>
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								Pending Event
+								SI-Merchant Active
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
 									Listing
 								</small>
 							</h1>
 						</div>
-						<!-- start popup box -->
-						<div class="col-xs-12 col-sm-4">
-							<div id="rejectForm" class="widget-box ui-widget-overlay hide" style="height: 100%; width: 100%; position: fixed; left: 0px; top: 0px; z-index: 1049; opacity: 0.3;">
-								<div class="widget-header">
-									<h4 class="widget-title">Reject Message</h4>
-									<div class="widget-toolbar">
-										<a href="#" onclick="$('#rejectForm').addClass('hide');">
-											<i class="ace-icon fa fa-times"></i>
-										</a>
-									</div>
-								</div>
-								<div class="widget-body">
-									<div class="widget-main">
-										<div>
-											<label for="form-field-8">Message</label>
-											<textarea class="rejectReason form-control" id="form-field-8" placeholder="Reason"></textarea>
-										</div>
-									</div>
-									<div class="form-actions center">
-										<button id="submitReject" type="button" class="btn btn-sm btn-success">
-											Submit
-											<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
-										</button>
-									</div>
-								</div>
-							</div>
-						</div>
-						<!-- end popup box -->
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="row">
 									<div class="col-xs-12">
-										<h3 class="header smaller lighter blue">Pending Event dataTables</h3>
+										<h3 class="header smaller lighter blue">SI-Merchant dataTables</h3>
 										<div class="pull-left">
 											<label>Date Range Picker</label>
 											<div class="row">
@@ -80,35 +52,28 @@ request.setAttribute("title", "Tables - Pending Event");
 														<span class="input-group-addon">
 															<i class="ace-icon fa fa-calendar"></i>
 														</span>
-														<input class="form-control" type="text" name="date-range-picker" id="event-date-range-picker" />
+														<input class="form-control" type="text" name="date-range-picker" id="merchant-date-range-picker" />
 													</div>
 												</div>
-												<button onclick="$('#event-date-range-picker').val('');" class="btn_search btn btn-primary">
+												<button onclick="$('#merchant-date-range-picker').val('');" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
 													clear date picker
 												</button>
-												<button onclick="event_list(1);" class="btn_search btn btn-primary">
+												<button onclick="si_merchant_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
 													Search
 												</button>
 											</div>
-											<label>Merchant ID</label>
-											<div class="row">
-												<div class="col-xs-3" style="float:left;">
-													<div class="input-group">
-														<input class="form-control" type="text" id="merchantId" />
-													</div>
-												</div>
-											</div>
+											
                                         </div>
 										<div class="clearfix">
 											<div class="pull-right tableTools-container"></div>
 										</div>
 										<div class="table-header">
-											Results for "Event Pending"
+											Results for "SI-Merchant Active Listing"
 										</div>
 										<div class="dataTables_wrapper">
-											<div id="sample-table-2_length" class="row event_sizeSelector" style="padding-bottom: 0px;">
+											<div id="sample-table-2_length" class="row si_merchant_sizeSelector" style="padding-bottom: 0px;">
 											</div>
 											<table id="dynamic-table" class="table table-striped table-bordered table-hover">
 												<thead>
@@ -120,21 +85,26 @@ request.setAttribute("title", "Tables - Pending Event");
 															</label>
 														</th>
 														<th>ID</th>
-														<th>Event Title</th>
-														<th>Merchant ID</th>
-														<th>Max Pax</th>
-														<th>Start Date</th>
-														<th>End Date</th>
-														<th>Start Time</th>
-														<th>End Time</th>
-														<th class="hidden-480">Action</th>
+														<th>Username</th>
+														<th class="hidden-480">Company Name</th>
+														<th>Email</th>
+														<th>Phone No.</th>
+														<th>Industry</th>
+														<th>
+															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+															Joined Date
+														</th>
+														<th>
+															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
+															SSM Expired Date
+														</th>
 														<th></th>
 													</tr>
 												</thead>
-												<tbody class="tabaleData_event">
+												<tbody class="tabaleData_si_merchant">
 												</tbody>
 											</table>
-											<div class="row event_pageInfo">
+											<div class="row si_merchant_pageInfo">
 											</div>
 										</div>
 									</div>
@@ -145,40 +115,39 @@ request.setAttribute("title", "Tables - Pending Event");
 				</div>
 			</div>
 			<script type="text/javascript">
-				switchLeftActive("event", null, "eventPending");
+			switchLeftActive("user", "merchantList", "merchantActive");
 			</script>
-			<jsp:include page="../common/html_foot.jsp"/>
+			<jsp:include page="../../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
-<jsp:include page="../common/jsConfig.jsp"/>
-<jsp:include page="../common/jsUtils.jsp"/>
-<jsp:include page="../common/script.jsp"/>
+<jsp:include page="../../common/jsConfig.jsp"/>
+<jsp:include page="../../common/jsUtils.jsp"/>
+<jsp:include page="../../common/script.jsp"/>
 <script>
-$.DateTimeConfig.init("#event-date-range-picker");
-$.TableDataConfig.generateSizeSelector("event", 25);
+$.DateTimeConfig.init("#merchant-date-range-picker");
+$.TableDataConfig.generateSizeSelector("si_merchant", 25);
 
-function event_list(pageNumber) {
-	var dateRange = new $.DateTimeConfig.DateRange($('#event-date-range-picker').val());
-	$(".tabaleData_event").html("");
-	$.post("${base}manage/event/listByProperties.do", {
-		merchantId : $("#merchantId").val(),
+function si_merchant_list(pageNumber) {
+	var dateRange = new $.DateTimeConfig.DateRange($('#merchant-date-range-picker').val());
+	$(".tabaleData_si_merchant").html("");
+	$.post("${base}manage/merchant/listPageByProperties.do", {
 		status : 1,
 		start : dateRange.start,
 		end : dateRange.end,
 		pageNum : pageNumber,
-		pageSize : $("#event_size_selected").val()
+		pageSize : $("#si_merchant_size_selected").val()
 	},function(result) {
-		event_html(result);
+		si_merchant_html(result);
 	});
 }
 
-function event_html(result) {
+function si_merchant_html(result) {
 	if(result.status == 0) {
 		var pageResp = result.data;
 		var data = pageResp.list;
 		var tr = "";
 		for(var key in data) {
-			var event = data[key];
-			tr += "<tr id='tr_"+event.id+"'>"+
+			var merchant = data[key];
+			tr += "<tr>"+
 					"<td class='center'>"+
 						"<label class='pos-rel'>"+
 							"<input type='checkbox' class='ace' />"+
@@ -186,25 +155,21 @@ function event_html(result) {
 						"</label>"+
 					"</td>"+
 					"<td class='dataValue'>"+
-						"<a href='${base}manage/event/detail.do?eventId="+event.id+"&status="+event.status+"'>"+event.id+"</a>"+
+						"<a href='${base}manage/merchant/detail.do?merchantId="+merchant.id+"'>"+merchant.id+"</a>"+
 					"</td>"+
-					"<td class='dataValue'>"+event.eventname+"</td>"+
-					"<td class='dataValue'>"+event.merchantId+"</td>"+
-					"<td class='dataValue'>"+event.maxpax+"</td>"+
-					"<td class='dataValue'>"+$.JsUtil.convertDate(event.startdate)+"</td>"+	
-					"<td class='dataValue'>"+$.JsUtil.convertDate(event.enddate)+"</td>"+
-					"<td class='dataValue'>"+event.starttime+"</td>"+	
-					"<td class='dataValue'>"+event.endtime+"</td>"+
-					"<td class='hidden-480'>"+
-						"<button onclick='activeEvent(\""+event.id+"\");' class='btn btn-minier btn-success'>Approve</button>"+
-						"<button onclick='rejectForm(\""+event.id+"\");' class='btn btn-minier btn-danger'>Reject</button>"+
-					"</td>"+
+					"<td class='dataValue'>"+merchant.username+"</td>"+
+					"<td class='dataValue hidden-480'>"+merchant.companyname+"</td>"+
+					"<td class='dataValue'>"+merchant.email+"</td>"+
+					"<td class='dataValue'>"+merchant.phone+"</td>"+
+					"<td class='dataValue'>"+merchant.industrytype+"</td>"+
+					"<td class='dataValue'>"+$.JsUtil.convertDate(merchant.createtime)+"</td>"+		
+					"<td class='dataValue'>"+$.JsUtil.convertDate(merchant.expireddatessm)+"</td>"+		
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
 							"<a class='blue' href='#'>"+
 								"<i class='ace-icon fa fa-search-plus bigger-130'></i>"+
 							"</a>"+
-							"<a class='green' target='_blank' href='${base}manage/event/detail.do?eventId="+event.id+"&status="+event.status+"'>"+
+							"<a class='green' target='_blank' href='${base}manage/merchant/detail.do?merchantId="+merchant.id+"'>"+
 								"<i class='ace-icon fa fa-pencil bigger-130'></i>"+
 							"</a>"+
 							"<a class='red' href='#'>"+
@@ -214,48 +179,12 @@ function event_html(result) {
 					"</td>"+
 				"</tr>";
 		}
-		$(".tabaleData_event").html(tr);
+		$(".tabaleData_si_merchant").html(tr);
 		$.JsUtil.undefinedRed(".dataValue");	
-		$.TableDataConfig.pagination("event", pageResp.pageSize, pageResp.navigatepageNums, pageResp.pageNum, pageResp.startRow, pageResp.endRow, pageResp.total);
+		$.TableDataConfig.pagination("si_merchant", pageResp.pageSize, pageResp.navigatepageNums, pageResp.pageNum, pageResp.startRow, pageResp.endRow, pageResp.total);
 	}
 }
-event_list(1);
-
-function activeEvent(id) {
-	$.post("${base}manage/event/ajaxEdit.do", {
-		id : id,
-		status : 2
-	},function(result) {
-		if(result.status == 0) {
-			alert("event status updated.");
-			$("#tr_"+id).remove();
-		} else {
-			alert(result.msg);
-		}
-	});
-}
-
-function rejectForm(id) {
-	$("#submitReject").attr("onclick","rejectEvent('"+id+"');");
-	$("#rejectForm").removeClass("hide");
-}
-
-function rejectEvent(id) {
-	$.post("${base}manage/event/ajaxEdit.do", {
-		id : id,
-		rejectReason : $(".rejectReason").val(),
-		status : 4
-	},function(result) {
-		if(result.status == 0) {
-			alert("event status updated.");
-			$("#tr_"+id).remove();
-			$("#rejectForm").addClass("hide");
-			$(".rejectReason").val("");
-		} else {
-			alert(result.msg);
-		}
-	});
-}
+si_merchant_list(1);
 </script>
 
 
@@ -276,6 +205,8 @@ function rejectEvent(id) {
 		.DataTable( {
 			bAutoWidth: false,
 			"aoColumns": [
+			  { "bSortable": false },
+			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
@@ -337,6 +268,7 @@ function rejectEvent(id) {
 		} );
 		myTable.buttons().container().appendTo( $('.tableTools-container') );
 		
+// 		//style the message box
 		var defaultCopyAction = myTable.button(1).action();
 		myTable.button(1).action(function (e, dt, button, config) {
 			defaultCopyAction(e, dt, button, config);

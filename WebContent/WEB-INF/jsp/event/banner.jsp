@@ -117,6 +117,8 @@ if("${event.status}" == "1") {
 	eventStatus = "eventActive";
 } else if("${event.status}" == "3") {
 	eventStatus = "eventExpired";
+} else if("${event.status}" == "4") {
+	eventStatus = "eventRejected";
 } 
 switchLeftActive("event", null, eventStatus);
 function uploadBanner() {

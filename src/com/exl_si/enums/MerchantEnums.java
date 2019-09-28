@@ -23,9 +23,9 @@ public final class MerchantEnums {
 	}
 	
 	public enum STATUS {
-		INIT(0,"init"),
+		PENDING(0,"pending"),
 		ACTIVE(1,"active"),
-	    EXPIRE(2,"expire");
+	    REJECT(2,"reject");
 		
 	    private int code;
 	    private String desc;

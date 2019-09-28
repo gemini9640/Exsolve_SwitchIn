@@ -48,6 +48,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 											<form action="${base}manage/merchant/uploadSingleDoc.do" method="post" class="form-horizontal"  enctype="multipart/form-data">
 												<input type="hidden" name="picId" value="${pic.id}">
 												<input type="hidden" name="merchantId" value="${merchant.id}">
+												<input type="hidden" name="status" value="${merchant.status}">
 												<input type="hidden" name="type" value="2">
 												<div class="tabbable">
 													<jsp:include page="tab.jsp"/>
@@ -110,7 +111,15 @@ request.setAttribute("title", "Tables - SI-Merchant");
 
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
-switchLeftActive("user", null, "merchantList");
+var merchantStatus = "";
+if("${merchant.status}" == "0") {
+	merchantStatus = "merchantPending";
+} else if("${merchant.status}" == "1") {
+	merchantStatus = "merchantActive";
+} else if("${merchant.status}" == "2") {
+	merchantStatus = "merchantRejected";
+} 
+switchLeftActive("user", "merchantList", merchantStatus);
 function uploadBanner() {
 	$("#uploadFile").click();
 }

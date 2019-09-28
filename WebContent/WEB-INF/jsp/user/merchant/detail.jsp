@@ -46,6 +46,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 											<div class="space"></div>
 											<form action="${base}manage/merchant/edit.do" method="post" class="form-horizontal" enctype="multipart/form-data">
 												<input type="hidden" name="lastloginpicid" value="${merchant.lastloginpicid}">
+												<input type="hidden" name="status" value="${merchant.status}">
 												<div class="tabbable">
 													<jsp:include page="tab.jsp"/>
 													<script>
@@ -57,7 +58,14 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span onclick="uploadProfilePic();" class="profile-picture">
-																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${merchant.companylogo}" />
+																		<c:choose>
+																		   <c:when test="${empty merchant.companylogo}">
+																		   		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/addFile.jpg"/>
+																		   </c:when>
+																		   <c:otherwise> 
+																				<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${merchant.companylogo}"/>	
+																		   </c:otherwise>
+																		</c:choose>
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -489,7 +497,15 @@ request.setAttribute("title", "Tables - SI-Merchant");
 
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
-switchLeftActive("user", null, "merchantList");
+var merchantStatus = "";
+if("${merchant.status}" == "0") {
+	merchantStatus = "merchantPending";
+} else if("${merchant.status}" == "1") {
+	merchantStatus = "merchantActive";
+} else if("${merchant.status}" == "2") {
+	merchantStatus = "merchantRejected";
+} 
+switchLeftActive("user", "merchantList", merchantStatus);
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });

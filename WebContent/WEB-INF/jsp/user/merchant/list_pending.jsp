@@ -26,19 +26,47 @@ request.setAttribute("title", "Tables - SI-Merchant");
 							<li>
 								<a href="#">User Management</a>
 							</li>
-							<li class="active">SI-Merchant</li>
+							<li class="active">SI-Merchant Pending</li>
 						</ul>
 					</div>
 					<div class="page-content">
 						<div class="page-header">
 							<h1>
-								SI-Merchant
+								SI-Merchant Pending
 								<small>
 									<i class="ace-icon fa fa-angle-double-right"></i>
 									Listing
 								</small>
 							</h1>
 						</div>
+						<!-- start popup box -->
+						<div class="col-xs-12 col-sm-4">
+							<div id="rejectForm" class="widget-box ui-widget-overlay hide" style="height: 100%; width: 100%; position: fixed; left: 0px; top: 0px; z-index: 1049; opacity: 0.3;">
+								<div class="widget-header">
+									<h4 class="widget-title">Reject Message</h4>
+									<div class="widget-toolbar">
+										<a href="#" onclick="$('#rejectForm').addClass('hide');">
+											<i class="ace-icon fa fa-times"></i>
+										</a>
+									</div>
+								</div>
+								<div class="widget-body">
+									<div class="widget-main">
+										<div>
+											<label for="form-field-8">Message</label>
+											<textarea class="rejectReason form-control" id="form-field-8" placeholder="Reason"></textarea>
+										</div>
+									</div>
+									<div class="form-actions center">
+										<button id="submitReject" type="button" class="btn btn-sm btn-success">
+											Submit
+											<i class="ace-icon fa fa-arrow-right icon-on-right bigger-110"></i>
+										</button>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- end popup box -->
 						<div class="row">
 							<div class="col-xs-12">
 								<div class="row">
@@ -70,7 +98,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 											<div class="pull-right tableTools-container"></div>
 										</div>
 										<div class="table-header">
-											Results for "SI-Merchant Listing"
+											Results for "SI-Merchant Pending Listing"
 										</div>
 										<div class="dataTables_wrapper">
 											<div id="sample-table-2_length" class="row si_merchant_sizeSelector" style="padding-bottom: 0px;">
@@ -116,7 +144,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 				</div>
 			</div>
 			<script type="text/javascript">
-				switchLeftActive("user", null, "merchantList");
+				switchLeftActive("user", "merchantList", "merchantPending");
 			</script>
 			<jsp:include page="../../common/html_foot.jsp"/>
 		</div><!-- /.main-container -->
@@ -131,6 +159,7 @@ function si_merchant_list(pageNumber) {
 	var dateRange = new $.DateTimeConfig.DateRange($('#merchant-date-range-picker').val());
 	$(".tabaleData_si_merchant").html("");
 	$.post("${base}manage/merchant/listPageByProperties.do", {
+		status : 0,
 		start : dateRange.start,
 		end : dateRange.end,
 		pageNum : pageNumber,
@@ -147,7 +176,7 @@ function si_merchant_html(result) {
 		var tr = "";
 		for(var key in data) {
 			var merchant = data[key];
-			tr += "<tr>"+
+			tr += "<tr id='tr_"+merchant.id+"'>"+
 					"<td class='center'>"+
 						"<label class='pos-rel'>"+
 							"<input type='checkbox' class='ace' />"+
@@ -165,8 +194,8 @@ function si_merchant_html(result) {
 					"<td class='dataValue'>"+$.JsUtil.convertDate(merchant.createtime)+"</td>"+		
 					"<td class='dataValue'>"+$.JsUtil.convertDate(merchant.expireddatessm)+"</td>"+		
 					"<td class='hidden-480'>"+
-						"<button class='btn btn-minier btn-success'>Approve</button>"+
-						"<button class='btn btn-minier btn-danger'>Reject</button>"+
+						"<button onclick='activeMerchant(\""+merchant.id+"\", 1);' class='btn btn-minier btn-success'>Approve</button>"+
+						"<button onclick='rejectForm(\""+merchant.id+"\");' class='btn btn-minier btn-danger'>Reject</button>"+
 					"</td>"+
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
@@ -189,6 +218,42 @@ function si_merchant_html(result) {
 	}
 }
 si_merchant_list(1);
+
+function activeMerchant(id, status) {
+	$.post("${base}manage/merchant/ajaxEdit.do", {
+		id : id,
+		status : status
+	},function(result) {
+		if(result.status == 0) {
+			alert("merchant status updated.");
+			$("#tr_"+id).remove();
+		} else {
+			alert(result.msg);
+		}
+	});
+}
+
+function rejectForm(id) {
+	$("#submitReject").attr("onclick","rejectMerchant('"+id+"');");
+	$("#rejectForm").removeClass("hide");
+}
+
+function rejectMerchant(id) {
+	$.post("${base}manage/merchant/ajaxEdit.do", {
+		id : id,
+		rejectReason : $(".rejectReason").val(),
+		status : 2
+	},function(result) {
+		if(result.status == 0) {
+			alert("merchant status updated.");
+			$("#tr_"+id).remove();
+			$("#rejectForm").addClass("hide");
+			$(".rejectReason").val("");
+		} else {
+			alert(result.msg);
+		}
+	});
+}
 </script>
 
 

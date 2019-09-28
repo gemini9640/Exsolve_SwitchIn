@@ -411,6 +411,9 @@
      <if test="end != null"> 
        and createTime <![CDATA[ <= ]]> #{end,jdbcType=TIMESTAMP}
      </if>
+     <if test="status != null"> 
+       and status <![CDATA[ = ]]> #{status,jdbcType=TIMESTAMP}
+     </if>
 	 order by createTime desc
   </select>
   <select id="selectByUsernameAndPass" parameterType="map" resultMap="BaseResultMap">

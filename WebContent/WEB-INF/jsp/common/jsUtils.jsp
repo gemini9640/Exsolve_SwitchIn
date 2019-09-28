@@ -44,7 +44,8 @@ $.JsUtil = {
 	undefinedRed : function (selector) {
 		$(selector).each(function() {
 			if($(this).text() == "undefined") {
-				$(this).addClass("red");
+				$(this).text("");
+				$(this).val("");
 			}
 		});
 	}

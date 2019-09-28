@@ -47,6 +47,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 											<form action="${base}manage/merchant/edit_pic.do" method="post" class="form-horizontal">
 												<input type="hidden" name="id" value="${pic.id}">
 												<input type="hidden" name="merchantid" value="${pic.merchantid}">
+												<input type="hidden" name="status" value="${merchant.status}">
 												<div class="tabbable">
 													<jsp:include page="tab.jsp"/>
 													<script>
@@ -61,14 +62,6 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																<small>The representative who direct in charge on communicating and coordinating with Switch-inTM Team. </small>
 															</h4>
 															<div class="form-group">
-<!-- 																<div class="checkbox"> -->
-<!-- 																	<label class="col-sm-7 control-label no-padding-right" > -->
-<!-- 																		<div class="col-sm-8"> -->
-<!-- 																			<input onchange="switchPICSection(this);" name="form-field-checkbox" type="checkbox" class="ace"> -->
-<!-- 																			<span class="lbl">Same as the director’s info</span> -->
-<!-- 																		</div> -->
-<!-- 																	</label> -->
-<!-- 																</div> -->
 															</div>
 															<div class="merchant_pic_form">
 																<div class="form-group">
@@ -176,7 +169,15 @@ request.setAttribute("title", "Tables - SI-Merchant");
 
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
-switchLeftActive("user", null, "merchantList");
+var merchantStatus = "";
+if("${merchant.status}" == "0") {
+	merchantStatus = "merchantPending";
+} else if("${merchant.status}" == "1") {
+	merchantStatus = "merchantActive";
+} else if("${merchant.status}" == "2") {
+	merchantStatus = "merchantRejected";
+} 
+switchLeftActive("user", "merchantList", merchantStatus);
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });

@@ -75,11 +75,35 @@ function switchLeftActive(model, action, type) {
 					</ul>
 				</li>
 				<li class="left_nav left_nav_merchantList">
-					<a href="${base}user/merchant/list.htm">
+					<a class="dropdown-toggle">
 						<i class="menu-icon fa fa-caret-right"></i>
 						SI-Merchant
+						<b class="arrow fa fa-angle-down"></b>
 					</a>
 					<b class="arrow"></b>
+					<ul class="submenu">
+						<li class="left_nav left_nav_merchantPending">
+							<a href="${base}user/merchant/pending.htm">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Pending Merchant
+							</a>
+							<b class="arrow"></b>
+						</li>
+						<li class="left_nav left_nav_merchantActive">
+							<a href="${base}user/merchant/active.htm">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Active Merchant
+							</a>
+							<b class="arrow"></b>
+						</li>
+						<li class="left_nav left_nav_merchantRejected">
+							<a href="${base}user/merchant/rejected.htm">
+								<i class="menu-icon fa fa-caret-right"></i>
+								Rejected Merchant
+							</a>
+							<b class="arrow"></b>
+						</li>
+					</ul>
 				</li>
 				<li class="left_nav left_nav_memberList">
 					<a href="${base}user/member/list.htm">

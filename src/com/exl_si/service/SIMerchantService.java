@@ -47,4 +47,6 @@ public interface SIMerchantService {
 	public ServerResponse<List<SubFile>> uploadMultipleDoc(MultipartHttpServletRequest request, String merchantId, FileType type);
 	
 	public List<SIMerchantDOC> selectDocByMerchantIdAndType(String merchantId, String type);
+	
+	public ServerResponse update(SIMerchant merchant);
 }
