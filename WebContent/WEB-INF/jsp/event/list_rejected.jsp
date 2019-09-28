@@ -95,7 +95,6 @@ request.setAttribute("title", "Tables - Rejected Event");
 														<th>Event Title</th>
 														<th>Merchant ID</th>
 														<th>Reason</th>
-														<th class="hidden-480">Action</th>
 														<th></th>
 													</tr>
 												</thead>
@@ -159,10 +158,6 @@ function event_html(result) {
 					"<td class='dataValue'>"+event.eventname+"</td>"+
 					"<td class='dataValue'>"+event.merchantId+"</td>"+
 					"<td><textarea class='dataValue'>"+event.rejectReason+"</textarea></td>"+
-					"<td class='hidden-480'>"+
-						"<button onclick='ajaxEdit(\""+event.id+"\", 2, "+pageResp.pageNum+");' class='btn btn-minier btn-success'>Approve</button>"+
-						"<button onclick='ajaxEdit(\""+event.id+"\", 4, "+pageResp.pageNum+");' class='btn btn-minier btn-danger'>Reject</button>"+
-					"</td>"+
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
 							"<a class='blue' href='#'>"+
