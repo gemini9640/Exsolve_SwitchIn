@@ -175,7 +175,7 @@ function switchLeftActive(model, action, type) {
 				</li>
 			</ul>
 		</li>
-		<li class="">
+		<li class="left_nav left_nav_voucher">
 			<a href="#" class="dropdown-toggle">
 				<i class="menu-icon fa fa-book"></i>
 				<span class="menu-text">Voucher Management</span>
@@ -183,38 +183,38 @@ function switchLeftActive(model, action, type) {
 			</a>
 			<b class="arrow"></b>
 			<ul class="submenu">
-				<li class="">
-					<a href="">
+				<li class="left_nav left_nav_voucherCreate">
+					<a href="${base}voucher/add.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Create Voucher
 					</a>
 					<b class="arrow"></b>
 				</li>
-				<li class="">
-					<a href="tables-Pending-Voucher.html">
+				<li class="left_nav left_nav_voucherPending">
+					<a href="${base}voucher/pending.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Pending  Voucher
 					</a>
 					<b class="arrow"></b>
 				</li>
-				<li class="">
-					<a href="tables-Active-Voucher.html">
+				<li class="left_nav left_nav_voucherActive">
+					<a href="${base}voucher/active.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Active Voucher
 					</a>
 					<b class="arrow"></b>
 				</li>
-				<li class="">
-					<a href="tables-Expired-Voucher.html">
+				<li class="left_nav left_nav_voucherExpired">
+					<a href="${base}voucher/expired.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
 						Expired Voucher
 					</a>
 					<b class="arrow"></b>
 				</li>
-				<li class="">
-					<a href="tables-Draft-Voucher.html">
+				<li class="left_nav left_nav_voucherRejected">
+					<a href="${base}voucher/rejected.htm">
 						<i class="menu-icon fa fa-caret-right"></i>
-						Draft Voucher
+						Rejected Voucher
 					</a>
 					<b class="arrow"></b>
 				</li>

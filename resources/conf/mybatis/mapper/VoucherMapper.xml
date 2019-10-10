@@ -1,0 +1,358 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.exl_si.mapper.VoucherMapper">
+  <resultMap id="BaseResultMap" type="com.exl_si.db.Voucher">
+    <constructor>
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="voucher_title" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="merchant_id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="voucher_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="createtime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="start_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="end_date" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="end_time" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="start_time" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="update_time" javaType="java.util.Date" jdbcType="TIMESTAMP" />
+      <arg column="quantity" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="csPhone" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="geographic" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="is_online" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="instagram" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="facebook" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="map" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="tnc" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="description" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="reminder" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="reject_reason" javaType="java.lang.String" jdbcType="VARCHAR" />
+    </constructor>
+  </resultMap>
+  <sql id="Base_Column_List">
+    id, voucher_title, merchant_id, voucher_type, createtime, start_date, end_date, end_time, 
+    start_time, update_time, quantity, csPhone, geographic, address, is_online, instagram, 
+    facebook, map, status, tnc, description, reminder, remark, reject_reason
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select 
+    <include refid="Base_Column_List" />
+    from voucher
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.String">
+    delete from voucher
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.exl_si.db.Voucher">
+    insert into voucher (id, voucher_title, merchant_id, 
+      voucher_type, createtime, start_date, 
+      end_date, end_time, start_time, 
+      update_time, quantity, csPhone, 
+      geographic, address, is_online, 
+      instagram, facebook, map, 
+      status, tnc, description, 
+      reminder, remark, reject_reason
+      )
+    values (#{id,jdbcType=VARCHAR}, #{voucherTitle,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
+      #{voucherType,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{startDate,jdbcType=TIMESTAMP}, 
+      #{endDate,jdbcType=TIMESTAMP}, #{endTime,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
+      #{updateTime,jdbcType=TIMESTAMP}, #{quantity,jdbcType=INTEGER}, #{csphone,jdbcType=VARCHAR}, 
+      #{geographic,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{isOnline,jdbcType=INTEGER}, 
+      #{instagram,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, #{map,jdbcType=VARCHAR}, 
+      #{status,jdbcType=INTEGER}, #{tnc,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{reminder,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{rejectReason,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.exl_si.db.Voucher">
+    insert into voucher
+    <trim prefix="(" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        id,
+      </if>
+      <if test="voucherTitle != null">
+        voucher_title,
+      </if>
+      <if test="merchantId != null">
+        merchant_id,
+      </if>
+      <if test="voucherType != null">
+        voucher_type,
+      </if>
+      <if test="createtime != null">
+        createtime,
+      </if>
+      <if test="startDate != null">
+        start_date,
+      </if>
+      <if test="endDate != null">
+        end_date,
+      </if>
+      <if test="endTime != null">
+        end_time,
+      </if>
+      <if test="startTime != null">
+        start_time,
+      </if>
+      <if test="updateTime != null">
+        update_time,
+      </if>
+      <if test="quantity != null">
+        quantity,
+      </if>
+      <if test="csphone != null">
+        csPhone,
+      </if>
+      <if test="geographic != null">
+        geographic,
+      </if>
+      <if test="address != null">
+        address,
+      </if>
+      <if test="isOnline != null">
+        is_online,
+      </if>
+      <if test="instagram != null">
+        instagram,
+      </if>
+      <if test="facebook != null">
+        facebook,
+      </if>
+      <if test="map != null">
+        map,
+      </if>
+      <if test="status != null">
+        status,
+      </if>
+      <if test="tnc != null">
+        tnc,
+      </if>
+      <if test="description != null">
+        description,
+      </if>
+      <if test="reminder != null">
+        reminder,
+      </if>
+      <if test="remark != null">
+        remark,
+      </if>
+      <if test="rejectReason != null">
+        reject_reason,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides=",">
+      <if test="id != null">
+        #{id,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherTitle != null">
+        #{voucherTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherType != null">
+        #{voucherType,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startDate != null">
+        #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="quantity != null">
+        #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="csphone != null">
+        #{csphone,jdbcType=VARCHAR},
+      </if>
+      <if test="geographic != null">
+        #{geographic,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnline != null">
+        #{isOnline,jdbcType=INTEGER},
+      </if>
+      <if test="instagram != null">
+        #{instagram,jdbcType=VARCHAR},
+      </if>
+      <if test="facebook != null">
+        #{facebook,jdbcType=VARCHAR},
+      </if>
+      <if test="map != null">
+        #{map,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tnc != null">
+        #{tnc,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null">
+        #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null">
+        #{rejectReason,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.Voucher">
+    update voucher
+    <set>
+      <if test="voucherTitle != null">
+        voucher_title = #{voucherTitle,jdbcType=VARCHAR},
+      </if>
+      <if test="merchantId != null">
+        merchant_id = #{merchantId,jdbcType=VARCHAR},
+      </if>
+      <if test="voucherType != null">
+        voucher_type = #{voucherType,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null">
+        createtime = #{createtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="startDate != null">
+        start_date = #{startDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endDate != null">
+        end_date = #{endDate,jdbcType=TIMESTAMP},
+      </if>
+      <if test="endTime != null">
+        end_time = #{endTime,jdbcType=VARCHAR},
+      </if>
+      <if test="startTime != null">
+        start_time = #{startTime,jdbcType=VARCHAR},
+      </if>
+      <if test="updateTime != null">
+        update_time = #{updateTime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="quantity != null">
+        quantity = #{quantity,jdbcType=INTEGER},
+      </if>
+      <if test="csphone != null">
+        csPhone = #{csphone,jdbcType=VARCHAR},
+      </if>
+      <if test="geographic != null">
+        geographic = #{geographic,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address = #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="isOnline != null">
+        is_online = #{isOnline,jdbcType=INTEGER},
+      </if>
+      <if test="instagram != null">
+        instagram = #{instagram,jdbcType=VARCHAR},
+      </if>
+      <if test="facebook != null">
+        facebook = #{facebook,jdbcType=VARCHAR},
+      </if>
+      <if test="map != null">
+        map = #{map,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status = #{status,jdbcType=INTEGER},
+      </if>
+      <if test="tnc != null">
+        tnc = #{tnc,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null">
+        description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="reminder != null">
+        reminder = #{reminder,jdbcType=VARCHAR},
+      </if>
+      <if test="remark != null">
+        remark = #{remark,jdbcType=VARCHAR},
+      </if>
+      <if test="rejectReason != null">
+        reject_reason = #{rejectReason,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.Voucher">
+    update voucher
+    set voucher_title = #{voucherTitle,jdbcType=VARCHAR},
+      merchant_id = #{merchantId,jdbcType=VARCHAR},
+      voucher_type = #{voucherType,jdbcType=VARCHAR},
+      createtime = #{createtime,jdbcType=TIMESTAMP},
+      start_date = #{startDate,jdbcType=TIMESTAMP},
+      end_date = #{endDate,jdbcType=TIMESTAMP},
+      end_time = #{endTime,jdbcType=VARCHAR},
+      start_time = #{startTime,jdbcType=VARCHAR},
+      update_time = #{updateTime,jdbcType=TIMESTAMP},
+      quantity = #{quantity,jdbcType=INTEGER},
+      csPhone = #{csphone,jdbcType=VARCHAR},
+      geographic = #{geographic,jdbcType=VARCHAR},
+      address = #{address,jdbcType=VARCHAR},
+      is_online = #{isOnline,jdbcType=INTEGER},
+      instagram = #{instagram,jdbcType=VARCHAR},
+      facebook = #{facebook,jdbcType=VARCHAR},
+      map = #{map,jdbcType=VARCHAR},
+      status = #{status,jdbcType=INTEGER},
+      tnc = #{tnc,jdbcType=VARCHAR},
+      description = #{description,jdbcType=VARCHAR},
+      reminder = #{reminder,jdbcType=VARCHAR},
+      remark = #{remark,jdbcType=VARCHAR},
+      reject_reason = #{rejectReason,jdbcType=VARCHAR}
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  
+  
+  <!-- created -->
+  <select id="selectByMerchant" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from voucher where merchantId = #{merchantId,jdbcType=VARCHAR}
+  </select>
+  
+  <select id="selectByPropertiesSelective" parameterType="map" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from voucher where 
+	 status = #{status,jdbcType=INTEGER}
+	 <if test="merchantId != null and merchantId != ''">
+       and merchantId = #{merchantId,jdbcType=VARCHAR} 
+     </if>
+	 <if test="start != null">
+	   and start_date <![CDATA[ >= ]]> #{start,jdbcType=TIMESTAMP} 
+     </if> 
+     <if test="end != null"> 
+       and end_date <![CDATA[ <= ]]> #{end,jdbcType=TIMESTAMP}
+     </if>
+	 order by createtime desc
+  </select>
+  
+  <update id="updateStatus" parameterType="map">
+    update voucher
+    set 
+      status = #{status,jdbcType=INTEGER}
+    where id = #{id,jdbcType=INTEGER}
+  </update>
+  
+  <select id="selectByName" parameterType="java.lang.String" resultMap="BaseResultMap">
+  	 select 
+	 <include refid="Base_Column_List" />
+	 from voucher where voucher_title = #{voucherTitle,jdbcType=VARCHAR}
+  </select>
+</mapper>

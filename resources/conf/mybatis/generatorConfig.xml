@@ -30,10 +30,10 @@ http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <!--     </table> -->
 <!--     <table schema="exsolve_switchin" tableName="si_merchant_doc" domainObjectName="SIMerchantDOC" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
-    <table schema="exsolve_switchin" tableName="si_merchant" domainObjectName="SIMerchant" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    </table>
-    <table schema="exsolve_switchin" tableName="event" domainObjectName="Event" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
-    </table>
+<!--     <table schema="exsolve_switchin" tableName="si_merchant" domainObjectName="SIMerchant" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
+<!--     </table> -->
+<!--     <table schema="exsolve_switchin" tableName="event" domainObjectName="Event" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
+<!--     </table> -->
 <!--     <table schema="exsolve_switchin" tableName="event_picture" domainObjectName="EventPicture" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
 <!-- 	<table schema="exsolve_switchin" tableName="sequenceNo" domainObjectName="SequenceNo" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
@@ -46,5 +46,9 @@ http://mybatis.org/dtd/mybatis-generator-config_1_0.dtd">
 <!--     </table> -->
 <!-- 	<table schema="exsolve_switchin" tableName="exl_agent_file" domainObjectName="EXLAgentFile" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
 <!--     </table> -->
+<!-- 	<table schema="exsolve_switchin" tableName="voucher" domainObjectName="Voucher" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false"> -->
+<!--     </table> -->
+    <table schema="exsolve_switchin" tableName="voucher_picture" domainObjectName="VoucherPicture" enableSelectByPrimaryKey="true" enableUpdateByPrimaryKey="true" enableDeleteByPrimaryKey="true" enableCountByExample="false" enableDeleteByExample="false" enableSelectByExample="false"  enableUpdateByExample="false">
+    </table>
   </context>
 </generatorConfiguration>

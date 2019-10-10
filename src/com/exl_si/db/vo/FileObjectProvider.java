@@ -1,5 +1,6 @@
 package com.exl_si.db.vo;
 
+import com.exl_si.db.VoucherPicture;
 import com.exl_si.db.EventPicture;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMemberFile;
@@ -12,6 +13,7 @@ public class FileObjectProvider {
 	}
 	
 	public enum FileObjectEnums {
+		VOUCHER_PICTURE(VoucherPicture.class),
 		EVENT_PICTURE(EventPicture.class),
 		SIMERCHANT_DOC(SIMerchantDOC.class),
 		SIMEMBER_FILE(SIMemberFile.class),

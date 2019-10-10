@@ -34,3 +34,6 @@ ALTER TABLE `event` ADD startTime varchar(20) NULL after endDate, ADD endTime va
 5.merchant， event 添加字段，被拒绝理由
 ALTER TABLE `event` ADD reject_reason varchar(500) NULL after remark;
 ALTER TABLE `si_merchant` ADD reject_reason varchar(500) NULL after status;
+
+6.
+ALTER TABLE `sequenceNo` ADD `voucherTotal` INT(5) DEFAULT 0;

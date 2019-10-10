@@ -21,5 +21,6 @@ public class Constants {
     	String EXL_AGENT = "EXL_AG";
     	String EXL_CLIENT = "EXL_CL";
     	String EVENT = "EV";
+    	String VOUCHER = "VC";
     }
 }

@@ -45,6 +45,7 @@ request.setAttribute("title", "Tables - Event");
 											<div class="space"></div>
 											<form class="form-horizontal" action="${base}manage/event/edit.do" method="post">
 												<input name="id" type="hidden" value="${event.id}"/>
+												<input name="status" type="hidden" value="${event.status}"/>
 												<div class="tabbable">
 													<jsp:include page="tab.jsp"/>
 													<script>
