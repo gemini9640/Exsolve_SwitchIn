@@ -92,6 +92,20 @@ public class VoucherServiceImpl implements VoucherService{
 		return ServerResponse.createBySuccess(voucher);
 	}
 	
+	public ServerResponse<String> queryTagline(String id) {
+		Voucher voucher = voucherMapper.selectByPrimaryKey(id);
+		if(voucher == null)
+			return ServerResponse.createByServerError("voucher not found");
+		return ServerResponse.createBySuccess(voucher.getTagline());
+	}
+	
+	public ServerResponse<String> queryGeographic(String id) {
+		Voucher voucher = voucherMapper.selectByPrimaryKey(id);
+		if(voucher == null)
+			return ServerResponse.createByServerError("location not found");
+		return ServerResponse.createBySuccess(voucher.getGeographic());
+	}
+	
 	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, String voucherId, PictureType type) {
 		String baseFolder = AppProperties.UPLOAD_PATH+"/si_merchant/"+merchantId+"/voucher/"+type.getDesc()+"/";
 		try {

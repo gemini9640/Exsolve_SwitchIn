@@ -16,6 +16,11 @@ import com.exl_si.enums.MerchantEnums.FileType;
 import com.github.pagehelper.PageInfo;
 
 public interface SIMerchantService {
+	
+	public ServerResponse<String> queryTagline(String id);
+	
+	public ServerResponse<String> queryGeographic(String id);
+	
 	public ServerResponse<SIMerchant> query(String id);
 	
 	public ServerResponse<SIMerchantPIC> queryPIC(String id);

@@ -29,6 +29,8 @@ public class Voucher {
 
     private String geographic;
 
+    private String tagline;
+
     private String address;
 
     private Integer isOnline;
@@ -51,7 +53,7 @@ public class Voucher {
 
     private String rejectReason;
 
-    public Voucher(String id, String voucherTitle, String merchantId, String voucherType, Date createtime, Date startDate, Date endDate, String endTime, String startTime, Date updateTime, Integer quantity, String csphone, String geographic, String address, Integer isOnline, String instagram, String facebook, String map, Integer status, String tnc, String description, String reminder, String remark, String rejectReason) {
+    public Voucher(String id, String voucherTitle, String merchantId, String voucherType, Date createtime, Date startDate, Date endDate, String endTime, String startTime, Date updateTime, Integer quantity, String csphone, String geographic, String tagline, String address, Integer isOnline, String instagram, String facebook, String map, Integer status, String tnc, String description, String reminder, String remark, String rejectReason) {
         this.id = id;
         this.voucherTitle = voucherTitle;
         this.merchantId = merchantId;
@@ -65,6 +67,7 @@ public class Voucher {
         this.quantity = quantity;
         this.csphone = csphone;
         this.geographic = geographic;
+        this.tagline = tagline;
         this.address = address;
         this.isOnline = isOnline;
         this.instagram = instagram;
@@ -186,6 +189,14 @@ public class Voucher {
         this.geographic = geographic == null ? null : geographic.trim();
     }
 
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline == null ? null : tagline.trim();
+    }
+
     public String getAddress() {
         return address;
     }
@@ -293,6 +304,7 @@ public class Voucher {
         sb.append(", quantity=").append(quantity);
         sb.append(", csphone=").append(csphone);
         sb.append(", geographic=").append(geographic);
+        sb.append(", tagline=").append(tagline);
         sb.append(", address=").append(address);
         sb.append(", isOnline=").append(isOnline);
         sb.append(", instagram=").append(instagram);

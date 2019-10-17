@@ -28,6 +28,10 @@ public interface VoucherService {
 	
 	public ServerResponse<Voucher> query(String id);
 	
+	public ServerResponse<String> queryTagline(String id);
+	
+	public ServerResponse<String> queryGeographic(String id);
+	
 	public ServerResponse uploadSingleDoc(MultipartHttpServletRequest request, String voucherId, String type);
 	
 	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, String voucherId, PictureType type);

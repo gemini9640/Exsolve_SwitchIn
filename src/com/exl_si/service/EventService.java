@@ -28,6 +28,10 @@ public interface EventService {
 	
 	public ServerResponse<Event> query(String id);
 	
+	public ServerResponse<String> queryTagline(String id);
+	
+	public ServerResponse<String> queryGeographic(String id);
+	
 	public ServerResponse uploadSingleDoc(MultipartHttpServletRequest request, String eventId, String type);
 	
 	public ServerResponse<List<SubFile>> uploadPicture(MultipartHttpServletRequest request, String merchantId, String eventId, PictureType type);

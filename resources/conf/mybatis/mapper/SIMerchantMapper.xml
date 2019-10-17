@@ -17,6 +17,8 @@
       <arg column="realName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="dob" javaType="java.util.Date" jdbcType="DATE" />
       <arg column="companyLogo" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="geographic" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tagline" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="credentialNo" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="credentialType" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="email" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -40,7 +42,8 @@
       totalStaff, companyType, industryType, 
       companyAddress, expiredDateSSM, username, 
       password, userTitle, realName, 
-      dob, companyLogo, credentialNo, 
+      dob, companyLogo, geographic, 
+      tagline, credentialNo, 
       credentialType, email, phone, 
       officePhone, facebook, googlePlus, 
       companyDiscription, createTime, lastLoginTime, 
@@ -62,7 +65,8 @@
       totalStaff, companyType, industryType, 
       companyAddress, expiredDateSSM, username, 
       password, userTitle, realName, 
-      dob, companyLogo, credentialNo, 
+      dob, companyLogo, geographic, 
+      tagline, credentialNo, 
       credentialType, email, phone, 
       officePhone, facebook, googlePlus, 
       companyDiscription, createTime, lastLoginTime, 
@@ -72,7 +76,8 @@
       #{totalstaff,jdbcType=INTEGER}, #{companytype,jdbcType=VARCHAR}, #{industrytype,jdbcType=VARCHAR}, 
       #{companyaddress,jdbcType=VARCHAR}, #{expireddatessm,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
       #{password,jdbcType=VARCHAR}, #{usertitle,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
-      #{dob,jdbcType=DATE}, #{companylogo,jdbcType=VARCHAR}, #{credentialno,jdbcType=VARCHAR}, 
+      #{dob,jdbcType=DATE}, #{companylogo,jdbcType=VARCHAR}, #{geographic,jdbcType=VARCHAR}, 
+      #{tagline,jdbcType=VARCHAR}, #{credentialno,jdbcType=VARCHAR}, 
       #{credentialtype,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
       #{officephone,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, #{googleplus,jdbcType=VARCHAR}, 
       #{companydiscription,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastlogintime,jdbcType=TIMESTAMP}, 
@@ -123,6 +128,12 @@
       </if>
       <if test="companylogo != null">
         companyLogo,
+      </if>
+      <if test="geographic != null">
+        geographic,
+      </if>
+      <if test="tagline != null">
+        tagline,
       </if>
       <if test="credentialno != null">
         credentialNo,
@@ -216,6 +227,12 @@
       <if test="companylogo != null">
         #{companylogo,jdbcType=VARCHAR},
       </if>
+      <if test="geographic != null">
+        #{geographic,jdbcType=VARCHAR},
+      </if>
+      <if test="tagline != null">
+        #{tagline,jdbcType=VARCHAR},
+      </if>
       <if test="credentialno != null">
         #{credentialno,jdbcType=VARCHAR},
       </if>
@@ -308,6 +325,12 @@
       <if test="companylogo != null">
         companyLogo = #{companylogo,jdbcType=VARCHAR},
       </if>
+       <if test="geographic != null">
+        geographic = #{geographic,jdbcType=VARCHAR},
+      </if>
+      <if test="tagline != null">
+        tagline = #{tagline,jdbcType=VARCHAR},
+      </if>
       <if test="credentialno != null">
         credentialNo = #{credentialno,jdbcType=VARCHAR},
       </if>
@@ -374,6 +397,8 @@
       realName = #{realname,jdbcType=VARCHAR},
       dob = #{dob,jdbcType=DATE},
       companyLogo = #{companylogo,jdbcType=VARCHAR},
+      geographic = #{geographic,jdbcType=VARCHAR},
+      tagline = #{tagline,jdbcType=VARCHAR},
       credentialNo = #{credentialno,jdbcType=VARCHAR},
       credentialType = #{credentialType,jdbcType=VARCHAR},
       email = #{email,jdbcType=VARCHAR},

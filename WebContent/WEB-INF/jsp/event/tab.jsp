@@ -5,11 +5,16 @@
 			Basic Info
 		</a>
 	</li>
-<!-- 	<li class="detail_tab  tab_event_cate"> -->
-<%-- 		<a href="${base}manage/event/detail.do?id=${event.id}"> --%>
-<!-- 			Category -->
-<!-- 		</a> -->
-<!-- 	</li> -->
+	<li class="detail_tab  tab_event_cate">
+		<a href="${base}manage/event/category.do?eventId=${event.id}&status=${event.status}">
+			Category
+		</a>
+	</li>
+	<li class="detail_tab  tab_event_geo">
+		<a href="${base}manage/event/geographic.do?eventId=${event.id}&status=${event.status}">
+			Location
+		</a>
+	</li>
 	<li class="detail_tab  tab_event_banner">
 		<a href="${base}manage/event/list_doc.do?eventId=${event.id}&type=1&status=${event.status}">
 			Banner

@@ -11,7 +11,8 @@
       <arg column="endDate" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="endTime" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="startTime" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="Tagline" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tagline" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="geographic" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="price" javaType="java.math.BigDecimal" jdbcType="DECIMAL" />
       <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="csPhone" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -31,8 +32,8 @@
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    id, eventName, merchantId, createtime, startDate, endDate, endTime, startTime, Tagline, 
-    price, updateTime, csPhone, location, address, twitter, facebook, map, maxpax, maxpaxPerRegister, 
+    id, eventName, merchantId, createtime, startDate, endDate, endTime, startTime, tagline, 
+    geographic, price, updateTime, csPhone, location, address, twitter, facebook, map, maxpax, maxpaxPerRegister, 
     status, comment, description, reminder, remark, reject_reason
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
@@ -48,8 +49,8 @@
   <insert id="insert" parameterType="com.exl_si.db.Event">
     insert into event (id, eventName, merchantId, 
       createtime, startDate, endDate, 
-      endTime, startTime, Tagline, 
-      price, updateTime, csPhone, 
+      endTime, startTime, tagline, 
+      geographic, price, updateTime, csPhone, 
       location, address, twitter, 
       facebook, map, maxpax, 
       maxpaxPerRegister, status, comment, 
@@ -58,7 +59,7 @@
     values (#{id,jdbcType=VARCHAR}, #{eventname,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
       #{createtime,jdbcType=TIMESTAMP}, #{startdate,jdbcType=TIMESTAMP}, #{enddate,jdbcType=TIMESTAMP}, 
       #{endtime,jdbcType=VARCHAR}, #{starttime,jdbcType=VARCHAR}, #{tagline,jdbcType=VARCHAR}, 
-      #{price,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP}, #{csphone,jdbcType=VARCHAR}, 
+      #{geographic,jdbcType=VARCHAR}, #{price,jdbcType=DECIMAL}, #{updatetime,jdbcType=TIMESTAMP}, #{csphone,jdbcType=VARCHAR}, 
       #{location,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{twitter,jdbcType=VARCHAR}, 
       #{facebook,jdbcType=VARCHAR}, #{map,jdbcType=VARCHAR}, #{maxpax,jdbcType=INTEGER}, 
       #{maxpaxperregister,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{comment,jdbcType=VARCHAR}, 
@@ -94,7 +95,10 @@
         startTime,
       </if>
       <if test="tagline != null">
-        Tagline,
+        tagline,
+      </if>
+      <if test="geographic != null">
+        geographic,
       </if>
       <if test="price != null">
         price,
@@ -173,6 +177,9 @@
       <if test="tagline != null">
         #{tagline,jdbcType=VARCHAR},
       </if>
+      <if test="geographic != null">
+        #{geographic,jdbcType=VARCHAR},
+      </if>
       <if test="price != null">
         #{price,jdbcType=DECIMAL},
       </if>
@@ -248,7 +255,10 @@
         startTime = #{starttime,jdbcType=VARCHAR},
       </if>
       <if test="tagline != null">
-        Tagline = #{tagline,jdbcType=VARCHAR},
+        tagline = #{tagline,jdbcType=VARCHAR},
+      </if>
+      <if test="geographic != null">
+        geographic = #{geographic,jdbcType=VARCHAR},
       </if>
       <if test="price != null">
         price = #{price,jdbcType=DECIMAL},
@@ -310,7 +320,8 @@
       endDate = #{enddate,jdbcType=TIMESTAMP},
       endTime = #{endtime,jdbcType=VARCHAR},
       startTime = #{starttime,jdbcType=VARCHAR},
-      Tagline = #{tagline,jdbcType=VARCHAR},
+      tagline = #{tagline,jdbcType=VARCHAR},
+      geographic = #{geographic,jdbcType=VARCHAR},
       price = #{price,jdbcType=DECIMAL},
       updateTime = #{updatetime,jdbcType=TIMESTAMP},
       csPhone = #{csphone,jdbcType=VARCHAR},

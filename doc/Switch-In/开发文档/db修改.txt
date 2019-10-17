@@ -37,3 +37,11 @@ ALTER TABLE `si_merchant` ADD reject_reason varchar(500) NULL after status;
 
 6.
 ALTER TABLE `sequenceNo` ADD `voucherTotal` INT(5) DEFAULT 0;
+
+7.
+ALTER TABLE `event` ADD geographic varchar(250) NULL after tagline;
+ALTER TABLE `voucher` ADD tagline varchar(250) NULL after geographic;
+
+8.
+ALTER TABLE `si_merchant` ADD tagline varchar(250) NULL after companyLogo;
+ALTER TABLE `si_merchant` ADD geographic varchar(250) NULL after companyLogo;

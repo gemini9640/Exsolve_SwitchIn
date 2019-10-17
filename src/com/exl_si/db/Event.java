@@ -22,6 +22,8 @@ public class Event {
 
     private String tagline;
 
+    private String geographic;
+
     private BigDecimal price;
 
     private Date updatetime;
@@ -51,10 +53,10 @@ public class Event {
     private String reminder;
 
     private String remark;
-    
+
     private String rejectReason;
 
-    public Event(String id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String endtime, String starttime, String tagline, BigDecimal price, Date updatetime, String csphone, String location, String address, String twitter, String facebook, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark, String rejectReason) {
+    public Event(String id, String eventname, String merchantId, Date createtime, Date startdate, Date enddate, String endtime, String starttime, String tagline, String geographic, BigDecimal price, Date updatetime, String csphone, String location, String address, String twitter, String facebook, String map, Integer maxpax, Integer maxpaxperregister, Integer status, String comment, String description, String reminder, String remark, String rejectReason) {
         this.id = id;
         this.eventname = eventname;
         this.merchantId = merchantId;
@@ -64,6 +66,7 @@ public class Event {
         this.endtime = endtime;
         this.starttime = starttime;
         this.tagline = tagline;
+        this.geographic = geographic;
         this.price = price;
         this.updatetime = updatetime;
         this.csphone = csphone;
@@ -156,6 +159,14 @@ public class Event {
 
     public void setTagline(String tagline) {
         this.tagline = tagline == null ? null : tagline.trim();
+    }
+
+    public String getGeographic() {
+        return geographic;
+    }
+
+    public void setGeographic(String geographic) {
+        this.geographic = geographic == null ? null : geographic.trim();
     }
 
     public BigDecimal getPrice() {
@@ -285,7 +296,7 @@ public class Event {
     public void setRejectReason(String rejectReason) {
         this.rejectReason = rejectReason == null ? null : rejectReason.trim();
     }
-    
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder();
@@ -301,6 +312,7 @@ public class Event {
         sb.append(", endtime=").append(endtime);
         sb.append(", starttime=").append(starttime);
         sb.append(", tagline=").append(tagline);
+        sb.append(", geographic=").append(geographic);
         sb.append(", price=").append(price);
         sb.append(", updatetime=").append(updatetime);
         sb.append(", csphone=").append(csphone);

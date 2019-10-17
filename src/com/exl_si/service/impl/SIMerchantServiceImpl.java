@@ -9,7 +9,6 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 
 import com.exl_si.common.AppProperties;
 import com.exl_si.common.ServerResponse;
-import com.exl_si.db.Event;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;
@@ -86,6 +85,20 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 			return ServerResponse.createByServerError("merchant not found, id not exist");
 		return ServerResponse.createBySuccess(merchant);
 	} 
+	
+	public ServerResponse<String> queryTagline(String id) {
+		SIMerchant merchant = merchantMapper.selectByPrimaryKey(id);
+		if(merchant == null)
+			return ServerResponse.createByServerError("voucher not found");
+		return ServerResponse.createBySuccess(merchant.getTagline());
+	}
+	
+	public ServerResponse<String> queryGeographic(String id) {
+		SIMerchant merchant = merchantMapper.selectByPrimaryKey(id);
+		if(merchant == null)
+			return ServerResponse.createByServerError("location not found");
+		return ServerResponse.createBySuccess(merchant.getGeographic());
+	}
 	
 	public ServerResponse<SIMerchantPIC> queryPIC(String id) {
 		SIMerchantPIC pic = picMapper.selectByPrimaryKey(id);

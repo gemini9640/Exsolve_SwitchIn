@@ -59,6 +59,20 @@ public class EventServiceImpl implements EventService{
 		return ServerResponse.createBySuccess(event);
 	}
 	
+	public ServerResponse<String> queryTagline(String id) {
+		Event event = eventMapper.selectByPrimaryKey(id);
+		if(event == null)
+			return ServerResponse.createByServerError("tagline not found");
+		return ServerResponse.createBySuccess(event.getTagline());
+	}
+	
+	public ServerResponse<String> queryGeographic(String id) {
+		Event event = eventMapper.selectByPrimaryKey(id);
+		if(event == null)
+			return ServerResponse.createByServerError("location not found");
+		return ServerResponse.createBySuccess(event.getGeographic());
+	}
+	
 	public ServerResponse<PageInfo> queryByMerchant(String merchantId, Integer pageNum, Integer pageSize) {
 		PageHelper.startPage(pageNum, pageSize);
 		List<Event> list = eventMapper.selectByMerchant(merchantId);

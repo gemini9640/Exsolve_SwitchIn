@@ -31,6 +31,10 @@ public class SIMerchant {
 
     private String companylogo;
 
+    private String geographic;
+
+    private String tagline;
+
     private String credentialno;
 
     private String credentialtype;
@@ -63,7 +67,7 @@ public class SIMerchant {
     
     private String rejectReason;
 
-    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, Date expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String credentialno, String credentialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Date createtime, Date lastlogintime, Date lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status, String rejectReason) {
+    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, Date expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String geographic, String tagline, String credentialno, String credentialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Date createtime, Date lastlogintime, Date lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status, String rejectReason) {
         this.id = id;
         this.companyname = companyname;
         this.companyregno = companyregno;
@@ -78,6 +82,8 @@ public class SIMerchant {
         this.realname = realname;
         this.dob = dob;
         this.companylogo = companylogo;
+        this.geographic = geographic;
+        this.tagline = tagline;
         this.credentialno = credentialno;
         this.credentialtype = credentialtype;
         this.email = email;
@@ -212,6 +218,22 @@ public class SIMerchant {
         this.companylogo = companylogo == null ? null : companylogo.trim();
     }
 
+    public String getGeographic() {
+        return geographic;
+    }
+
+    public void setGeographic(String geographic) {
+        this.geographic = geographic == null ? null : geographic.trim();
+    }
+
+    public String getTagline() {
+        return tagline;
+    }
+
+    public void setTagline(String tagline) {
+        this.tagline = tagline == null ? null : tagline.trim();
+    }
+    
     public String getCredentialno() {
         return credentialno;
     }
@@ -360,6 +382,8 @@ public class SIMerchant {
         sb.append(", realname=").append(realname);
         sb.append(", dob=").append(dob);
         sb.append(", companylogo=").append(companylogo);
+        sb.append(", geographic=").append(geographic);
+        sb.append(", tagline=").append(tagline);
         sb.append(", credentialno=").append(credentialno);
         sb.append(", credentialtype=").append(credentialtype);
         sb.append(", email=").append(email);

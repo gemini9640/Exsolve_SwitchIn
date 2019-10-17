@@ -68,9 +68,17 @@ public class VoucherController extends BaseController {
     }
 	
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
-    public ModelAndView edit(Voucher voucher) {
+    public ModelAndView edit(Voucher voucher, String editType) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("voucher/detail");
+		String successMsgType = "info";
+		if(StringUtils.isNotEmpty(editType)) 
+			successMsgType = editType;
+		if(StringUtils.equals(editType, "category")) {
+			mv.setViewName("voucher/category");
+		} else if(StringUtils.equals(editType, "geographic")) {
+			mv.setViewName("voucher/geographic");
+		} else 
+			mv.setViewName("voucher/detail");
 		VoucherReturnMsg returnMsg = new VoucherReturnMsg();
 		if(voucher.getId() == null) 
 			returnMsg.setId("voucher id not found");
@@ -81,7 +89,7 @@ public class VoucherController extends BaseController {
 			voucher.setUpdateTime(lastupdatetime);
 			ServerResponse response = voucherService.update(voucher);
 			if(response.isSuccess()) {
-				returnMsg.setErrormsg("voucher info updated");
+				returnMsg.setErrormsg("voucher "+successMsgType+" updated");
 				mv.addObject("voucher",response.getData());
 			} else
 				returnMsg.setErrormsg(response.getMsg());
@@ -113,6 +121,24 @@ public class VoucherController extends BaseController {
 				mv.addObject("voucher",response.getData());
 			mv.addObject("returnMsg", returnMsg);
 		}
+		return mv;
+	}
+	
+	@RequestMapping(value = "category.do")
+    public ModelAndView category(String voucherId, Integer status) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("voucher/category");
+		ServerResponse<String> response = voucherService.queryTagline(voucherId);
+		assembleReturnObjForMvTacline(mv, voucherId, status, response.getData());
+		return mv;
+	}
+
+	@RequestMapping(value = "geographic.do")
+    public ModelAndView geographic(String voucherId, Integer status) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("voucher/geographic");
+		ServerResponse<String> response = voucherService.queryGeographic(voucherId);
+		assembleReturnObjForMvGeographic(mv, voucherId, status, response.getData());
 		return mv;
 	}
 	
@@ -212,6 +238,22 @@ public class VoucherController extends BaseController {
 		Voucher voucher = new Voucher();
 		voucher.setId(voucherId);
 		voucher.setStatus(status);
+		mv.addObject("voucher", voucher);
+	}
+	
+	private void assembleReturnObjForMvTacline(ModelAndView mv, String voucherId, Integer status, String categories) {
+		Voucher voucher = new Voucher();
+		voucher.setId(voucherId);
+		voucher.setStatus(status);
+		voucher.setTagline(categories);
+		mv.addObject("voucher", voucher);
+	}
+	
+	private void assembleReturnObjForMvGeographic(ModelAndView mv, String voucherId, Integer status, String geographic) {
+		Voucher voucher = new Voucher();
+		voucher.setId(voucherId);
+		voucher.setStatus(status);
+		voucher.setGeographic(geographic);
 		mv.addObject("voucher", voucher);
 	}
 	

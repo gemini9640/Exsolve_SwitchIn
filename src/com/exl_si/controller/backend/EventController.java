@@ -35,16 +35,6 @@ public class EventController extends BaseController {
 	@Autowired
     private EventService eventService;
 	
-//	@RequestMapping(value="/uploadBanner")
-//	public ServerResponse uploadBanner(HttpSession session, MultipartHttpServletRequest request, String merchantId, String eventId){
-//		return eventService.uploadPicture(request, merchantId, eventId, PictureType.BANNER);
-//	}
-//	
-//	@RequestMapping(value="/uploaDQR")
-//	public ServerResponse uploaDQR(HttpSession session, MultipartHttpServletRequest request, String merchantId, String eventId){
-//		return eventService.uploadPicture(request, merchantId, eventId, PictureType.QR);
-//	}
-	
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
     public ModelAndView add(Event event) {
 		ModelAndView mv = new ModelAndView();
@@ -76,9 +66,17 @@ public class EventController extends BaseController {
     }
 	
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
-    public ModelAndView edit(Event event) {
+    public ModelAndView edit(Event event, String editType) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("event/detail");
+		String successMsgType = "info";
+		if(StringUtils.isNotEmpty(editType)) 
+			successMsgType = editType;
+		if(StringUtils.equals(editType, "category")) {
+			mv.setViewName("event/category");
+		} else if(StringUtils.equals(editType, "geographic")) {
+			mv.setViewName("event/geographic");
+		} else 
+			mv.setViewName("event/detail");
 		EventReturnMsg returnMsg = new EventReturnMsg();
 		if(event.getId() == null) 
 			returnMsg.setId("event id not found");
@@ -89,7 +87,7 @@ public class EventController extends BaseController {
 			event.setUpdatetime(lastupdatetime);
 			ServerResponse response = eventService.update(event);
 			if(response.isSuccess()) {
-				returnMsg.setErrormsg("event info updated");
+				returnMsg.setErrormsg("event "+successMsgType+" updated");
 				mv.addObject("event",response.getData());
 			} else
 				returnMsg.setErrormsg(response.getMsg());
@@ -106,6 +104,24 @@ public class EventController extends BaseController {
 		Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
 		event.setUpdatetime(lastupdatetime);
 		return eventService.update(event);
+	}
+	
+	@RequestMapping(value = "category.do")
+    public ModelAndView category(String eventId, Integer status) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("event/category");
+		ServerResponse<String> response = eventService.queryTagline(eventId);
+		assembleReturnObjForMvTagline(mv, eventId, status, response.getData());
+		return mv;
+	}
+
+	@RequestMapping(value = "geographic.do")
+    public ModelAndView geographic(String eventId, Integer status) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("event/geographic");
+		ServerResponse<String> response = eventService.queryGeographic(eventId);
+		assembleReturnObjForMvGeographic(mv, eventId, status, response.getData());
+		return mv;
 	}
 	
 	@RequestMapping(value = "detail.do")
@@ -223,4 +239,19 @@ public class EventController extends BaseController {
 		mv.addObject("event", event);
 	}
 	
+	private void assembleReturnObjForMvTagline(ModelAndView mv, String eventId, Integer status, String tagline) {
+		Event event = new Event();
+		event.setId(eventId);
+		event.setStatus(status);
+		event.setTagline(tagline);
+		mv.addObject("event", event);
+	}
+	
+	private void assembleReturnObjForMvGeographic(ModelAndView mv, String eventId, Integer status, String geographic) {
+		Event event = new Event();
+		event.setId(eventId);
+		event.setStatus(status);
+		event.setGeographic(geographic);
+		mv.addObject("event", event);
+	}
 }

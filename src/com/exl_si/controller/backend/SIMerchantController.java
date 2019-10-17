@@ -97,9 +97,17 @@ public class SIMerchantController extends BaseController {
 	
 	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
 	@ResponseBody
-    public ModelAndView edit(SIMerchant merchant, MultipartHttpServletRequest request) {
+    public ModelAndView edit(SIMerchant merchant, String editType, MultipartHttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		mv.setViewName("user/merchant/detail");
+		String successMsgType = "info";
+		if(StringUtils.isNotEmpty(editType)) 
+			successMsgType = editType;
+		if(StringUtils.equals(editType, "category")) {
+			mv.setViewName("user/merchant/category");
+		} else if(StringUtils.equals(editType, "geographic")) {
+			mv.setViewName("user/merchant/geographic");
+		} else 
+			mv.setViewName("user/merchant/detail");
 		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
 		if(returnMsg.validatedForEdit())
 			mv.addObject("returnMsg", returnMsg);
@@ -108,7 +116,7 @@ public class SIMerchantController extends BaseController {
 			merchant.setLastupdatetime(lastupdatetime);
 			ServerResponse<SIMerchant> response = merchantService.update(merchant,request);
 			if(response.isSuccess()) {
-				returnMsg.setErrormsg("merchant info updated");
+				returnMsg.setErrormsg("merchant "+successMsgType+" updated");
 				mv.addObject("merchant",response.getData());
 				SIMerchantPIC pic = new SIMerchantPIC();
 				pic.setId(response.getData().getLastloginpicid());
@@ -128,6 +136,24 @@ public class SIMerchantController extends BaseController {
 		Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
 		merchant.setLastupdatetime(lastupdatetime);
 		return merchantService.update(merchant);
+	}
+	
+	@RequestMapping(value = "category.do")
+    public ModelAndView category(String merchantId, String picId, Integer status) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/merchant/category");
+		ServerResponse<String> response = merchantService.queryTagline(merchantId);
+		assembleReturnObjForMvTagline(mv, merchantId, picId,  status, response.getData());
+		return mv;
+	}
+
+	@RequestMapping(value = "geographic.do")
+    public ModelAndView geographic(String merchantId, String picId, Integer status) {
+		ModelAndView mv = new ModelAndView();
+		mv.setViewName("user/merchant/geographic");
+		ServerResponse<String> response = merchantService.queryGeographic(merchantId);
+		assembleReturnObjForMvGeographic(mv, merchantId, picId, status, response.getData());
+		return mv;
 	}
 	
 	@RequestMapping(value = "detail.do")
@@ -296,6 +322,32 @@ public class SIMerchantController extends BaseController {
 		SIMerchant merchant = new SIMerchant();
 		merchant.setId(merchantId);
 		merchant.setStatus(status);
+		mv.addObject("merchant", merchant);
+		if(StringUtils.isNotEmpty(picId)) {
+			SIMerchantPIC pic = new SIMerchantPIC();
+			pic.setId(picId);
+			mv.addObject("pic", pic);
+		}
+	}
+	
+	private void assembleReturnObjForMvTagline(ModelAndView mv, String merchantId, String picId, Integer status, String tagline) {
+		SIMerchant merchant = new SIMerchant();
+		merchant.setId(merchantId);
+		merchant.setStatus(status);
+		merchant.setTagline(tagline);
+		mv.addObject("merchant", merchant);
+		if(StringUtils.isNotEmpty(picId)) {
+			SIMerchantPIC pic = new SIMerchantPIC();
+			pic.setId(picId);
+			mv.addObject("pic", pic);
+		}
+	}
+	
+	private void assembleReturnObjForMvGeographic(ModelAndView mv, String merchantId, String picId, Integer status, String geographic) {
+		SIMerchant merchant = new SIMerchant();
+		merchant.setId(merchantId);
+		merchant.setStatus(status);
+		merchant.setGeographic(geographic);
 		mv.addObject("merchant", merchant);
 		if(StringUtils.isNotEmpty(picId)) {
 			SIMerchantPIC pic = new SIMerchantPIC();

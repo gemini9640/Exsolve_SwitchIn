@@ -5,11 +5,16 @@
 			Basic Info
 		</a>
 	</li>
-<!-- 	<li class="detail_tab  tab_voucher_cate"> -->
-<%-- 		<a href="${base}manage/voucher/detail.do?id=${voucher.id}"> --%>
-<!-- 			Category -->
-<!-- 		</a> -->
-<!-- 	</li> -->
+	<li class="detail_tab  tab_voucher_cate">
+		<a href="${base}manage/voucher/category.do?voucherId=${voucher.id}&status=${voucher.status}">
+			Category
+		</a>
+	</li>
+	<li class="detail_tab  tab_voucher_geo">
+		<a href="${base}manage/voucher/geographic.do?voucherId=${voucher.id}&status=${voucher.status}">
+			Geographic
+		</a>
+	</li>
 	<li class="detail_tab  tab_voucher_banner">
 		<a href="${base}manage/voucher/list_doc.do?voucherId=${voucher.id}&type=1&status=${voucher.status}">
 			Banner

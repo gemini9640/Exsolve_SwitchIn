@@ -16,6 +16,7 @@
       <arg column="quantity" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="csPhone" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="geographic" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="tagline" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="address" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="is_online" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="instagram" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -31,8 +32,8 @@
   </resultMap>
   <sql id="Base_Column_List">
     id, voucher_title, merchant_id, voucher_type, createtime, start_date, end_date, end_time, 
-    start_time, update_time, quantity, csPhone, geographic, address, is_online, instagram, 
-    facebook, map, status, tnc, description, reminder, remark, reject_reason
+    start_time, update_time, quantity, csPhone, geographic, tagline, address, is_online, 
+    instagram, facebook, map, status, tnc, description, reminder, remark, reject_reason
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -49,18 +50,18 @@
       voucher_type, createtime, start_date, 
       end_date, end_time, start_time, 
       update_time, quantity, csPhone, 
-      geographic, address, is_online, 
-      instagram, facebook, map, 
-      status, tnc, description, 
+      geographic, tagline, address, 
+      is_online, instagram, facebook, 
+      map, status, tnc, description, 
       reminder, remark, reject_reason
       )
     values (#{id,jdbcType=VARCHAR}, #{voucherTitle,jdbcType=VARCHAR}, #{merchantId,jdbcType=VARCHAR}, 
       #{voucherType,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{startDate,jdbcType=TIMESTAMP}, 
       #{endDate,jdbcType=TIMESTAMP}, #{endTime,jdbcType=VARCHAR}, #{startTime,jdbcType=VARCHAR}, 
       #{updateTime,jdbcType=TIMESTAMP}, #{quantity,jdbcType=INTEGER}, #{csphone,jdbcType=VARCHAR}, 
-      #{geographic,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, #{isOnline,jdbcType=INTEGER}, 
-      #{instagram,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, #{map,jdbcType=VARCHAR}, 
-      #{status,jdbcType=INTEGER}, #{tnc,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{geographic,jdbcType=VARCHAR}, #{tagline,jdbcType=VARCHAR}, #{address,jdbcType=VARCHAR}, 
+      #{isOnline,jdbcType=INTEGER}, #{instagram,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, 
+      #{map,jdbcType=VARCHAR}, #{status,jdbcType=INTEGER}, #{tnc,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
       #{reminder,jdbcType=VARCHAR}, #{remark,jdbcType=VARCHAR}, #{rejectReason,jdbcType=VARCHAR}
       )
   </insert>
@@ -105,6 +106,9 @@
       </if>
       <if test="geographic != null">
         geographic,
+      </if>
+      <if test="tagline != null">
+        tagline,
       </if>
       <if test="address != null">
         address,
@@ -180,6 +184,9 @@
       <if test="geographic != null">
         #{geographic,jdbcType=VARCHAR},
       </if>
+      <if test="tagline != null">
+        #{tagline,jdbcType=VARCHAR},
+      </if>
       <if test="address != null">
         #{address,jdbcType=VARCHAR},
       </if>
@@ -254,6 +261,9 @@
       <if test="geographic != null">
         geographic = #{geographic,jdbcType=VARCHAR},
       </if>
+      <if test="tagline != null">
+        tagline = #{tagline,jdbcType=VARCHAR},
+      </if>
       <if test="address != null">
         address = #{address,jdbcType=VARCHAR},
       </if>
@@ -304,6 +314,7 @@
       quantity = #{quantity,jdbcType=INTEGER},
       csPhone = #{csphone,jdbcType=VARCHAR},
       geographic = #{geographic,jdbcType=VARCHAR},
+      tagline = #{tagline,jdbcType=VARCHAR},
       address = #{address,jdbcType=VARCHAR},
       is_online = #{isOnline,jdbcType=INTEGER},
       instagram = #{instagram,jdbcType=VARCHAR},
