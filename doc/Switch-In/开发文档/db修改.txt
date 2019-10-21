@@ -45,3 +45,6 @@ ALTER TABLE `voucher` ADD tagline varchar(250) NULL after geographic;
 8.
 ALTER TABLE `si_merchant` ADD tagline varchar(250) NULL after companyLogo;
 ALTER TABLE `si_merchant` ADD geographic varchar(250) NULL after companyLogo;
+
+9.
+ALTER TABLE `si_member` ADD is_subscribe int(1) NULL after status;

@@ -18,10 +18,10 @@
 					<ul class="nav ace-nav">
 						<li class="light-blue dropdown-modal">
 							<a data-toggle="dropdown" href="#" class="dropdown-toggle">
-								<img class="nav-user-photo" src="${ace}images/avatars/user.jpg" alt="Jason's Photo" />
+								<img class="nav-user-photo" src="${base}static/images/user.jpg" />
 								<span class="user-info">
 									<small>Welcome,</small>
-									Mr Gan
+									Admin
 								</span>
 								<i class="ace-icon fa fa-caret-down"></i>
 							</a>

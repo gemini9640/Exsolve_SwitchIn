@@ -45,17 +45,20 @@ request.setAttribute("title", "Tables - SI-Client");
 											<div class="space"></div>
 											<form action="${base}manage/exlclient/add.do" method="post" class="form-horizontal"  enctype="multipart/form-data">
 												<div class="tabbable">
-													<jsp:include page="../create_tab.jsp"/>
-													<script>
-														activeCreationTab("exl_client");
-													</script>
+													<ul class="nav nav-tabs padding-16">
+														<li class="creation_tab tab_exl_client active">
+															<a href="${base}user/exlclient/add.htm">
+																ExL-Client
+															</a>
+														</li>
+													</ul>
 													<div class="tab-content profile-edit-tab-content">
 														<div id="create-client" class="tab-pane in active">
 															<h4 class="header blue bolder smaller">General</h4>
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span onclick="uploadProfilePic();" class="profile-picture">
-																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/profile-pic-member01.jpg" />
+																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/upload.jpg" />
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
