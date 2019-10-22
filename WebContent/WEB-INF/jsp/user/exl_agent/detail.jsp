@@ -56,7 +56,14 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span onclick="uploadProfilePic();" class="profile-picture">
-																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${agent.profilepicture}" />
+																		<c:choose>
+																		   <c:when test="${empty agent.profilepicture}">
+																		   		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/addFile.jpg"/>
+																		   </c:when>
+																		   <c:otherwise> 
+																				<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${agent.profilepicture}"/>	
+																		   </c:otherwise>
+																		</c:choose>
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -198,6 +205,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <jsp:include page="../../common/script.jsp"/>
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
+switchLeftActive("user", "agentList", null);
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });

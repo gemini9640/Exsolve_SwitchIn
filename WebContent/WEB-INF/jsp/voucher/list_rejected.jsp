@@ -57,7 +57,7 @@ request.setAttribute("title", "Tables - Rejected Voucher");
 												</div>
 												<button onclick="$('#voucher-date-range-picker').val('');" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
-													clear date picker
+													Clear Date Picker
 												</button>
 												<button onclick="_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>

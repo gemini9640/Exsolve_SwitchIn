@@ -55,7 +55,14 @@ request.setAttribute("title", "Tables - SI-Member");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span onclick="uploadProfilePic();" class="profile-picture">
-																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${result.file.path}" />
+																		<c:choose>
+																		   <c:when test="${empty result.file.path}">
+																		   		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/addFile.jpg"/>
+																		   </c:when>
+																		   <c:otherwise> 
+																				<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${result.file.path}"/>	
+																		   </c:otherwise>
+																		</c:choose>
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -189,6 +196,7 @@ request.setAttribute("title", "Tables - SI-Member");
 
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
+switchLeftActive("user", "memberList", null);
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });

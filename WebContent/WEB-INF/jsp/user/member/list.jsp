@@ -57,7 +57,7 @@ request.setAttribute("title", "Tables - SI-Member");
 												</div>
 												<button onclick="$('#member-date-range-picker').val('');" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
-													clear date picker
+													Clear Cate Picker
 												</button>
 												<button onclick="si_member_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
@@ -92,7 +92,6 @@ request.setAttribute("title", "Tables - SI-Member");
 															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
 															Reg. Date
 														</th>
-														<th class="hidden-480">Action</th>
 														<th></th>
 													</tr>
 												</thead>
@@ -155,10 +154,6 @@ function si_member_html(result) {
 					"<td class='dataValue'>"+member.email+"</td>"+
 					"<td class='dataValue'>"+member.phone+"</td>"+
 					"<td class='dataValue'>"+$.JsUtil.convertDate(member.createtime)+"</td>"+		
-					"<td class='hidden-480'>"+
-						"<button class='btn btn-minier btn-success'>Approve</button>"+
-						"<button class='btn btn-minier btn-danger'>Reject</button>"+
-					"</td>"+
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
 							"<a class='blue' href='#'>"+
@@ -200,7 +195,6 @@ si_member_list(1);
 		.DataTable( {
 			bAutoWidth: false,
 			"aoColumns": [
-			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },

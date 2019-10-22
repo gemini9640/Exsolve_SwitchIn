@@ -92,11 +92,14 @@ public class SIMemberServiceImpl implements SIMemberService{
 		member.setPassword(ServiceHelper.encriptPassword(member.getUsername(), member.getPassword()));
 		if(memberMapper.insertSelective(member)>0) {
 			SequenceNoHelper.updateMemberSequenceNo(sequenceNoMapper);
-			ServerResponse uploadResp = uploadProfile(request, member.getId(), FileType.PROFILE.getDesc());
-			if(uploadResp.isSuccess())
-				return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member, (SIMemberFile) uploadResp.getData()));
-			else 
-				return ServerResponse.createBySuccess(uploadResp.getMsg(), SIMemberHelper.assembleSIMemberWithAssociated(member, null));
+			if(request != null) {
+				ServerResponse uploadResp = uploadProfile(request, member.getId(), FileType.PROFILE.getDesc());
+				if(uploadResp.isSuccess())
+					return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member, (SIMemberFile) uploadResp.getData()));
+				else 
+					return ServerResponse.createBySuccess(uploadResp.getMsg(), SIMemberHelper.assembleSIMemberWithAssociated(member, null));
+			}
+			return ServerResponse.createBySuccessMsg("add member success");
 		} else 
 			return ServerResponse.createByServerError("add member fail");
 	}

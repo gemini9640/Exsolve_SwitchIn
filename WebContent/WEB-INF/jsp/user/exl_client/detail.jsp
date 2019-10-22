@@ -56,7 +56,14 @@ request.setAttribute("title", "Tables - EXL-Client");
 															<div class="row">
 																<div class="col-xs-12 col-sm-2">
 																	<span onclick="uploadProfilePic();" class="profile-picture">
-																		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${client.profilepicture}" />
+																		<c:choose>
+																		   <c:when test="${empty client.profilepicture}">
+																		   		<img id="profile_pic" class="editable img-responsive" alt="" src="${base}static/images/addFile.jpg"/>
+																		   </c:when>
+																		   <c:otherwise> 
+																				<img id="profile_pic" class="editable img-responsive" alt="" src="${base}manage/img/showByPath.do?path=${client.profilepicture}"/>	
+																		   </c:otherwise>
+																		</c:choose>
 																	</span>
 																</div>
 																<div class="vspace-12-sm"></div>
@@ -197,6 +204,7 @@ request.setAttribute("title", "Tables - EXL-Client");
 <jsp:include page="../../common/script.jsp"/>
 <script src="${ace}js/bootstrap-datepicker.min.js"></script>
 <script>
+switchLeftActive("user", "clientList", null);
 $('.date-picker').datepicker().next().on(ace.click_event, function(){
 	$(this).prev().focus();
 });

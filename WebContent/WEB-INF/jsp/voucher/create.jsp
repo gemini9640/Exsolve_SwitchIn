@@ -157,7 +157,7 @@ request.setAttribute("title", "Tables - Voucher");
 																	</span>
 																</div>
 															</div>
-															<h4 class="header blue bolder smaller">Social</h4>
+															<h4 class="header blue bolder smaller">Social Media</h4>
 															<div class="form-group">
 																<label class="col-sm-2 control-label no-padding-right" for="form-field-facebook">Facebook</label>
 																<div class="col-sm-10">

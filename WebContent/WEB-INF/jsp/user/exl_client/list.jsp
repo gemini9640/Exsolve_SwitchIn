@@ -58,7 +58,7 @@ request.setAttribute("title", "Tables - ExL-Client");
 												
 												<button onclick="$('#exlclient-date-range-picker').val('');" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
-													clear date picker
+													Clear Cate Picker
 												</button>
 												<button onclick="exl_client_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>

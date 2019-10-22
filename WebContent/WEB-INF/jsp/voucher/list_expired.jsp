@@ -57,7 +57,7 @@ request.setAttribute("title", "Tables - Expired Voucher");
 												</div>
 												<button onclick="$('#voucher-date-range-picker').val('');" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
-													clear date picker
+													Clear Date Picker
 												</button>
 												<button onclick="voucher_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>

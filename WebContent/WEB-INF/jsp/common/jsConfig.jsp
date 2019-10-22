@@ -7,7 +7,7 @@ $.DateTimeConfig = {
 			$(dateTimeSelector).daterangepicker({
 		   	        ranges: {
 		   	            'Today': [moment(),moment()],
-		   	            'Yestoday': [moment().subtract(1, 'days'),moment().subtract(1, 'days')],
+		   	            'Yesterday': [moment().subtract(1, 'days'),moment().subtract(1, 'days')],
 		   	            'Last 7 days': [moment().subtract(6, 'days'), moment()],
 		   	            'This month': [moment().startOf('month'), moment().endOf('month')],
 		   	            'Last month': [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')]

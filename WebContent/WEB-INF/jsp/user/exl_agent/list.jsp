@@ -57,7 +57,7 @@ request.setAttribute("title", "Tables - ExL-Agent");
 												</div>
 												<button onclick="$('#exlagent-date-range-picker').val('');" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
-													clear date picker
+													Clear Date Picker
 												</button>
 												<button onclick="exl_agent_list(1);" class="btn_search btn btn-primary">
 													<i class="align-top"></i>
@@ -93,7 +93,6 @@ request.setAttribute("title", "Tables - ExL-Agent");
 															<i class="ace-icon fa fa-clock-o bigger-110 hidden-480"></i>
 															Reg. Date
 														</th>
-														<th class="hidden-480">Action</th>
 														<th></th>
 													</tr>
 												</thead>
@@ -157,10 +156,6 @@ function exl_agent_html(result) {
 					"<td class='dataValue'>"+exlagent.email+"</td>"+
 					"<td class='dataValue'>"+exlagent.phone+"</td>"+
 					"<td class='dataValue'>"+$.JsUtil.convertDate(exlagent.createtime)+"</td>"+		
-					"<td class='hidden-480'>"+
-						"<button class='btn btn-minier btn-success'>Approve</button>"+
-						"<button class='btn btn-minier btn-danger'>Reject</button>"+
-					"</td>"+
 					"<td>"+
 						"<div class='hidden-sm hidden-xs action-buttons'>"+
 							"<a class='blue' href='#'>"+
@@ -202,7 +197,6 @@ exl_agent_list(1);
 		.DataTable( {
 			bAutoWidth: false,
 			"aoColumns": [
-			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
 			  { "bSortable": false },
