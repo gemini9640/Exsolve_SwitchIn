@@ -16,6 +16,10 @@ public class SIMerchant {
     private String industrytype;
 
     private String companyaddress;
+    
+    private String postcode;
+
+    private String citystate;
 
     private Date expireddatessm;
 
@@ -67,7 +71,7 @@ public class SIMerchant {
     
     private String rejectReason;
 
-    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, Date expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String geographic, String tagline, String credentialno, String credentialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Date createtime, Date lastlogintime, Date lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status, String rejectReason) {
+    public SIMerchant(String id, String companyname, String companyregno, Integer totalstaff, String companytype, String industrytype, String companyaddress, String postcode, String citystate, Date expireddatessm, String username, String password, String usertitle, String realname, Date dob, String companylogo, String geographic, String tagline, String credentialno, String credentialtype, String email, String phone, String officephone, String facebook, String googleplus, String companydiscription, Date createtime, Date lastlogintime, Date lastupdatetime, String lastloginpictype, String lastloginpicid, Integer logintimes, Integer status, String rejectReason) {
         this.id = id;
         this.companyname = companyname;
         this.companyregno = companyregno;
@@ -75,6 +79,8 @@ public class SIMerchant {
         this.companytype = companytype;
         this.industrytype = industrytype;
         this.companyaddress = companyaddress;
+        this.postcode = postcode;
+        this.citystate = citystate;
         this.expireddatessm = expireddatessm;
         this.username = username;
         this.password = password;
@@ -162,6 +168,22 @@ public class SIMerchant {
         this.companyaddress = companyaddress == null ? null : companyaddress.trim();
     }
 
+    public String getPostcode() {
+        return postcode;
+    }
+
+    public void setPostcode(String postcode) {
+        this.postcode = postcode == null ? null : postcode.trim();
+    }
+
+    public String getCitystate() {
+        return citystate;
+    }
+
+    public void setCitystate(String citystate) {
+        this.citystate = citystate == null ? null : citystate.trim();
+    }
+    
     public Date getExpireddatessm() {
         return expireddatessm;
     }
@@ -375,6 +397,8 @@ public class SIMerchant {
         sb.append(", companytype=").append(companytype);
         sb.append(", industrytype=").append(industrytype);
         sb.append(", companyaddress=").append(companyaddress);
+        sb.append(", postcode=").append(postcode);
+        sb.append(", citystate=").append(citystate);
         sb.append(", expireddatessm=").append(expireddatessm);
         sb.append(", username=").append(username);
         sb.append(", password=").append(password);

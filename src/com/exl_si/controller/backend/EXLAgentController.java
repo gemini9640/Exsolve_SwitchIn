@@ -21,6 +21,7 @@ import com.exl_si.controller.vo.EXLAgentReturnMsg;
 import com.exl_si.controller.vo.SIMemberReturnMsg;
 import com.exl_si.db.EXLAgent;
 import com.exl_si.db.EXLClient;
+import com.exl_si.db.Voucher;
 import com.exl_si.enums.EXLAgentEnums.STATUS;
 import com.exl_si.enums.ResponseCode;
 import com.exl_si.service.EXLAgentService;
@@ -136,4 +137,14 @@ public class EXLAgentController extends BaseController {
 		Integer pageSize = Integer.valueOf(pageSizeStr);
         return exlAgentService.selectPageByProperties(properties, pageNum, pageSize);
     }
+	
+	@RequestMapping(value = "ajaxEdit.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse ajaxEdit(EXLAgent agent) {
+		if(agent.getId() == null) 
+			return ServerResponse.createByErrorMsg("agent id not found"); 
+		Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+		agent.setLastupdatetime(lastupdatetime);
+		return exlAgentService.update(agent, null);
+	}
 }

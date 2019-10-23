@@ -82,6 +82,15 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																		</div>
 																	</div>
 																	<div class="form-group">
+																		<label class="col-sm-2 control-label no-padding-right" for="form-field-select-1">VIP</label>
+																		<div class="col-sm-2">
+																			<select name="memberType" class="form-control" id="form-field-select-memberType">
+																				<option value="NORMAL">Normal</option>
+																				<option value="PERMIUM">Premium</option>
+																			</select>
+																		</div>
+																	</div>
+																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-dob">Date of Birth</label>
 																		<div class="col-sm-10">
 																			<div class="input-medium">
@@ -123,7 +132,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	</span>
 																</div>
 															</div>
-															<h4 class="header blue bolder smaller">Social</h4>
+															<h4 class="header blue bolder smaller">Social Media</h4>
 															<div class="form-group">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
 																<div class="col-sm-9">

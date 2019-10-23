@@ -19,6 +19,7 @@ import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.controller.vo.EXLClientReturnMsg;
 import com.exl_si.controller.vo.SIMemberReturnMsg;
+import com.exl_si.db.EXLAgent;
 import com.exl_si.db.EXLClient;
 import com.exl_si.enums.EXLClientEnums;
 import com.exl_si.enums.ResponseCode;
@@ -134,4 +135,14 @@ public class EXLClientController extends BaseController {
 		Integer pageSize = Integer.valueOf(pageSizeStr);
         return exlClientService.selectPageByProperties(properties, pageNum, pageSize);
     }
+	
+	@RequestMapping(value = "ajaxEdit.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse ajaxEdit(EXLClient client) {
+		if(client.getId() == null) 
+			return ServerResponse.createByErrorMsg("client id not found"); 
+		Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+		client.setLastupdatetime(lastupdatetime);
+		return exlClientService.update(client, null);
+	}
 }

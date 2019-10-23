@@ -10,7 +10,6 @@ import com.exl_si.db.SIMember;
 public interface SIMemberMapper {
     int deleteByPrimaryKey(String id);
 
-    int insert(SIMember record);
 
     int insertSelective(SIMember record);
 
@@ -18,7 +17,6 @@ public interface SIMemberMapper {
 
     int updateByPrimaryKeySelective(SIMember record);
 
-    int updateByPrimaryKey(SIMember record);
     
     List<SIMember> selectAll();
     

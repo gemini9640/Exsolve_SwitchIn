@@ -176,12 +176,12 @@ request.setAttribute("title", "Tables - Event");
 																</div>
 															</div>
 															<div class="form-group">
-																<label class="col-sm-2 control-label no-padding-right" for="form-field-twitter">Twitter</label>
+																<label class="col-sm-2 control-label no-padding-right" for="form-field-twitter">Instagram</label>
 																<div class="col-sm-10">
 																	<span class="input-icon">
 																		<!--name = twitter  -->
 																		<input name="twitter" type="text" value="${event.twitter}" id="form-field-twitter" />
-																		<i class="ace-icon fa fa-twitter light-blue"></i>
+																		<i class="ace-icon fa fa-instagram red"></i>
 																	</span>
 																</div>
 															</div>

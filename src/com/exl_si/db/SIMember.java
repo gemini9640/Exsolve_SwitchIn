@@ -3,9 +3,9 @@ package com.exl_si.db;
 import java.util.Date;
 
 public class SIMember {
-    private String username;
-
     private String id;
+    
+    private String username;
 
     private String password;
 
@@ -46,12 +46,16 @@ public class SIMember {
     private Integer logintimes;
 
     private Integer status;
-
+    
+    private String memberType;
+    
+    private Integer isSubscribe;
+    
     private String remark;
 
-    public SIMember(String username, String id, String password, String realname, String sex, Integer age, Date dob, String occupation, String interestecategory, String phone, String email, String facebook, String googleplus, String usertype, String agentid, String profilepicture, Date createtime, Date lastlogintime, Date lastupdatetime, Date updatetime, Integer logintimes, Integer status, String remark) {
-        this.username = username;
-        this.id = id;
+    public SIMember(String id, String username, String password, String realname, String sex, Integer age, Date dob, String occupation, String interestecategory, String phone, String email, String facebook, String googleplus, String usertype, String agentid, String profilepicture, Date createtime, Date lastlogintime, Date lastupdatetime, Date updatetime, Integer logintimes, Integer status, String memberType, Integer isSubscribe, String remark) {
+    	this.id = id;
+    	this.username = username;
         this.password = password;
         this.realname = realname;
         this.sex = sex;
@@ -72,7 +76,17 @@ public class SIMember {
         this.updatetime = updatetime;
         this.logintimes = logintimes;
         this.status = status;
+        this.memberType = memberType;
+        this.isSubscribe = isSubscribe;
         this.remark = remark;
+    }
+
+    public String getId() {
+        return id;
+    }
+
+    public void setId(String id) {
+        this.id = id == null ? null : id.trim();
     }
 
     public SIMember() {
@@ -85,14 +99,6 @@ public class SIMember {
 
     public void setUsername(String username) {
         this.username = username == null ? null : username.trim();
-    }
-
-    public String getId() {
-        return id;
-    }
-
-    public void setId(String id) {
-        this.id = id == null ? null : id.trim();
     }
 
     public String getPassword() {
@@ -254,6 +260,22 @@ public class SIMember {
     public void setStatus(Integer status) {
         this.status = status;
     }
+    
+    public String getMemberType() {
+        return memberType;
+    }
+
+    public void setMemberType(String memberType) {
+        this.memberType = memberType == null ? null : memberType.trim();
+    }
+
+    public Integer getIsSubscribe() {
+        return isSubscribe;
+    }
+
+    public void setIsSubscribe(Integer isSubscribe) {
+        this.isSubscribe = isSubscribe;
+    }
 
     public String getRemark() {
         return remark;
@@ -291,6 +313,8 @@ public class SIMember {
         sb.append(", updatetime=").append(updatetime);
         sb.append(", logintimes=").append(logintimes);
         sb.append(", status=").append(status);
+        sb.append(", memberType=").append(memberType);
+        sb.append(", isSubscribe=").append(isSubscribe);
         sb.append(", remark=").append(remark);
         sb.append("]");
         return sb.toString();

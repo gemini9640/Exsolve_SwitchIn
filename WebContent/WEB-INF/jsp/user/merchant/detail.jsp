@@ -213,6 +213,18 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																		</div>
 																	</div>
 																	<div class="form-group">
+													                  <label class="col-sm-2 control-label no-padding-right" for="form-field-citystate">City/State</label>
+													                  <div class="col-sm-10">
+													                   <input name="citystate" class="col-xs-12 col-sm-10" type="text" id="form-field-citystate" placeholder="" value="${merchant.citystate}" />
+													                  </div>
+													                 </div>
+													                 <div class="form-group">
+													                  <label class="col-sm-2 control-label no-padding-right" for="form-field-postcode">Postcode</label>
+													                  <div class="col-sm-10">
+													                   <input name="postcode" class="col-xs-12 col-sm-10" type="text" id="form-field-postcode" placeholder="" value="${merchant.postcode}" />
+													                  </div>
+													                 </div>
+																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-date-expireddatessm">SSM Expired Date</label>
 																		<div class="col-sm-10">
 																			<div class="input-medium">
@@ -316,7 +328,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	</span>
 																</div>
 															</div>
-															<h4 class="header blue bolder smaller">Social</h4>
+															<h4 class="header blue bolder smaller">Social Media</h4>
 															<div class="form-group">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-facebook">Facebook</label>
 																<div class="col-sm-9">
@@ -335,15 +347,15 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <!-- 																	</span> -->
 <!-- 																</div> -->
 <!-- 															</div> -->
-<!-- 															<div class="form-group"> -->
-<!-- 																<label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">Instagram</label> -->
-<!-- 																<div class="col-sm-9"> -->
-<!-- 																	<span class="input-icon"> -->
-<!-- 																		<input type="text" value="" id="form-field-gplus" /> -->
-<!-- 																		<i class="ace-icon fa fa-instagram red"></i> -->
-<!-- 																	</span> -->
-<!-- 																</div> -->
-<!-- 															</div> -->
+															<div class="form-group">
+																<label class="col-sm-3 control-label no-padding-right" for="form-field-gplus">Instagram</label>
+																<div class="col-sm-9">
+																	<span class="input-icon">
+																		<input name="googleplus" type="text" value="${merchant.googleplus}" id="form-field-gplus" />
+																		<i class="ace-icon fa fa-instagram red"></i>
+																	</span>
+																</div>
+															</div>
 
 
 <!-- 															pic -->
@@ -428,7 +440,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 															<div class="form-group">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-11">Description</label>
 																<div class="col-sm-9">
-																<textarea id="form-field-11" class="autosize-transition form-control"  name="companydiscription">${merchant.companydiscription}</textarea>
+																<textarea id="form-field-11" maxlength="350" class="limited autosize-transition form-control"  name="companydiscription">${merchant.companydiscription}</textarea>
 																</div>
 															</div>
 															<!-- 

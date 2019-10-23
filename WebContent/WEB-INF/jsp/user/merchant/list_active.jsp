@@ -147,7 +147,7 @@ function si_merchant_html(result) {
 		var tr = "";
 		for(var key in data) {
 			var merchant = data[key];
-			tr += "<tr>"+
+			tr += "<tr id='tr_"+merchant.id+"'>"+
 					"<td class='center'>"+
 						"<label class='pos-rel'>"+
 							"<input type='checkbox' class='ace' />"+
@@ -172,7 +172,7 @@ function si_merchant_html(result) {
 							"<a class='green' target='_blank' href='${base}manage/merchant/detail.do?merchantId="+merchant.id+"'>"+
 								"<i class='ace-icon fa fa-pencil bigger-130'></i>"+
 							"</a>"+
-							"<a class='red' href='#'>"+
+							"<a class='red' onclick='deleteMerchant(\""+merchant.id+"\");' href='#'>"+
 								"<i class='ace-icon fa fa-trash-o bigger-130'></i>"+
 							"</a>"+
 						"</div>"+
@@ -185,6 +185,19 @@ function si_merchant_html(result) {
 	}
 }
 si_merchant_list(1);
+function deleteMerchant(id) {
+	$.post("${base}manage/merchant/ajaxEdit.do", {
+		id : id,
+		status : 3
+	},function(result) {
+		if(result.status == 0) {
+			alert("merchant deleted.");
+			$("#tr_"+id).remove();
+		} else {
+			alert(result.msg);
+		}
+	});
+}
 </script>
 
 

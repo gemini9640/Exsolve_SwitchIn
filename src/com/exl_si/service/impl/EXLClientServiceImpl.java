@@ -103,14 +103,17 @@ public class EXLClientServiceImpl implements EXLClientService{
 	
 	public ServerResponse<EXLClient> update(EXLClient client, MultipartHttpServletRequest request) {
 		if(exlClientMapper.updateByPrimaryKeySelective(client)>0) {
-			ServerResponse uploadResp = uploadProfile(request, client.getId(), FileType.PROFILE.getDesc());
-			if(uploadResp.isSuccess()) {
-				EXLClientFile profilePic = (EXLClientFile) uploadResp.getData();
-				client.setProfilepicture(profilePic.getPath());
-				exlClientMapper.updateByPrimaryKeySelective(client);
-				return ServerResponse.createBySuccess(client);
-			} else 
-				return ServerResponse.createBySuccess(uploadResp.getMsg(), client);
+			if(request != null) {
+				ServerResponse uploadResp = uploadProfile(request, client.getId(), FileType.PROFILE.getDesc());
+				if(uploadResp.isSuccess()) {
+					EXLClientFile profilePic = (EXLClientFile) uploadResp.getData();
+					client.setProfilepicture(profilePic.getPath());
+					exlClientMapper.updateByPrimaryKeySelective(client);
+					return ServerResponse.createBySuccess(client);
+				} else 
+					return ServerResponse.createBySuccess(uploadResp.getMsg(), client);
+				}
+			return ServerResponse.createBySuccess("update success", client);
 		} else 
 			return ServerResponse.createByServerError("update fail");
 	}

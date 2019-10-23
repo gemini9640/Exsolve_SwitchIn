@@ -3,8 +3,8 @@
 <mapper namespace="com.exl_si.mapper.SIMemberMapper">
   <resultMap id="BaseResultMap" type="com.exl_si.db.SIMember">
     <constructor>
-      <idArg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
-      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="realname" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="sex" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -25,13 +25,15 @@
       <arg column="updateTime" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="loginTimes" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="status" javaType="java.lang.Integer" jdbcType="INTEGER" />
+      <arg column="member_type" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="is_subscribe" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="remark" javaType="java.lang.String" jdbcType="VARCHAR" />
     </constructor>
   </resultMap>
   <sql id="Base_Column_List">
-    username, id, password, realname, sex, age, dob, occupation, interesteCategory, phone, 
+    id, username, password, realname, sex, age, dob, occupation, interesteCategory, phone, 
     email, facebook, googlePlus, userType, agentId, profilePicture, createTime, lastLoginTime, 
-    lastUpdateTime, updateTime, loginTimes, status, remark
+    lastUpdateTime, updateTime, loginTimes, status, member_type, is_subscribe, remark
   </sql>
   <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
     select 
@@ -43,24 +45,6 @@
     delete from si_member
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.exl_si.db.SIMember">
-    insert into si_member (username, id, password, 
-      realname, sex, age, 
-      dob, occupation, interesteCategory, 
-      phone, email, facebook, 
-      googlePlus, userType, agentId, 
-      profilePicture, createTime, lastLoginTime, 
-      lastUpdateTime, updateTime, loginTimes, 
-      status, remark)
-    values (#{username,jdbcType=VARCHAR}, #{id,jdbcType=VARCHAR}, #{password,jdbcType=VARCHAR}, 
-      #{realname,jdbcType=VARCHAR}, #{sex,jdbcType=VARCHAR}, #{age,jdbcType=INTEGER}, 
-      #{dob,jdbcType=DATE}, #{occupation,jdbcType=VARCHAR}, #{interestecategory,jdbcType=VARCHAR}, 
-      #{phone,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, 
-      #{googleplus,jdbcType=VARCHAR}, #{usertype,jdbcType=VARCHAR}, #{agentid,jdbcType=VARCHAR}, 
-      #{profilepicture,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastlogintime,jdbcType=TIMESTAMP}, 
-      #{lastupdatetime,jdbcType=TIMESTAMP}, #{updatetime,jdbcType=TIMESTAMP}, #{logintimes,jdbcType=INTEGER}, 
-      #{status,jdbcType=INTEGER}, #{remark,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.SIMember">
     insert into si_member
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -129,6 +113,12 @@
       </if>
       <if test="status != null">
         status,
+      </if>
+      <if test="memberType != null">
+        member_type,
+      </if>
+      <if test="isSubscribe != null">
+        is_subscribe,
       </if>
       <if test="remark != null">
         remark,
@@ -201,6 +191,12 @@
       <if test="status != null">
         #{status,jdbcType=INTEGER},
       </if>
+      <if test="memberType != null">
+        #{memberType,jdbcType=VARCHAR},
+      </if>
+      <if test="isSubscribe != null">
+        #{isSubscribe,jdbcType=INTEGER},
+      </if>
       <if test="remark != null">
         #{remark,jdbcType=VARCHAR},
       </if>
@@ -209,9 +205,6 @@
   <update id="updateByPrimaryKeySelective" parameterType="com.exl_si.db.SIMember">
     update si_member
     <set>
-      <if test="id != null">
-        username = #{username,jdbcType=VARCHAR},
-      </if>
       <if test="password != null">
         password = #{password,jdbcType=VARCHAR},
       </if>
@@ -272,36 +265,16 @@
       <if test="status != null">
         status = #{status,jdbcType=INTEGER},
       </if>
+      <if test="memberType != null">
+        member_type = #{memberType,jdbcType=VARCHAR},
+      </if>
+      <if test="isSubscribe != null">
+        is_subscribe = #{isSubscribe,jdbcType=INTEGER},
+      </if>
       <if test="remark != null">
         remark = #{remark,jdbcType=VARCHAR},
       </if>
     </set>
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMember">
-    update si_member
-    set username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      realname = #{realname,jdbcType=VARCHAR},
-      sex = #{sex,jdbcType=VARCHAR},
-      age = #{age,jdbcType=INTEGER},
-      dob = #{dob,jdbcType=DATE},
-      occupation = #{occupation,jdbcType=VARCHAR},
-      interesteCategory = #{interestecategory,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      facebook = #{facebook,jdbcType=VARCHAR},
-      googlePlus = #{googleplus,jdbcType=VARCHAR},
-      userType = #{usertype,jdbcType=VARCHAR},
-      agentId = #{agentid,jdbcType=VARCHAR},
-      profilePicture = #{profilepicture,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=TIMESTAMP},
-      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
-      lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
-      updateTime = #{updatetime,jdbcType=TIMESTAMP},
-      loginTimes = #{logintimes,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      remark = #{remark,jdbcType=VARCHAR}
     where id = #{id,jdbcType=VARCHAR}
   </update>
   

@@ -5,7 +5,8 @@ public final class EXLAgentEnums {
 	public enum STATUS {
 		INIT(0,"init"),
 		ACTIVE(1,"active"),
-	    EXPIRE(2,"expire");
+	    EXPIRE(2,"expire"),
+		DELETE(3,"delete");
 		
 	    private int code;
 	    private String desc;

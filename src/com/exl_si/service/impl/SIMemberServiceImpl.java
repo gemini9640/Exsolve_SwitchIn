@@ -13,6 +13,7 @@ import com.exl_si.db.SIMember;
 import com.exl_si.db.SIMemberFile;
 import com.exl_si.db.vo.SIMemberWithAssociated;
 import com.exl_si.db.vo.SubFile;
+import com.exl_si.enums.MemberEnums;
 import com.exl_si.enums.MemberEnums.FileType;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.exception.UploadException;
@@ -90,6 +91,7 @@ public class SIMemberServiceImpl implements SIMemberService{
 			return ServerResponse.createByServerError("member is already exist.");
 		SequenceNoHelper.setMemberSequenceId(member, sequenceNoMapper);
 		member.setPassword(ServiceHelper.encriptPassword(member.getUsername(), member.getPassword()));
+		member.setMemberType(MemberEnums.VIP.NORMAL.getCode());
 		if(memberMapper.insertSelective(member)>0) {
 			SequenceNoHelper.updateMemberSequenceNo(sequenceNoMapper);
 			if(request != null) {
@@ -106,11 +108,14 @@ public class SIMemberServiceImpl implements SIMemberService{
 	
 	public ServerResponse<SIMemberWithAssociated> update(SIMember member, MultipartHttpServletRequest request) {
 		if(memberMapper.updateByPrimaryKeySelective(member)>0) {
-			ServerResponse uploadResp = uploadProfile(request, member.getId(), FileType.PROFILE.getDesc());
-			if(uploadResp.isSuccess())
-				return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member, (SIMemberFile) uploadResp.getData()));
-			else 
-				return ServerResponse.createBySuccess(uploadResp.getMsg(), SIMemberHelper.assembleSIMemberWithAssociated(member, null));
+			if(request != null) {
+				ServerResponse uploadResp = uploadProfile(request, member.getId(), FileType.PROFILE.getDesc());
+				if(uploadResp.isSuccess())
+					return ServerResponse.createBySuccess(SIMemberHelper.assembleSIMemberWithAssociated(member, (SIMemberFile) uploadResp.getData()));
+				else 
+					return ServerResponse.createBySuccess(uploadResp.getMsg(), SIMemberHelper.assembleSIMemberWithAssociated(member, null));
+			}
+			return ServerResponse.createBySuccess("update success", SIMemberHelper.assembleSIMemberWithAssociated(member, null));
 		} else 
 			return ServerResponse.createByServerError("update fail");
 	}

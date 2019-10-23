@@ -10,7 +10,6 @@ import com.exl_si.db.SIMerchant;
 public interface SIMerchantMapper {
     int deleteByPrimaryKey(String id);
 
-    int insert(SIMerchant record);
 
     int insertSelective(SIMerchant record);
 
@@ -18,7 +17,6 @@ public interface SIMerchantMapper {
 
     int updateByPrimaryKeySelective(SIMerchant record);
 
-    int updateByPrimaryKey(SIMerchant record);
     
     List<SIMerchant> selectAll();
     

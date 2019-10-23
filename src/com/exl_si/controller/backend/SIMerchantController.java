@@ -25,6 +25,7 @@ import com.exl_si.controller.vo.SIMemberReturnMsg;
 import com.exl_si.controller.vo.SIMerchantReturnMsg;
 import com.exl_si.controller.vo.SIMerchantWithPICParam;
 import com.exl_si.db.Event;
+import com.exl_si.db.SIMember;
 import com.exl_si.db.SIMerchant;
 import com.exl_si.db.SIMerchantDOC;
 import com.exl_si.db.SIMerchantPIC;

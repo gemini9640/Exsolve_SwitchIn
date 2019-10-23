@@ -3,13 +3,15 @@
 <mapper namespace="com.exl_si.mapper.SIMerchantMapper">
 	<resultMap id="BaseResultMap" type="com.exl_si.db.SIMerchant">
     <constructor>
-      <arg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <idArg column="id" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="companyName" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="companyRegNo" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="totalStaff" javaType="java.lang.Integer" jdbcType="INTEGER" />
       <arg column="companyType" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="industryType" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="companyAddress" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="postcode" javaType="java.lang.String" jdbcType="VARCHAR" />
+      <arg column="citystate" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="expiredDateSSM" javaType="java.util.Date" jdbcType="TIMESTAMP" />
       <arg column="username" javaType="java.lang.String" jdbcType="VARCHAR" />
       <arg column="password" javaType="java.lang.String" jdbcType="VARCHAR" />
@@ -40,7 +42,7 @@
   <sql id="Base_Column_List">
     id, companyName, companyRegNo, 
       totalStaff, companyType, industryType, 
-      companyAddress, expiredDateSSM, username, 
+      companyAddress, postcode, citystate, expiredDateSSM, username, 
       password, userTitle, realName, 
       dob, companyLogo, geographic, 
       tagline, credentialNo, 
@@ -60,30 +62,6 @@
     delete from si_merchant
     where id = #{id,jdbcType=VARCHAR}
   </delete>
-  <insert id="insert" parameterType="com.exl_si.db.SIMerchant">
-    insert into si_merchant (id, companyName, companyRegNo, 
-      totalStaff, companyType, industryType, 
-      companyAddress, expiredDateSSM, username, 
-      password, userTitle, realName, 
-      dob, companyLogo, geographic, 
-      tagline, credentialNo, 
-      credentialType, email, phone, 
-      officePhone, facebook, googlePlus, 
-      companyDiscription, createTime, lastLoginTime, 
-      lastUpdateTime, lastLoginPICType, lastLoginPICId, 
-      loginTimes, status, reject_reason)
-    values (#{id,jdbcType=VARCHAR}, #{companyname,jdbcType=VARCHAR}, #{companyregno,jdbcType=VARCHAR}, 
-      #{totalstaff,jdbcType=INTEGER}, #{companytype,jdbcType=VARCHAR}, #{industrytype,jdbcType=VARCHAR}, 
-      #{companyaddress,jdbcType=VARCHAR}, #{expireddatessm,jdbcType=TIMESTAMP}, #{username,jdbcType=VARCHAR}, 
-      #{password,jdbcType=VARCHAR}, #{usertitle,jdbcType=VARCHAR}, #{realname,jdbcType=VARCHAR}, 
-      #{dob,jdbcType=DATE}, #{companylogo,jdbcType=VARCHAR}, #{geographic,jdbcType=VARCHAR}, 
-      #{tagline,jdbcType=VARCHAR}, #{credentialno,jdbcType=VARCHAR}, 
-      #{credentialtype,jdbcType=VARCHAR}, #{email,jdbcType=VARCHAR}, #{phone,jdbcType=VARCHAR}, 
-      #{officephone,jdbcType=VARCHAR}, #{facebook,jdbcType=VARCHAR}, #{googleplus,jdbcType=VARCHAR}, 
-      #{companydiscription,jdbcType=VARCHAR}, #{createtime,jdbcType=TIMESTAMP}, #{lastlogintime,jdbcType=TIMESTAMP}, 
-      #{lastupdatetime,jdbcType=TIMESTAMP}, #{lastloginpictype,jdbcType=VARCHAR}, #{lastloginpicid,jdbcType=VARCHAR}, 
-      #{logintimes,jdbcType=INTEGER}, #{status,jdbcType=INTEGER}, #{rejectReason,jdbcType=VARCHAR})
-  </insert>
   <insert id="insertSelective" parameterType="com.exl_si.db.SIMerchant">
     insert into si_merchant
     <trim prefix="(" suffix=")" suffixOverrides=",">
@@ -107,6 +85,12 @@
       </if>
       <if test="companyaddress != null">
         companyAddress,
+      </if>
+      <if test="postcode != null">
+        postcode,
+      </if>
+      <if test="citystate != null">
+        citystate,
       </if>
       <if test="expireddatessm != null">
         expiredDateSSM,
@@ -206,6 +190,12 @@
       <if test="companyaddress != null">
         #{companyaddress,jdbcType=VARCHAR},
       </if>
+      <if test="postcode != null">
+        #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="citystate != null">
+        #{citystate,jdbcType=VARCHAR},
+      </if>
       <if test="expireddatessm != null">
         #{expireddatessm,jdbcType=TIMESTAMP},
       </if>
@@ -304,6 +294,12 @@
       <if test="companyaddress != null">
         companyAddress = #{companyaddress,jdbcType=VARCHAR},
       </if>
+      <if test="postcode != null">
+        postcode = #{postcode,jdbcType=VARCHAR},
+      </if>
+      <if test="citystate != null">
+        citystate = #{citystate,jdbcType=VARCHAR},
+      </if>
       <if test="expireddatessm != null">
         expiredDateSSM = #{expireddatessm,jdbcType=TIMESTAMP},
       </if>
@@ -382,42 +378,6 @@
     </set>
     where id = #{id,jdbcType=VARCHAR}
   </update>
-  <update id="updateByPrimaryKey" parameterType="com.exl_si.db.SIMerchant">
-    update si_merchant
-    set companyName = #{companyname,jdbcType=VARCHAR},
-      companyRegNo = #{companyregno,jdbcType=VARCHAR},
-      totalStaff = #{totalstaff,jdbcType=INTEGER},
-      companyType = #{companytype,jdbcType=VARCHAR},
-      industryType = #{industrytype,jdbcType=VARCHAR},
-      companyAddress = #{companyaddress,jdbcType=VARCHAR},
-      expiredDateSSM = #{expireddatessm,jdbcType=TIMESTAMP},
-      username = #{username,jdbcType=VARCHAR},
-      password = #{password,jdbcType=VARCHAR},
-      userTitle = #{usertitle,jdbcType=VARCHAR},
-      realName = #{realname,jdbcType=VARCHAR},
-      dob = #{dob,jdbcType=DATE},
-      companyLogo = #{companylogo,jdbcType=VARCHAR},
-      geographic = #{geographic,jdbcType=VARCHAR},
-      tagline = #{tagline,jdbcType=VARCHAR},
-      credentialNo = #{credentialno,jdbcType=VARCHAR},
-      credentialType = #{credentialType,jdbcType=VARCHAR},
-      email = #{email,jdbcType=VARCHAR},
-      phone = #{phone,jdbcType=VARCHAR},
-      officePhone = #{officephone,jdbcType=VARCHAR},
-      facebook = #{facebook,jdbcType=VARCHAR},
-      googlePlus = #{googleplus,jdbcType=VARCHAR},
-      companyDiscription = #{companydiscription,jdbcType=VARCHAR},
-      createTime = #{createtime,jdbcType=TIMESTAMP},
-      lastLoginTime = #{lastlogintime,jdbcType=TIMESTAMP},
-      lastUpdateTime = #{lastupdatetime,jdbcType=TIMESTAMP},
-      lastLoginPICType = #{lastloginpictype,jdbcType=VARCHAR},
-      lastLoginPICId = #{lastloginpicid,jdbcType=VARCHAR},
-      loginTimes = #{logintimes,jdbcType=INTEGER},
-      status = #{status,jdbcType=INTEGER},
-      reject_reason = #{rejectReason,jdbcType=VARCHAR}
-    where id = #{id,jdbcType=VARCHAR}
-  </update>
-  
   
   <!-- created -->
   <select id="selectAll" resultMap="BaseResultMap">

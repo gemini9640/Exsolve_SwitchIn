@@ -141,7 +141,7 @@ function exl_agent_html(result) {
 		var tr = "";
 		for(var key in data) {
 			var exlagent = data[key];
-			tr += "<tr>"+
+			tr += "<tr id='tr_"+exlagent.id+"'>"+
 					"<td class='center'>"+
 						"<label class='pos-rel'>"+
 							"<input type='checkbox' class='ace' />"+
@@ -164,7 +164,7 @@ function exl_agent_html(result) {
 							"<a class='green' target='_blank' href='${base}manage/exlagent/detail.do?id="+exlagent.id+"'>"+
 								"<i class='ace-icon fa fa-pencil bigger-130'></i>"+
 							"</a>"+
-							"<a class='red' href='#'>"+
+							"<a class='red' onclick='deleteAgent(\""+exlagent.id+"\");' href='#'>"+
 								"<i class='ace-icon fa fa-trash-o bigger-130'></i>"+
 							"</a>"+
 						"</div>"+
@@ -177,6 +177,20 @@ function exl_agent_html(result) {
 	}
 }
 exl_agent_list(1);
+
+function deleteAgent(id) {
+	$.post("${base}manage/exlagent/ajaxEdit.do", {
+		id : id,
+		status : 3
+	},function(result) {
+		if(result.status == 0) {
+			alert("agent deleted.");
+			$("#tr_"+id).remove();
+		} else {
+			alert(result.msg);
+		}
+	});
+}
 </script>
 
 

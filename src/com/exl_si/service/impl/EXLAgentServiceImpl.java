@@ -103,14 +103,17 @@ public class EXLAgentServiceImpl implements EXLAgentService{
 
 	public ServerResponse update(EXLAgent agent, MultipartHttpServletRequest request) {
 		if(exlAgentMapper.updateByPrimaryKeySelective(agent)>0) {
-			ServerResponse uploadResp = uploadProfile(request, agent.getId(), FileType.PROFILE.getDesc());
-			if(uploadResp.isSuccess()) {
-				EXLAgentFile profilePic = (EXLAgentFile) uploadResp.getData();
-				agent.setProfilepicture(profilePic.getPath());
-				exlAgentMapper.updateByPrimaryKeySelective(agent);
-				return ServerResponse.createBySuccess(agent);
-			} else 
-				return ServerResponse.createBySuccess(uploadResp.getMsg(), agent);
+			if(request != null) {
+				ServerResponse uploadResp = uploadProfile(request, agent.getId(), FileType.PROFILE.getDesc());
+				if(uploadResp.isSuccess()) {
+					EXLAgentFile profilePic = (EXLAgentFile) uploadResp.getData();
+					agent.setProfilepicture(profilePic.getPath());
+					exlAgentMapper.updateByPrimaryKeySelective(agent);
+					return ServerResponse.createBySuccess(agent);
+				} else 
+					return ServerResponse.createBySuccess(uploadResp.getMsg(), agent);
+			}
+			return ServerResponse.createBySuccess("update success");
 		} else 
 			return ServerResponse.createByServerError("update fail");
 	}

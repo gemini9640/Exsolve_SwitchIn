@@ -5,6 +5,7 @@ import java.util.Date;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
+import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -18,6 +19,8 @@ import com.exl_si.utils.StringUtils;
 
 @Controller
 @RequestMapping("/member")
+//@CrossOrigin(origins = "dev.switch-in.com.my,mobile.switch-in.com.my", maxAge = 3600)
+@CrossOrigin(origins = "*", maxAge = 3600)
 public class MemberController {
 	@Autowired
 	private SIMemberService memberService;
@@ -43,6 +46,8 @@ public class MemberController {
 			return ServerResponse.createByErrorMsg("email cannot be empty");
 		if(StringUtils.isEmpty(phone))
 			return ServerResponse.createByErrorMsg("password cannot be empty");
+		if(isSubscribe == null)
+			isSubscribe = 1;
 		SIMember member = new SIMember();
 		member.setUsername(username);
 		member.setPassword(password);

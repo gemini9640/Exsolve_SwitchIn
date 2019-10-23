@@ -26,6 +26,7 @@ import com.exl_si.common.Constants;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.controller.base.BaseController;
 import com.exl_si.controller.vo.SIMemberReturnMsg;
+import com.exl_si.db.EXLClient;
 import com.exl_si.db.SIMember;
 import com.exl_si.db.vo.SubFile;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
@@ -172,5 +173,15 @@ public class SIMemberController extends BaseController {
 			e.printStackTrace();
 			return ServerResponse.createByErrorMsg(e.getMessage());
 		} 
+	}
+	
+	@RequestMapping(value = "ajaxEdit.do", method = RequestMethod.POST)
+	@ResponseBody
+	public ServerResponse ajaxEdit(SIMember member) {
+		if(member.getId() == null) 
+			return ServerResponse.createByErrorMsg("client id not found"); 
+		Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+		member.setLastupdatetime(lastupdatetime);
+		return memberService.update(member, null);
 	}
 }

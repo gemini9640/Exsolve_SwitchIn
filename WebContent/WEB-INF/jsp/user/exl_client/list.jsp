@@ -143,7 +143,7 @@ function exl_client_html(result) {
 		var tr = "";
 		for(var key in data) {
 			var exlclient = data[key];
-			tr += "<tr>"+
+			tr += "<tr id='tr_"+exlclient.id+"'>"+
 					"<td class='center'>"+
 						"<label class='pos-rel'>"+
 							"<input type='checkbox' class='ace' />"+
@@ -167,7 +167,7 @@ function exl_client_html(result) {
 							"<a class='green' target='_blank' href='${base}manage/exlclient/detail.do?id="+exlclient.id+"'>"+
 								"<i class='ace-icon fa fa-pencil bigger-130'></i>"+
 							"</a>"+
-							"<a class='red' href='#'>"+
+							"<a class='red' onclick='deleteClient(\""+exlclient.id+"\");' href='#'>"+
 								"<i class='ace-icon fa fa-trash-o bigger-130'></i>"+
 							"</a>"+
 						"</div>"+
@@ -180,6 +180,19 @@ function exl_client_html(result) {
 	}
 }
 exl_client_list(1);
+function deleteClient(id) {
+	$.post("${base}manage/exlclient/ajaxEdit.do", {
+		id : id,
+		status : 3
+	},function(result) {
+		if(result.status == 0) {
+			alert("client deleted.");
+			$("#tr_"+id).remove();
+		} else {
+			alert(result.msg);
+		}
+	});
+}
 </script>
 
 

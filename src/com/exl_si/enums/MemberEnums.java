@@ -27,7 +27,8 @@ public final class MemberEnums {
 	public enum STATUS {
 		INIT(0,"init"),
 		ACTIVE(1,"active"),
-	    EXPIRE(2,"expire");
+	    EXPIRE(2,"expire"),
+		DELETE(3,"delete");
 		
 	    private int code;
 	    private String desc;
@@ -47,18 +48,18 @@ public final class MemberEnums {
 	}
 	
 	public enum VIP {
-		NORMAL(0, "Normal"),
-		PREMIUM(1, "Premium");
+		NORMAL("NORMAL","Normal"),
+		PREMIUM("PREMIUM","Premium");
 		
-		private int code;
+		private String code;
 	    private String desc;
 
-	    private VIP(int code, String desc) {
+	    private VIP(String code, String desc) {
 	        this.code = code;
 	        this.desc = desc;
 	    }
 
-	    public int getCode() {
+	    public String getCode() {
 	        return code;
 	    }
 
