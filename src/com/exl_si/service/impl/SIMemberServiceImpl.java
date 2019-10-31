@@ -20,8 +20,11 @@ import com.exl_si.exception.UploadException;
 import com.exl_si.helper.SIMemberHelper;
 import com.exl_si.helper.SequenceNoHelper;
 import com.exl_si.helper.ServiceHelper;
+import com.exl_si.mapper.EXLAgentMapper;
+import com.exl_si.mapper.EXLClientMapper;
 import com.exl_si.mapper.SIMemberFileMapper;
 import com.exl_si.mapper.SIMemberMapper;
+import com.exl_si.mapper.SIMerchantMapper;
 import com.exl_si.mapper.SequenceNoMapper;
 import com.exl_si.service.SIMemberService;
 import com.exl_si.utils.DeleteFileUtil;
@@ -33,6 +36,12 @@ import com.github.pagehelper.PageInfo;
 public class SIMemberServiceImpl implements SIMemberService{
 	@Autowired
 	private SIMemberMapper memberMapper;
+	@Autowired
+	private EXLAgentMapper agentMapper;
+	@Autowired
+	private EXLClientMapper clientMapper;
+	@Autowired
+	private SIMerchantMapper merchantMapper;
 	@Autowired
 	private SIMemberFileMapper memberFileMapper;
 	@Autowired
@@ -87,7 +96,10 @@ public class SIMemberServiceImpl implements SIMemberService{
 	} 
 	
 	public ServerResponse<SIMemberWithAssociated> save(SIMember member, MultipartHttpServletRequest request) {
-		if(memberMapper.selectByUsername(member.getUsername()) != null)
+		if(memberMapper.selectByUsername(member.getUsername()) != null ||
+		   agentMapper.selectByUsername(member.getUsername()) != null ||
+		   clientMapper.selectByUsername(member.getUsername()) != null || 
+		   merchantMapper.selectByUsername(member.getUsername()) != null)
 			return ServerResponse.createByServerError("member is already exist.");
 		SequenceNoHelper.setMemberSequenceId(member, sequenceNoMapper);
 		member.setPassword(ServiceHelper.encriptPassword(member.getUsername(), member.getPassword()));

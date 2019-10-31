@@ -12,6 +12,7 @@ import com.exl_si.db.vo.SIMemberWithAssociated;
 import com.github.pagehelper.PageInfo;
 
 public interface SIMemberService {
+	
 	public ServerResponse<SIMemberWithAssociated> query(String id);
 	
 	public ServerResponse<SIMemberWithAssociated> login(String username, String password);

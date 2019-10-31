@@ -63,11 +63,13 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																</div>
 																<div class="vspace-12-sm"></div>
 																<div class="col-xs-12 col-sm-10">
-																	<div class="form-group "> <!--error class has-error -->
+																	<div class="form-group <c:if test="${!empty returnMsg.companyname}">has-error</c:if>">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-companyname">Company Name</label>
 																		<div class="col-sm-10">
 																			<input name="companyname" class="col-xs-12 col-sm-10" type="text" id="form-field-companyname" placeholder="" value="" />
-<!-- 																			<div class="help-block col-xs-12 col-sm-reset inline">* Please Enter Company Name.</div> -->
+																			<c:if test="${!empty returnMsg.companyname}">
+																				<div class="help-block col-xs-12 col-sm-reset inline red">* ${returnMsg.companyname}.</div>
+																			</c:if>
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -190,16 +192,22 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																			</div>
 																		</div>
 																	</div>
-																	<div class="form-group">
+																	<div class="form-group <c:if test="${!empty returnMsg.username}">has-error</c:if>">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
 																		<div class="col-sm-10">
 																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="" />
+																			<c:if test="${!empty returnMsg.username}">
+																				<div class="help-block col-xs-12 col-sm-reset inline red">* ${returnMsg.username}.</div>
+																			</c:if>
 																		</div>
 																	</div>
-																	<div class="form-group">
+																	<div class="form-group  <c:if test="${!empty returnMsg.password}">has-error</c:if>">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-password">Password</label>
 																		<div class="col-sm-10">
 																			<input name="password" class="col-xs-12 col-sm-10" type="text" id="form-field-password" placeholder="" value="" />
+																			<c:if test="${!empty returnMsg.password}">
+																				<div class="help-block col-xs-12 col-sm-reset inline red">* ${returnMsg.password}.</div>
+																			</c:if>
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -264,13 +272,16 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																</div>
 															</div>
 															<h4 class="header blue bolder smaller">Contact</h4>
-															<div class="form-group">
+															<div class="form-group  <c:if test="${!empty returnMsg.email}">has-error</c:if>">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
 																		<input name="email" type="email" id="form-field-email" value="" />
 																		<i class="ace-icon fa fa-envelope"></i>
 																	</span>
+																	<c:if test="${!empty returnMsg.email}">
+																		<div class="help-block col-xs-12 col-sm-reset inline red">* ${returnMsg.email}.</div>
+																	</c:if>
 																</div>
 															</div>
 <!-- 															<div class="form-group"> -->
@@ -282,13 +293,16 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <!-- 																	</span> -->
 <!-- 																</div> -->
 <!-- 															</div> -->
-															<div class="form-group">
+															<div class="form-group <c:if test="${!empty returnMsg.phone}">has-error</c:if>">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Phone Support</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
 																		<input name="phone" class="" type="text" id="form-field-phone" />
 																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 																	</span>
+																	<c:if test="${!empty returnMsg.phone}">
+																		<div class="help-block col-xs-12 col-sm-reset inline red">* ${returnMsg.phone}.</div>
+																	</c:if>
 																</div>
 															</div>
 															<h4 class="header blue bolder smaller">Social Media</h4>

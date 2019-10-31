@@ -164,7 +164,7 @@ function si_merchant_html(result) {
 							"<a class='blue' href='#'>"+
 								"<i class='ace-icon fa fa-search-plus bigger-130'></i>"+
 							"</a>"+
-							"<a class='green' target='_blank' href='${base}manage/merchant/detail.do?merchantId="+merchant.id+"'>"+
+							"<a class='green'  href='${base}manage/merchant/detail.do?merchantId="+merchant.id+"'>"+
 								"<i class='ace-icon fa fa-pencil bigger-130'></i>"+
 							"</a>"+
 							"<a class='red' onclick='deleteMerchant(\""+merchant.id+"\");' href='#'>"+

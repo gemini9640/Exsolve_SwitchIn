@@ -1,0 +1,55 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<title></title>
+<script type="text/javascript" src="jquery-3.3.1.min.js"></script>
+</head>
+<body>
+     上传图片:
+ <form id="uploadForm" action="http://103.18.246.36:8800/client/edit.do" method="post" enctype="multipart/form-data">
+ 	<input type="hidden" name="id" value="EXL_CL6"/>
+ 	<input type="text" name="realname" value="clientabc"/>
+ 	<input type="text" name="dob" value="19-12-2018"/>
+ 	<input type="text" name="sex" value="m"/>
+ 	<input type="text" name="phone" value="1234567"/>
+ 	<input type="text" name="email" value="abc@abc.com"/>
+ 	<input id="uploadFile" type="file" name="file" style="display:none;"/> 
+ 	<div class="col-xs-12 col-sm-2">
+		<span onclick="uploadProfilePic();">
+			<img id="profile_pic" src="addFile.png" />
+		</span>
+	</div>
+     
+     <input type="submit" value="Save">
+     <br/>
+ </form>
+<script>
+function uploadProfilePic() {
+	$("#uploadFile").click();
+}
+function onchange(selector, preview) {
+	$(selector).on("change", function() {
+		$(this).prev().css("opacity","1")
+		var filePath = $(this).val();//读取图片路径
+		var fr = new FileReader();//创建new FileReader()对象
+		var imgObj = this.files[0];//获取图片
+		fr.readAsDataURL(imgObj);//将图片读取为DataURL
+		if(filePath.indexOf("jpg") != -1 || filePath.indexOf("JPG") != -1 || filePath.indexOf("PNG") != -1 || filePath.indexOf("png") != -1) {
+// 			console.log(imgObj);
+			var arr = filePath.split('\\');
+			var fileName = arr[arr.length - 1];
+		
+			fr.onload = function() {
+				$(preview).attr("src",this.result);
+			};
+		} else {
+			alert("only can upload jpg or png");
+			return false
+		}
+	});
+}
+onchange('#uploadFile', '#profile_pic');
+ </script>
+</body>
+</html>

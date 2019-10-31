@@ -18,8 +18,11 @@ import com.exl_si.exception.UploadException;
 import com.exl_si.helper.EXLClientHelper;
 import com.exl_si.helper.SequenceNoHelper;
 import com.exl_si.helper.ServiceHelper;
+import com.exl_si.mapper.EXLAgentMapper;
 import com.exl_si.mapper.EXLClientFileMapper;
 import com.exl_si.mapper.EXLClientMapper;
+import com.exl_si.mapper.SIMemberMapper;
+import com.exl_si.mapper.SIMerchantMapper;
 import com.exl_si.mapper.SequenceNoMapper;
 import com.exl_si.service.EXLClientService;
 import com.exl_si.utils.DeleteFileUtil;
@@ -31,6 +34,12 @@ import com.github.pagehelper.PageInfo;
 public class EXLClientServiceImpl implements EXLClientService{
 	@Autowired
 	private EXLClientMapper exlClientMapper;
+	@Autowired
+	private EXLAgentMapper exlAgentMapper;
+	@Autowired
+	private SIMemberMapper memberMapper;
+	@Autowired
+	private SIMerchantMapper merchantMapper;
 	@Autowired
 	private EXLClientFileMapper exlClientFileMapper;
 	@Autowired
@@ -83,7 +92,10 @@ public class EXLClientServiceImpl implements EXLClientService{
 	} 
 	
 	public ServerResponse<EXLClient> save(EXLClient client, MultipartHttpServletRequest request) {
-		if(exlClientMapper.selectByUsername(client.getUsername()) != null)
+		if(memberMapper.selectByUsername(client.getUsername()) != null ||
+		   exlAgentMapper.selectByUsername(client.getUsername()) != null ||
+		   exlClientMapper.selectByUsername(client.getUsername()) != null || 
+		   merchantMapper.selectByUsername(client.getUsername()) != null)
 			return ServerResponse.createByServerError(client.getUsername()+" is already exist.");
 		SequenceNoHelper.setEXLClientSequenceId(client, sequenceNoMapper);
 		client.setPassword(ServiceHelper.encriptPassword(client.getUsername(), client.getPassword()));

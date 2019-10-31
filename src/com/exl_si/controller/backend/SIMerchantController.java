@@ -49,28 +49,9 @@ public class SIMerchantController extends BaseController {
 	@RequestMapping(value = "add.do", method = RequestMethod.POST)
     public ModelAndView add(SIMerchant merchant, MultipartHttpServletRequest request) {
 		ModelAndView mv = new ModelAndView();
-		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
-		if(StringUtils.isEmpty(merchant.getUsername()))
-			returnMsg.setUsername("username cannot be empty");
-//		else if(StringUtils.isEmpty(merchant.getFullName()))
-//			errormsg = "full name cannot be empty";
-//		else if(StringUtils.isEmpty(merchant.getEmail()))
-//			errormsg = "email cannot be empty";
-//		else if(StringUtils.isEmpty(merchant.getCompany()))
-//			errormsg = "company cannot be empty";
-//		else if(StringUtils.isEmpty(merchant.getRegNo()))
-//			errormsg = "company reg. cannot be empty";
-//		else if(StringUtils.isEmpty(merchant.getPhone()))
-//			errormsg = "phone cannot be empty";
-//		else if(StringUtils.isEmpty(merchant.getGender()))
-//			errormsg = "gender cannot be empty";
-//		else if(StringUtils.isEmpty(merchant.getIc()))
-//			errormsg = "IC cannot be empty";
-//		if(StringUtils.isEmpty(merchant.getRole()))
-//			return ServerResponse.createByErrorMsg("must assign a role");
-		
-//		if(!returnMsg.validatedForNew())
-		if(returnMsg.validatedForNew()) {
+		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg(merchant);
+		if(!returnMsg.validatedForNew()) {
+			returnMsg.setErrormsg("merchant creation fail, some fields invalid");
 			mv.addObject("returnMsg", returnMsg);
 			mv.setViewName("user/merchant/create");
 		} else{
@@ -109,10 +90,15 @@ public class SIMerchantController extends BaseController {
 			mv.setViewName("user/merchant/geographic");
 		} else 
 			mv.setViewName("user/merchant/detail");
-		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg();
-		if(returnMsg.validatedForEdit())
+		SIMerchantReturnMsg returnMsg = new SIMerchantReturnMsg(merchant);
+		if(!returnMsg.validatedForEdit()) {
+			returnMsg.setErrormsg("merchant update fail, some fields invalid");
 			mv.addObject("returnMsg", returnMsg);
-		else {
+			mv.addObject("merchant", merchant);
+			SIMerchantPIC pic = new SIMerchantPIC();
+			pic.setId(merchant.getLastloginpicid());
+			mv.addObject("pic",pic);
+		} else {
 			Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
 			merchant.setLastupdatetime(lastupdatetime);
 			ServerResponse<SIMerchant> response = merchantService.update(merchant,request);
@@ -161,18 +147,12 @@ public class SIMerchantController extends BaseController {
     public ModelAndView detail(String merchantId) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/merchant/detail");
-		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
-		if(returnMsg.validatedForEdit())  //test
-			mv.addObject("returnMsg", returnMsg);
-		else {
-			ServerResponse<SIMerchant> response = merchantService.query(merchantId);
-			if(response.isSuccess()) {
-				mv.addObject("merchant",response.getData());
-				SIMerchantPIC pic = new SIMerchantPIC();
-				pic.setId(response.getData().getLastloginpicid());
-				mv.addObject("pic",pic);
-			}
-			mv.addObject("returnMsg", returnMsg);
+		ServerResponse<SIMerchant> response = merchantService.query(merchantId);
+		if(response.isSuccess()) {
+			mv.addObject("merchant",response.getData());
+			SIMerchantPIC pic = new SIMerchantPIC();
+			pic.setId(response.getData().getLastloginpicid());
+			mv.addObject("pic",pic);
 		}
 		return mv;
 	}
@@ -181,16 +161,10 @@ public class SIMerchantController extends BaseController {
     public ModelAndView pic(String id, Integer status) {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/merchant/pic");
-		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
-		if(returnMsg.validatedForEdit())  //test
-			mv.addObject("returnMsg", returnMsg);
-		else {
-			ServerResponse<SIMerchantPIC> response = merchantService.queryPIC(id);
-			if(response.isSuccess()) {
-				mv.addObject("pic",response.getData());
-				assembleReturnObjForMv(mv, response.getData().getMerchantid(), null, status);
-			}
-			mv.addObject("returnMsg", returnMsg);
+		ServerResponse<SIMerchantPIC> response = merchantService.queryPIC(id);
+		if(response.isSuccess()) {
+			mv.addObject("pic",response.getData());
+			assembleReturnObjForMv(mv, response.getData().getMerchantid(), null, status);
 		}
 		return mv;
 	}
@@ -200,9 +174,9 @@ public class SIMerchantController extends BaseController {
 		ModelAndView mv = new ModelAndView();
 		mv.setViewName("user/merchant/pic");
 		SIMemberReturnMsg returnMsg = new SIMemberReturnMsg();
-		if(returnMsg.validatedForEdit())  //test
-			mv.addObject("returnMsg", returnMsg);
-		else {
+//		if(returnMsg.validatedForEdit())  //test
+//			mv.addObject("returnMsg", returnMsg);
+//		else {
 			ServerResponse<SIMerchantPIC> response = merchantService.updatePIC(pic);
 			if(response.isSuccess()) {
 				returnMsg.setErrormsg("pic info updated");
@@ -214,7 +188,7 @@ public class SIMerchantController extends BaseController {
 			} else 
 				returnMsg.setErrormsg(response.getMsg());
 			mv.addObject("returnMsg", returnMsg);
-		}
+//		}
 		return mv;
 	}
 	

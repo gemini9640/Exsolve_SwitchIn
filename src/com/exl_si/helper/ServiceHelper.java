@@ -9,4 +9,8 @@ public class ServiceHelper {
 		String pass = MD5.md5(username+password+Constants.MD5_SALT).toLowerCase();
 		return pass;
 	}
+	
+	public static void main(String[] agrs) {
+		System.out.println(encriptPassword("agback003", "123123"));
+	}
 }

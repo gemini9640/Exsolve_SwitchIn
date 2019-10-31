@@ -2,17 +2,15 @@ package com.exl_si.controller.frontend;
 
 import java.sql.Timestamp;
 import java.util.Date;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.CrossOrigin;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.ResponseBody;
-
+import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.SIMember;
-import com.exl_si.enums.MemberEnums;
 import com.exl_si.service.SIMemberService;
 import com.exl_si.utils.DateUtils;
 import com.exl_si.utils.StringUtils;
@@ -59,5 +57,16 @@ public class MemberController {
 //		member.setIsSubscribe(isSubscribe);
 //		member.setVip(MemberEnums.VIP.NORMAL.getCode());
 		return memberService.save(member, null);
+	}
+	
+	@RequestMapping(value = "edit.do", method = RequestMethod.POST)
+	@ResponseBody
+    public ServerResponse edit(SIMember member, MultipartHttpServletRequest request) {
+		if(StringUtils.isEmpty(member.getId()))
+			return ServerResponse.createByErrorMsg("member id not found");
+		
+		Timestamp lastupdatetime = DateUtils.convertToTimestamp(new Date());
+		member.setLastupdatetime(lastupdatetime);
+		return memberService.update(member, request);
 	}
 }

@@ -44,6 +44,7 @@ request.setAttribute("title", "Tables - SI-Member");
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
 											<form action="${base}manage/member/edit.do" method="post" class="form-horizontal" enctype="multipart/form-data">
+												<input type="hidden" name="username" value="${result.member.username}">
 												<div class="tabbable">
 													<jsp:include page="tab.jsp"/>
 													<script>
@@ -77,7 +78,7 @@ request.setAttribute("title", "Tables - SI-Member");
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
 																		<div class="col-sm-10">
-																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="${result.member.username}" />
+																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="${result.member.username}" disabled="disabled"/>
 																		</div>
 																	</div>
 																	<%--

@@ -200,7 +200,7 @@ function voucher_html(result) {
 							"<a class='blue' href='#'>"+
 								"<i class='ace-icon fa fa-search-plus bigger-130'></i>"+
 							"</a>"+
-							"<a class='green' target='_blank' href='${base}manage/voucher/detail.do?voucherId="+voucher.id+"&status="+voucher.status+"'>"+
+							"<a class='green'  href='${base}manage/voucher/detail.do?voucherId="+voucher.id+"&status="+voucher.status+"'>"+
 								"<i class='ace-icon fa fa-pencil bigger-130'></i>"+
 							"</a>"+
 							"<a class='red' href='#'>"+

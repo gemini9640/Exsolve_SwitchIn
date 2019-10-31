@@ -11,9 +11,11 @@ import com.exl_si.common.AppProperties;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.Event;
 import com.exl_si.db.EventPicture;
+import com.exl_si.db.SIMerchant;
 import com.exl_si.db.vo.SubFile;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
 import com.exl_si.enums.EventEnums;
+import com.exl_si.enums.MerchantEnums;
 import com.exl_si.enums.EventEnums.PictureType;
 import com.exl_si.exception.UploadException;
 import com.exl_si.helper.EventHelper;
@@ -40,10 +42,11 @@ public class EventServiceImpl implements EventService{
 	private SequenceNoMapper sequenceNoMapper;
 	
 	public ServerResponse<Event> save(Event event) {
-		if(merchantMapper.selectByPrimaryKey(event.getMerchantId()) ==null)
+		SIMerchant merchant = merchantMapper.selectByPrimaryKey(event.getMerchantId());
+		if(merchant == null || merchant.getStatus().intValue() == MerchantEnums.STATUS.DELETE.getCode())
 			return ServerResponse.createByServerError("merchantId not valid");
-		if(eventMapper.selectByName(event.getEventname()) != null)
-			return ServerResponse.createByServerError("event title is duplicated");
+//		if(eventMapper.selectByName(event.getEventname()) != null)
+//			return ServerResponse.createByServerError("event title is duplicated");
 		SequenceNoHelper.setEventSequenceId(event, sequenceNoMapper);
 		if(eventMapper.insertSelective(event)>0) {
 			SequenceNoHelper.updateEventSequenceNo(sequenceNoMapper);

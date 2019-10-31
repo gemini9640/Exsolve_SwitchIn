@@ -3,6 +3,7 @@ package com.exl_si.service.impl;
 import java.util.List;
 import java.util.Map;
 
+import org.apache.commons.codec.binary.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartHttpServletRequest;
@@ -21,6 +22,9 @@ import com.exl_si.exception.UploadException;
 import com.exl_si.helper.SIMerchantHelper;
 import com.exl_si.helper.SequenceNoHelper;
 import com.exl_si.helper.ServiceHelper;
+import com.exl_si.mapper.EXLAgentMapper;
+import com.exl_si.mapper.EXLClientMapper;
+import com.exl_si.mapper.SIMemberMapper;
 import com.exl_si.mapper.SIMerchantDOCMapper;
 import com.exl_si.mapper.SIMerchantMapper;
 import com.exl_si.mapper.SIMerchantPICMapper;
@@ -35,6 +39,12 @@ import com.github.pagehelper.PageInfo;
 public class SIMerchantServiceImpl implements SIMerchantService{
 	@Autowired
 	private SIMerchantMapper merchantMapper;
+	@Autowired
+	private EXLClientMapper exlClientMapper;
+	@Autowired
+	private EXLAgentMapper exlAgentMapper;
+	@Autowired
+	private SIMemberMapper memberMapper;
 	@Autowired
 	private SIMerchantPICMapper picMapper;
 	@Autowired
@@ -150,6 +160,12 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 	}
 	
 	public ServerResponse<SIMerchantPIC> updatePIC(SIMerchantPIC pic) {
+		SIMerchant merchant = merchantMapper.selectByUsername(pic.getUsername());
+		if((merchant != null && !StringUtils.equals(merchant.getId(), pic.getMerchantid())) ||
+		   exlAgentMapper.selectByUsername(pic.getUsername()) != null ||
+		   exlClientMapper.selectByUsername(pic.getUsername()) != null || 
+		   memberMapper.selectByUsername(pic.getUsername()) != null)	
+			return ServerResponse.createByServerError(pic.getUsername()+" is already exist.");
 		if(picMapper.updateByPrimaryKeySelective(pic)<1)
 			return ServerResponse.createByErrorMsg("update PIC error");
 		return ServerResponse.createBySuccess(pic);
@@ -203,7 +219,10 @@ public class SIMerchantServiceImpl implements SIMerchantService{
 	}
 			
 	public ServerResponse<SIMerchant> save(SIMerchant merchant, MultipartHttpServletRequest request) {
-		if(merchantMapper.selectByUsername(merchant.getUsername()) != null)
+		if(memberMapper.selectByUsername(merchant.getUsername()) != null ||
+		   exlAgentMapper.selectByUsername(merchant.getUsername()) != null ||
+		   exlClientMapper.selectByUsername(merchant.getUsername()) != null ||
+		   merchantMapper.selectByUsername(merchant.getUsername()) != null)	
 			return ServerResponse.createByServerError("merchant is already exist.");
 		SequenceNoHelper.setMerchantSequenceId(merchant, sequenceNoMapper);
 		SIMerchantPIC pic = SIMerchantHelper.initMerchantPIC(merchant);

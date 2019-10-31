@@ -10,9 +10,11 @@ import org.springframework.web.multipart.MultipartHttpServletRequest;
 import com.exl_si.common.AppProperties;
 import com.exl_si.common.ServerResponse;
 import com.exl_si.db.vo.SubFile;
+import com.exl_si.db.SIMerchant;
 import com.exl_si.db.Voucher;
 import com.exl_si.db.VoucherPicture;
 import com.exl_si.db.vo.FileObjectProvider.FileObjectEnums;
+import com.exl_si.enums.MerchantEnums;
 import com.exl_si.enums.VoucherEnums;
 import com.exl_si.enums.VoucherEnums.PictureType;
 import com.exl_si.exception.UploadException;
@@ -40,7 +42,8 @@ public class VoucherServiceImpl implements VoucherService{
 	private SequenceNoMapper sequenceNoMapper;
 	
 	public ServerResponse<Voucher> save(Voucher voucher) {
-		if(merchantMapper.selectByPrimaryKey(voucher.getMerchantId()) ==null)
+		SIMerchant merchant = merchantMapper.selectByPrimaryKey(voucher.getMerchantId());
+		if(merchant == null || merchant.getStatus().intValue() == MerchantEnums.STATUS.DELETE.getCode())
 			return ServerResponse.createByServerError("merchantId not valid");
 		if(voucherMapper.selectByName(voucher.getVoucherTitle()) != null)
 			return ServerResponse.createByServerError("voucher title is duplicated");

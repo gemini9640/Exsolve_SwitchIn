@@ -45,8 +45,10 @@ request.setAttribute("title", "Tables - SI-Merchant");
 										<div class="col-sm-offset-0 col-sm-12">
 											<div class="space"></div>
 											<form action="${base}manage/merchant/edit.do" method="post" class="form-horizontal" enctype="multipart/form-data">
+												<input type="hidden" name="username" value="${merchant.username}">
 												<input type="hidden" name="lastloginpicid" value="${merchant.lastloginpicid}">
 												<input type="hidden" name="status" value="${merchant.status}">
+												
 												<div class="tabbable">
 													<jsp:include page="tab.jsp"/>
 													<script>
@@ -70,18 +72,20 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																</div>
 																<div class="vspace-12-sm"></div>
 																<div class="col-xs-12 col-sm-10">
-																	<div class="form-group "> <!--error class has-error -->
+																	<div class="form-group "> 
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-id">SI-Merchant ID</label>
 																		<div class="col-sm-10">
 																			<input name="id" class="col-xs-12 col-sm-10" type="hidden" placeholder="" value="${merchant.id}" />
 																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-id" placeholder="" value="${merchant.id}" disabled/>
 																		</div>
 																	</div>
-																	<div class="form-group "> <!--error class has-error -->
+																	<div class="form-group  <c:if test="${!empty returnMsg.companyname}">has-error</c:if>"> 
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-companyname">Company Name</label>
 																		<div class="col-sm-10">
 																			<input name="companyname" class="col-xs-12 col-sm-10" type="text" id="form-field-companyname" placeholder="" value="${merchant.companyname}" />
-<!-- 																			<div class="help-block col-xs-12 col-sm-reset inline">* Please Enter Company Name.</div> -->
+																			<c:if test="${!empty returnMsg.companyname}">
+																				<div class="help-block col-xs-12 col-sm-reset inline red">* ${returnMsg.companyname}.</div>
+																			</c:if>
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -240,7 +244,7 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																	<div class="form-group">
 																		<label class="col-sm-2 control-label no-padding-right" for="form-field-username">Username</label>
 																		<div class="col-sm-10">
-																			<input name="username" class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="${merchant.username}" />
+																			<input class="col-xs-12 col-sm-10" type="text" id="form-field-username" placeholder="" value="${merchant.username}" disabled="disabled"/>
 																		</div>
 																	</div>
 																	<div class="form-group">
@@ -301,13 +305,16 @@ request.setAttribute("title", "Tables - SI-Merchant");
 																</div>
 															</div>
 															<h4 class="header blue bolder smaller">Contact</h4>
-															<div class="form-group">
+															<div class="form-group <c:if test="${!empty returnMsg.email}">has-error</c:if>">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-email">Email</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
 																		<input name="email" type="email" id="form-field-email" value="${merchant.email}" />
 																		<i class="ace-icon fa fa-envelope"></i>
 																	</span>
+																	<c:if test="${!empty returnMsg.email}">
+																		<div class="help-block col-xs-12 col-sm-reset inline red">* ${returnMsg.email}.</div>
+																	</c:if>
 																</div>
 															</div>
 <!-- 															<div class="form-group"> -->
@@ -319,13 +326,16 @@ request.setAttribute("title", "Tables - SI-Merchant");
 <!-- 																	</span> -->
 <!-- 																</div> -->
 <!-- 															</div> -->
-															<div class="form-group">
+															<div class="form-group <c:if test="${!empty returnMsg.phone}">has-error</c:if>">
 																<label class="col-sm-3 control-label no-padding-right" for="form-field-phone">Phone Support</label>
 																<div class="col-sm-9">
 																	<span class="input-icon input-icon-right">
 																		<input name="phone" class="" type="text" id="form-field-phone" value="${merchant.phone}"/>
 																		<i class="ace-icon fa fa-phone fa-flip-horizontal"></i>
 																	</span>
+																	<c:if test="${!empty returnMsg.phone}">
+																		<div class="help-block col-xs-12 col-sm-reset inline red">* ${returnMsg.phone}.</div>
+																	</c:if>
 																</div>
 															</div>
 															<h4 class="header blue bolder smaller">Social Media</h4>
